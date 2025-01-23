@@ -3,7 +3,6 @@ public class Inventory {
     private Nut nut;
     private int quantity;
     
-    public Inventory(){}
     public Inventory(Nut nut, int quantity) {
         this.nut = nut;
         this.quantity = quantity;

@@ -6,7 +6,7 @@ public class Nut {
     private String origin;
     private int stockQuantity;
 
-    public Nut() {}
+    // No Have to put Public Nut that has no value
 
     public Nut(String name, String type, double pricePerKg, String origin, int stockQuantity) {
         this.name = name;
@@ -15,6 +15,8 @@ public class Nut {
         this.origin = origin;
         this.stockQuantity = stockQuantity;
     }
+
+    // this is use to clarify or call the private datatypes
 
     public String getName(){
         return name;
