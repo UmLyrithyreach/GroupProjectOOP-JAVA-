@@ -1,18 +1,18 @@
 package Class;
 public class Inventory {
-    private Nut nut;
+    private Cloth cloth;
     private int quantity;
     
-    public Inventory(Nut nut, int quantity) {
-        this.nut = nut;
+    public Inventory(Cloth cloth, int quantity) {
+        this.cloth = cloth;
         this.quantity = quantity;
     }
 
-    public Nut getNut() { 
-        return nut; 
+    public Cloth getNut() { 
+        return cloth; 
     }
-    public void setNut(Nut nut) { 
-        this.nut = nut; 
+    public void setNut(Cloth cloth) { 
+        this.cloth = cloth; 
     }
     public int getQuantity() { 
         return quantity;

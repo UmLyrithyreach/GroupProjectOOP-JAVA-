@@ -1,26 +1,16 @@
 package Class;
 public class Supplier {
-    private String name;
-    private String contactInfo;
-
-    public Supplier() {}
-
+    protected String name;
+    protected String contactInfo;
+    // this is the constructor
     public Supplier(String name, String contactInfo) {
         this.name = name;
         this.contactInfo = contactInfo;
     }
 
-    //Getters and setters
-    public String getName() { 
-        return name; 
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getContactInfo() {
-        return contactInfo;
-    }
-    public void setContactInfo(String contactInfo) {
-        this.contactInfo = contactInfo;
+    public String to_String(){
+        String text;
+        text = "Supplier Name: " + name + "\nSupplier Contact Info: " + contactInfo;
+        return text;
     }
 }

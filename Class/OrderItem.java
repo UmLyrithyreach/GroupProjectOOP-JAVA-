@@ -1,21 +1,21 @@
 package Class;
 public class OrderItem {
-    private Nut nut;
+    private Cloth cloth;
     private int quantity;
 
     public OrderItem(){} // default constructor
 
-    public OrderItem(Nut nut, int quantity) { // parameter constructor
-        this.nut = nut;
+    public OrderItem(Cloth cloth, int quantity) { // parameter constructor
+        this.cloth = cloth;
         this.quantity = quantity;
     }
 
     // future implementation
-    public Nut getNut() { 
-        return nut;
+    public Cloth getNut() { 
+        return cloth;
     }
-    public void setNut(Nut nut) { 
-        this.nut = nut;
+    public void setNut(Cloth cloth) { 
+        this.cloth = cloth;
     }
     public int getQuantity() { 
         return quantity; 
