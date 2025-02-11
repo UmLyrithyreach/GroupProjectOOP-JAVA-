@@ -1,11 +1,32 @@
 # GroupProjectOOP-JAVA-
 Group Project for Java. First step to Application Development
 
-I am honored with greatest gratitude to be part of the team. Thus, for I who stumbled upon one who fully sacrifice their time to maintain one prescription.
-Для меня большая честь быть частью команды. Таким образом, для меня, который наткнулся на человека, который полностью жертвует своим временем, чтобы соблюдать один рецепт.
-ខ្ញុំ​មាន​កិត្តិយស​ដោយ​ការ​ដឹង​គុណ​យ៉ាង​ខ្លាំង​បំផុត​ដែល​បាន​ក្លាយ​ជា​ផ្នែក​មួយ​នៃ​ក្រុម។ ដូច្នេះ សម្រាប់​ខ្ញុំ​ដែល​ជំពប់​ដួល​លើ​អ្នក​ដែល​លះបង់​ពេល​វេលា​យ៉ាង​ពេញលេញ​ដើម្បី​រក្សា​វេជ្ជបញ្ជា​មួយ។
-ฉันรู้สึกเป็นเกียรติอย่างยิ่งที่ได้เป็นส่วนหนึ่งของทีม เพราะเหตุนี้ข้าพเจ้าจึงบังเอิญไปพบกับผู้ที่สละเวลาเพื่อรักษาใบสั่งยาไว้។
-ចង់មានថ្ងៃសម្រាកមួយដែល សាកសមសម្រាប់ខ្លួនឯង
-ចង់មានដៃគូជីវិតពិតប្រាកដ មួយឲ្យខ្លួនឯង
-ចង់មានគ្រួសារដ៏តូចមួយ ខ្ជិលបញ្ចេញខ្ជិលសម្ញែង
-ចង់បើកបេះដូចឲ្យទូលាយ ទទួលស្គាល់ខ្លួនឯង
+"I am honored with greatest gratitude to be part of the team. Thus, for I who stumbled upon one who fully sacrifice their time to maintain one prescription."
+                                                    - Reach
+
+Clothes Store Management System
+Project Overview
+This is a Java-based Clothes Store Management System developed as part of our Year 2 - Second Term Java Course. The system helps manage a clothing store by handling customers, orders, suppliers, staff, and inventory.
+
+Features
+✅ Manage customers (add, update, and view customer details)
+✅ Process orders (track order details, status, and payments)
+✅ Manage clothing inventory (add, update, and categorize clothes)
+✅ Handle suppliers (store supplier details and supplied items)
+✅ Manage staff (store employee information)
+✅ Shop operations (handle store-related functionality)
+
+Project Structure
+The project consists of the following main classes:
+
+Customer – Manages customer details and interactions
+Order – Stores order details and tracks status
+Clothes – Represents clothing items in the inventory
+Shop – Contains shop-related operations
+Staff – Handles employee data and management
+Supplier – Manages supplier details and supplied clothes
+Technologies Used
+Java (Object-Oriented Programming)
+ArrayLists for data management
+File handling (if applicable)
+Exception handling
