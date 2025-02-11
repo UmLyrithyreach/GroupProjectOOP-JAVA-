@@ -2,6 +2,7 @@ package Class;
 import java.util.ArrayList;
 
 public class Clothes {
+    private static int idCounter = 1;
     private int id;
     private String name;
     private String brand;
@@ -10,7 +11,7 @@ public class Clothes {
     private int stock;
 
     public Clothes(int id, String name, String brand, String size, double price, int stock) {
-        this.id = id;
+        this.id = idCounter++;
         this.name = name;
         this.brand = brand;
         this.sizes = new ArrayList<>();
@@ -19,12 +20,16 @@ public class Clothes {
     }
 
     public Clothes(int id, String name, String brand) {
-        this.id = id;
+        this.id = idCounter++;
         this.name = name;
         this.brand = brand;
         this.sizes = new ArrayList<>();
         this.price = 0.0;
         this.stock = 0;
+    }
+
+    public static int getIdCounter() {
+        return idCounter;
     }
 
     public void addSize(String size) {
