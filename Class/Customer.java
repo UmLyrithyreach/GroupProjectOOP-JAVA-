@@ -9,7 +9,6 @@ public class Customer {
         this.contactInfo = contactInfo;
     }
     
-    
     public String getName() { 
         return name; 
     }
