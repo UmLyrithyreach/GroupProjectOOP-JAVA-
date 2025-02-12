@@ -73,6 +73,11 @@ public class Clothes {
         return (this.stock > 0) ? true : false;
     }
 
+
+    // add by someth since it's need in order and orderDetails
+    public double getPrice() { return price; }
+    public String getName() { return name; }
+
     @Override
     public String toString() {
         String info = "ID: " + this.id
