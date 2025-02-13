@@ -1,4 +1,5 @@
 package Class;
+
 public class Membership{
     int points;
 

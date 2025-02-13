@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         new Employee(1, "Bro Eng", "Male", 35, "0123456789", "BroEng@shop.com", 
                      "123 Admin St", 5000, "01/01/2020", "Administrator", "admin123", true);
 
@@ -13,32 +13,35 @@ public class App {
 
         new Employee(3, "Kimju", "Female", 25, "0876543210", "jane@shop.com", 
                      "789 Cashier St", 1500, "03/03/2022", "Cashier", "123", false);
+        
+        new Employee(4, "Diddy", "Male", 40, "0876543210", "Diddy@shop.com", 
+                     "789 Cashier St", 420, "03/03/2022", "Miner", "123", false);
 
         System.out.println("====== Clothing Shop Management System ======");
         System.out.print("Enter Email: ");
-        String email = sc.nextLine();
+        String email = scan.nextLine();
         System.out.print("Enter Password: ");
-        String password = sc.nextLine();
+        String password = scan.nextLine();
 
         Employee loggedInUser = Employee.login(email, password);
 
         if (loggedInUser == null) {
             System.out.println("Exiting...");
-            sc.close();
+            scan.close();
             return;
         }
 
         if (loggedInUser.isAdmin()) {
-            adminMenu(sc);
+            adminMenu(scan);
         } else {
-            staffMenu(sc);
+            staffMenu(scan);
         }
 
-        sc.close();
+        scan.close();
     }
 
     // Admin
-    public static void adminMenu(Scanner sc) {
+    public static void adminMenu(Scanner scan) {
         int choice;
         do {
             System.out.println("\n====== Admin Menu ======");
@@ -47,7 +50,7 @@ public class App {
             System.out.println("3. Logout");
             System.out.print("Enter choice: ");
             choice = sc.nextInt();
-            sc.nextLine(); 
+            scan.nextLine(); 
 
             switch (choice) {
                 case 1:
@@ -55,9 +58,9 @@ public class App {
                     break;
                 case 2:
                     System.out.print("Enter Employee ID to Update: ");
-                    int empID = sc.nextInt();
-                    sc.nextLine();
-                    updateEmployee(sc, empID);
+                    int empID = scan.nextInt();
+                    scan.nextLine();
+                    updateEmployee(scan, empID);
                     break;
                 case 3:
                     System.out.println("Logging out...");
@@ -69,7 +72,7 @@ public class App {
     }
 
     // Update Employee 
-    public static void updateEmployee(Scanner sc, int empID) {
+    public static void updateEmployee(Scanner scan, int empID) {
         for (Employee emp : Employee.employeeList) {
             if (emp.getEmployeeID() == empID) {
                 System.out.println("Choose a field to update:");
@@ -79,32 +82,32 @@ public class App {
                 System.out.println("4. Phone");
                 System.out.println("5. Cancel");
                 System.out.print("Enter choice: ");
-                int choice = sc.nextInt();
-                sc.nextLine();
+                int choice = scan.nextInt();
+                scan.nextLine();
 
                 switch (choice) {
                     case 1:
                         System.out.print("Enter new role: ");
-                        String newRole = sc.nextLine();
+                        String newRole = scan.nextLine();
                         emp.setRole(newRole);
                         System.out.println("Role updated successfully.");
                         break;
                     case 2:
                         System.out.print("Enter new salary: ");
-                        double newSalary = sc.nextDouble();
-                        sc.nextLine();
+                        double newSalary = scan.nextDouble();
+                        scan.nextLine();
                         emp.setSalary(newSalary);
                         System.out.println("Salary updated successfully.");
                         break;
                     case 3:
                         System.out.print("Enter new address: ");
-                        String newAddress = sc.nextLine();
+                        String newAddress = scan.nextLine();
                         emp.setAddress(newAddress);
                         System.out.println("Address updated successfully.");
                         break;
                     case 4:
                         System.out.print("Enter new phone: ");
-                        String newPhone = sc.nextLine();
+                        String newPhone = scan.nextLine();
                         emp.setPhone(newPhone);
                         System.out.println("Phone number updated successfully.");
                         break;

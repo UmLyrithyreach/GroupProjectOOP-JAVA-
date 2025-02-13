@@ -1,14 +1,18 @@
 package Class;
+
 import java.util.ArrayList;
 
 public class Clothes {
-    private static int idCounter = 1;
-    private int id;
-    String name; // changeed by someth
-    private String brand;
-    private ArrayList<String> sizes;
-    double price; // changeed by someth
-    private int stock;
+    static int idCounter = 1;
+    int id;
+    String name;
+    String brand;
+    ArrayList<String> sizes;
+    double price;
+    int stock;
+    String material;
+    String fit;
+    String style;
 
     public Clothes(int id, String name, String brand, String size, double price, int stock) {
         this.id = idCounter++;
@@ -17,6 +21,9 @@ public class Clothes {
         this.sizes = new ArrayList<>();
         this.price = price;
         this.stock = stock;
+        this.material = material;
+        this.style = style;
+        this.fit = fit;
     }
 
     public Clothes(int id, String name, String brand) {
@@ -26,6 +33,9 @@ public class Clothes {
         this.sizes = new ArrayList<>();
         this.price = 0.0;
         this.stock = 0;
+        this.material = "Unknown";
+        this.style = "Unknown";
+        this.fit = "Unknown";
     }
 
     public static int getIdCounter() {
