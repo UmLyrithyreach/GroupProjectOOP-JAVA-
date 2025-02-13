@@ -1,4 +1,11 @@
 package Class;
-public interface Membership{
-    
+public class Membership{
+    int points;
+
+    public Membership(int points){
+        points =0;
+    }
+    public boolean IsaMemberShip(){
+        return false;
+    }
 }
