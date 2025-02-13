@@ -13,6 +13,9 @@ public class App {
 
         new Employee(3, "Kimju", "Female", 25, "0876543210", "jane@shop.com", 
                      "789 Cashier St", 1500, "03/03/2022", "Cashier", "123", false);
+        
+        new Employee(4, "Diddy", "Male", 40, "0876543210", "Diddy@shop.com", 
+                     "789 Cashier St", 420, "03/03/2022", "Miner", "123", false);
 
         System.out.println("====== Clothing Shop Management System ======");
         System.out.print("Enter Email: ");
