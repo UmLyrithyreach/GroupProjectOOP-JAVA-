@@ -4,8 +4,7 @@ public class Transaction {
     protected int id;
     protected double totalAmount;
     
-    public Transaction(int id, double totalAmount) {
-        this.id = id;
+    public Transaction(double totalAmount) {
         this.totalAmount = totalAmount;
     }
 

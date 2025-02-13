@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order extends Transaction {
-    private static int idCounter = 1;
+    private static int orderCounter = 1; // Separate counter for Orders
     private Employee employee;
     private String orderDate;
     private String paymentMethod;
     private List<OrderDetail> orderDetails;
 
     public Order(Employee employee, String orderDate, String paymentMethod) {
-        super(idCounter++, 0.0); // Calls Transaction constructor
+        super(0.0); // Calls Transaction constructor
+        this.id = orderCounter++; // Assign unique ID for Order
         this.employee = employee;
         this.orderDate = orderDate;
         this.paymentMethod = paymentMethod;

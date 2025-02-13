@@ -1,7 +1,7 @@
 package Class;
 
 public class OrderDetail extends Transaction {
-    private static int idCounter = 1;
+    private static int orderDetailCounter = 1; // Separate counter for OrderDetails
     private Order order;
     private Clothes product;
     private int quantity;
@@ -9,7 +9,8 @@ public class OrderDetail extends Transaction {
     private double discount;
 
     public OrderDetail(Order order, Clothes product, int quantity, double discount) {
-        super(idCounter++, 0.0);
+        super(0.0); // Calls Transaction constructor (totalAmount starts at 0)
+        this.id = orderDetailCounter++; // Assign unique ID for OrderDetail
         this.order = order;
         this.product = product;
         this.quantity = quantity;
