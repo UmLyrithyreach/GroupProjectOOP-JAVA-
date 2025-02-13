@@ -1,14 +1,15 @@
 package Class;
+
 import java.util.ArrayList;
 
 public class Clothes {
-    private static int idCounter = 1;
-    private int id;
-    String name; // changeed by someth
-    private String brand;
-    private ArrayList<String> sizes;
-    double price; // changeed by someth
-    private int stock;
+    static int idCounter = 1;
+    int id;
+    String name;
+    String brand;
+    ArrayList<String> sizes;
+    double price;
+    int stock;
 
     public Clothes(int id, String name, String brand, String size, double price, int stock) {
         this.id = idCounter++;
