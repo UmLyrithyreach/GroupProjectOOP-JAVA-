@@ -1,3 +1,5 @@
 package Class;
-public interface Membership{
+
+public interface Membership {
+
 }
