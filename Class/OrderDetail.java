@@ -14,7 +14,7 @@ public class OrderDetail extends Transaction {
         this.order = order;
         this.product = product;
         this.quantity = quantity;
-        this.pricePerUnit = product.getPrice();
+        this.pricePerUnit = product.price;
         this.discount = discount;
         this.totalAmount = calculateSubTotal(); // Inherited from Transaction
     }
@@ -31,7 +31,7 @@ public class OrderDetail extends Transaction {
         return "OrderDetail{" +
                 "OrderDetailID=" + id + // `id` inherited from Transaction
                 ", OrderID=" + order.getId() + // call the getId() from transaction
-                ", Product=" + product.getName() +
+                ", Product=" + product.name +
                 ", Quantity=" + quantity +
                 ", PricePerUnit=" + pricePerUnit +
                 ", Discount=" + discount +

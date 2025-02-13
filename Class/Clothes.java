@@ -4,10 +4,10 @@ import java.util.ArrayList;
 public class Clothes {
     private static int idCounter = 1;
     private int id;
-    private String name;
+    String name; // changeed by someth
     private String brand;
     private ArrayList<String> sizes;
-    private double price;
+    double price; // changeed by someth
     private int stock;
 
     public Clothes(int id, String name, String brand, String size, double price, int stock) {
@@ -72,11 +72,6 @@ public class Clothes {
     public boolean isAvailable() {
         return (this.stock > 0) ? true : false;
     }
-
-
-    // add by someth since it's need in order and orderDetails
-    public double getPrice() { return price; }
-    public String getName() { return name; }
 
     @Override
     public String toString() {

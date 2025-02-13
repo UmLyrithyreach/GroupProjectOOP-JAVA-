@@ -1,10 +1,12 @@
+package Class;
+
 import java.util.ArrayList;
 
 public class Employee {
     public static ArrayList<Employee> employeeList = new ArrayList<>();
 
     private int employeeID;
-    private String name;
+    String name; // changeed by someth
     private String gender;
     private int age;
     private String phone;

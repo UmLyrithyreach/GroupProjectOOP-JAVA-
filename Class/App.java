@@ -1,3 +1,5 @@
+package Class;
+
 import java.util.Scanner;
 
 public class App {

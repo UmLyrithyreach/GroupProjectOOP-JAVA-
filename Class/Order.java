@@ -29,7 +29,7 @@ public class Order extends Transaction {
     public String toString() {
         return "Order{" +
                 "ID=" + id + // `id` inherited from Transaction
-                ", Employee=" + employee.getName() +
+                ", Employee=" + employee.name +
                 ", OrderDate=" + orderDate +
                 ", Total Amount=$" + totalAmount +
                 ", PaymentMethod=" + paymentMethod +
