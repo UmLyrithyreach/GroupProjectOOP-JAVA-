@@ -1,23 +1,21 @@
 package Class;
 
-public class OrderDetail {
+public class OrderDetail extends Transaction {
     private static int idCounter = 1;
-    private int orderDetailId;
     private Order order;
-    private Clothes product; ;
+    private Clothes product;
     private int quantity;
     private double pricePerUnit;
     private double discount;
-    private double subTotal;
 
-    public OrderDetail(Order order, Clothes product, int quantity, double pricePerUnit, double discount, double subTotal) {
-        this.orderDetailId = idCounter++ ;
+    public OrderDetail(Order order, Clothes product, int quantity, double discount) {
+        super(idCounter++, 0.0);
         this.order = order;
         this.product = product;
         this.quantity = quantity;
         this.pricePerUnit = product.getPrice();
         this.discount = discount;
-        this.subTotal = calculateSubTotal();
+        this.totalAmount = calculateSubTotal(); // Inherited from Transaction
     }
 
     public double calculateSubTotal() {
@@ -25,19 +23,18 @@ public class OrderDetail {
     }
 
     public double getSubTotal() {
-        return subTotal;
+        return totalAmount; // using totalAmount from Transaction
     }
-
     @Override
     public String toString() {
         return "OrderDetail{" +
-                "OrderDetailID=" + orderDetailId +
-                ", OrderID=" + order.getOrderId() +
+                "OrderDetailID=" + id + // `id` inherited from Transaction
+                ", OrderID=" + order.getId() + // call the getId() from transaction
                 ", Product=" + product.getName() +
                 ", Quantity=" + quantity +
                 ", PricePerUnit=" + pricePerUnit +
                 ", Discount=" + discount +
-                ", SubTotal=" + subTotal +
+                ", SubTotal=" + totalAmount + // `totalAmount` inherited from Transaction
                 '}';
     }
 }
