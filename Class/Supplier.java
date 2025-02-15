@@ -1,4 +1,5 @@
 package Class;
+
 import java.util.ArrayList;
 
 public class Supplier extends Person {
@@ -17,6 +18,16 @@ public class Supplier extends Person {
         suppliedClothes.add(clothes);
     }
 
+    // Getter and Setter for id
+    public int getId() {
+        return this.id;
+    }
+    
+    public void setID(int id) {
+        this.id = id;
+    }
+
+    // Override Method
     @Override
     public String toString() {
         String result = "ID: " + this.id + "\n";

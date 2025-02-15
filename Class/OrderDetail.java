@@ -28,14 +28,14 @@ public class OrderDetail extends Transaction {
     }
     @Override
     public String toString() {
-        return "OrderDetail{" +
-                "OrderDetailID=" + id + // `id` inherited from Transaction
-                ", OrderID=" + order.getId() + // call the getId() from transaction
-                ", Product=" + product.name +
-                ", Quantity=" + quantity +
-                ", PricePerUnit=" + pricePerUnit +
-                ", Discount=" + discount +
-                ", SubTotal=" + totalAmount + // `totalAmount` inherited from Transaction
+        return "OrderDetail {\n" +
+                "\tOrderDetailID=" + id + // `id` inherited from Transaction
+                ", \n\tOrderID=" + order.getId() + // call the getId() from transaction
+                ", \n\tProduct=" + product.name +
+                ", \n\tQuantity=" + quantity +
+                ", \n\tPricePerUnit=" + pricePerUnit +
+                ", \n\tDiscount=" + discount +
+                ", \n\tSubTotal=" + totalAmount + // `totalAmount` inherited from Transaction
                 '}';
     }
 }
