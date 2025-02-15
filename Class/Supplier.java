@@ -1,29 +1,15 @@
 package Class;
 import java.util.ArrayList;
 
-public class Supplier {
-    private int id;
-    private String name;
-    private String phoneNumber;
-    private String email;
-    private String address;
+public class Supplier extends Person {
+    static int idCounter = 0;
+    int id;
     private ArrayList<Clothes> suppliedClothes;
 
-    public Supplier(int id, String name, String phoneNumber, String email, String address) {
-        this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.address = address;
-        this.suppliedClothes = new ArrayList<>();
-    }
-
-    public Supplier(int id, String name, String phoneNumber) {
-        this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = "Blank";
-        this.address = "Blank";
+    // Constructor
+    public Supplier(String name, String phoneNumber, String address) {
+        super(name, phoneNumber, address);
+        this.id = idCounter++;
         this.suppliedClothes = new ArrayList<>();
     }
 
@@ -34,11 +20,8 @@ public class Supplier {
     @Override
     public String toString() {
         String result = "ID: " + this.id + "\n";
-        result += "Name: " + this.name + "\n";
-        result += "Phone Number: " + this.phoneNumber + "\n";
-        result += "Email: " + this.email + "\n";
-        result += "Address: " + this.address + "\n";
-        result += "Supplied Clothes:\n";
+        result += super.toString();
+        result += "\nSupplied Clothes:\n";
 
         if (suppliedClothes.isEmpty()) {
             result += "No clothes supplied.\n";

@@ -62,7 +62,8 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
-        return super.toString() +
+        return "ID: " + this.id +
+                super.toString() +
                 "\nSalary: " + this.salary +
                 "\nStart Date: " + this.startDate +
                 "\nRole: " + this.role; 
