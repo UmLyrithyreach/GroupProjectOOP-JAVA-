@@ -2,16 +2,9 @@ package Class;
 
 import java.util.ArrayList;
 
-public class Employee {
+public class Employee extends Person {
     public static ArrayList<Employee> employeeList = new ArrayList<>();
-
-    private int employeeID;
-    String name; // changeed by someth
-    private String gender;
-    private int age;
-    private String phone;
-    private String email;
-    private String address;
+    int id;
     private double salary;
     private String startDate;
     private String role;
@@ -19,14 +12,9 @@ public class Employee {
     private boolean isAdmin;
 
     // Constructor
-    public Employee(int id, String name, String gender, int age, String phone, String email,String address, double salary, String startDate, String role, String password, boolean isAdmin) {
-        this.employeeID = id;
-        this.name = name;
-        this.gender = gender;
-        this.age = age;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+    public Employee(int id, String name, String gender, int age, String phone, String email, String address, double salary, String startDate, String role, String password, boolean isAdmin) {
+        super(name, age, gender, phone, email, address);
+        this.id = id;
         this.salary = salary;
         this.startDate = startDate;
         this.role = role;
@@ -37,45 +25,30 @@ public class Employee {
 
     // Login method
     public static Employee login(String email, String password) {
-        for (Employee emp : employeeList) {
-            if (emp.email.equals(email) && emp.password.equals(password)) {
-                System.out.println("Login Successful! Welcome, " + emp.name);
-                return emp;
+        for (Employee employee : employeeList) {
+            if (employee.email.equals(email) && employee.password.equals(password)) {
+                System.out.println("Login Successful! Welcome, " + employee.name);
+                return employee;
             }
         }
         System.out.println("Login Failed! Invalid email or password.");
         return null;
     }
 
-    // Display Employee Details
-    public void displayInfo() {
-        System.out.println("\nEmployee ID: " + employeeID);
-        System.out.println("Name: " + name);
-        System.out.println("Gender: " + gender);
-        System.out.println("Age: " + age);
-        System.out.println("Phone: " + phone);
-        System.out.println("Email: " + email);
-        System.out.println("Address: " + address);
-        System.out.println("Salary: $" + salary);
-        System.out.println("Start Date: " + startDate);
-        System.out.println("Role: " + role);
-    }
-
     // View all employees (Admin Only)
     public static void viewAllEmployees() {
-        for (Employee emp : employeeList) {
-            emp.displayInfo();
-            System.out.println("----------------------");
+        for (Employee employee : employeeList) {
+            System.out.println(employee.toString());
+            System.out.println("==================");
         }
     }
 
     // Getter and Setter Methods
-    public int getEmployeeID() { return employeeID; }
-    public boolean isAdmin() { return isAdmin; }
+    public int getEmployeeID() { return id; }
+    public boolean isManager() { return isAdmin; }
     public void setRole(String newRole) { this.role = newRole; }
 
     public void setPhone(String newPhone) {
-
         throw new UnsupportedOperationException("Unimplemented method 'setPhone'");
     }
 
@@ -85,6 +58,14 @@ public class Employee {
 
     public void setSalary(double newSalary) {
         throw new UnsupportedOperationException("Unimplemented method 'setSalary'");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "\nSalary: " + this.salary +
+                "\nStart Date: " + this.startDate +
+                "\nRole: " + this.role; 
     }
 }
 
