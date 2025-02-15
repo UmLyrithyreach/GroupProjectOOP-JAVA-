@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+
         new Employee(1, "Bro Eng", "Male", 35, "0123456789", "BroEng@shop.com", 
                      "123 Admin St", 5000, "01/01/2020", "Administrator", "admin123", true);
 
@@ -31,30 +32,32 @@ public class App {
             return;
         }
 
-        if (loggedInUser.isAdmin()) {
-            adminMenu(scan);
+        if (loggedInUser.isManager()) {
+            managerFeature(scan);
         } else {
-            staffMenu(scan);
+            staffFeature(scan);
         }
 
         scan.close();
     }
 
-    // Admin
-    public static void adminMenu(Scanner scan) {
+    // Manager Feature
+    public static void managerFeature(Scanner scan) {
         int choice;
         do {
-            System.out.println("\n====== Admin Menu ======");
+            System.out.println("\n====== Manager Operator ======");
             System.out.println("1. View All Staff");
             System.out.println("2. Update Staff Details");
-            System.out.println("3. Logout");
-            System.out.print("Enter choice: ");
-            choice = sc.nextInt();
+            System.out.println("\n0. Logout");
+            System.out.print("=> Select an option: ");
+            choice = scan.nextInt();
             scan.nextLine(); 
 
             switch (choice) {
                 case 1:
                     Employee.viewAllEmployees();
+                    System.out.println("< Press enter to continue >");
+                    scan.nextLine();
                     break;
                 case 2:
                     System.out.print("Enter Employee ID to Update: ");
@@ -123,31 +126,29 @@ public class App {
     }
 
     // Staff
-    public static void staffMenu(Scanner sc) {
+    public static void staffFeature(Scanner scan) {
         int choice;
         do {
-            System.out.println("\n====== Staff Menu ======");
+            System.out.println("\n====== Welcome ======");
             System.out.println("1. Check Clothing Items");
             System.out.println("2. Generate Receipt");
-            System.out.println("3. Logout");
-            System.out.print("Enter choice: ");
-            choice = sc.nextInt();
+            System.out.println("0. Logout");
+            System.out.print("\n=> Select an option: ");
+            choice = scan.nextInt();
 
             switch (choice) {
+                case 0:
+                    System.out.println("Logging out...");
+                    return;
                 case 1:
                     System.out.println("Displaying Available Clothing Items...");
                     break;
                 case 2:
                     System.out.println("Generating Receipt...");
                     break;
-                case 3:
-                    System.out.println("Logging out...");
-                    return;
                 default:
                     System.out.println("Invalid choice, try again.");
             }
         } while (true);
     }
 }
-
-

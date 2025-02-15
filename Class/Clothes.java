@@ -14,7 +14,7 @@ public class Clothes {
     String fit;
     String style;
 
-    public Clothes(int id, String name, String brand, String size, double price, int stock) {
+    public Clothes(int id, String name, String brand, String size, double price, int stock, String material, String style, String fit) {
         this.id = idCounter++;
         this.name = name;
         this.brand = brand;
