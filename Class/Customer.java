@@ -8,6 +8,7 @@ public class Customer extends Person {
     int id;
     String deliveryAddress;
 
+    // Constructor
     public Customer(String name, String phone, String deliveryAddress) {
         super(name, phone);
         this.id = idCounter++;
@@ -15,4 +16,10 @@ public class Customer extends Person {
         customerList.add(this);
     }
     
+    @Override
+    public String toString() {
+        return "ID: " + this.id +
+                super.toString() +
+                "\nDelivery Address: " + this.deliveryAddress;
+    }
 }

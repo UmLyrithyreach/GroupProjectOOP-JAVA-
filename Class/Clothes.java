@@ -91,7 +91,7 @@ public class Clothes {
                 + "\nPrice: " + this.price
                 + "\nStock: " + this.stock
                 + "\nSize: ";
-
+                
         for (String size: sizes) {
             info += size + " ";
         }
