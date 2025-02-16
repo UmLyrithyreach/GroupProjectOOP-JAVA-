@@ -1,6 +1,7 @@
 package Class;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Employee extends Person {
     public static ArrayList<Employee> employeeList = new ArrayList<>();
@@ -24,14 +25,27 @@ public class Employee extends Person {
     }
 
     // Login method
-    public static Employee login(String email, String password) {
-        for (Employee employee : employeeList) {
-            if (employee.email.equals(email) && employee.password.equals(password)) {
-                System.out.println("Login Successful! Welcome, " + employee.name);
-                return employee;
+    public static Employee login(Scanner scan) {
+        int tryCounter = 0;
+        int max_Attempts = 3;
+
+        while (tryCounter < max_Attempts) {
+            System.out.println("====== Clothing Shop Management System ======");
+            System.out.print("Enter Email: ");
+            String email = scan.nextLine();
+            System.out.print("Enter Password: ");
+            String password = scan.nextLine();
+
+            for (Employee employee : employeeList) {
+                if (employee.email.equals(email) && employee.password.equals(password)) {
+                    System.out.println("Login Successful! Welcome, " + employee.name);
+                    return employee;
+                }
             }
+
+            System.out.println("Login Failed! Invalid email or password.");
         }
-        System.out.println("Login Failed! Invalid email or password.");
+        System.out.println("Maximum login attempts reached. Exiting...");
         return null;
     }
 

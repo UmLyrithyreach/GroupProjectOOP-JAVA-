@@ -27,14 +27,14 @@ public class Order extends Transaction {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "ID=" + id + // `id` inherited from Transaction
-                ", Employee=" + employee.name +
-                ", OrderDate=" + orderDate +
-                ", Total Amount=$" + totalAmount +
-                ", PaymentMethod=" + paymentMethod +
-                ", OrderDetails=" + orderDetails +
-                '}';
+        return "Order {\n" +
+                "\n\tID=" + id + // `id` inherited from Transaction
+                ", \n\tEmployee=" + employee.name +
+                ", \n\tOrderDate=" + orderDate +
+                ", \n\tTotal Amount=$" + totalAmount +
+                ", \n\tPaymentMethod=" + paymentMethod +
+                ", \n\tOrderDetails=" + orderDetails +
+                "\n}";
     }
 }
 
