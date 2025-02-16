@@ -1,6 +1,7 @@
 package Class;
 
 import java.util.Scanner;
+import java.io.IOException;
 
 public class App {
     public static void main(String[] args) {
@@ -18,18 +19,10 @@ public class App {
         new Employee(4, "Diddy", "Male", 40, "0876543210", "Diddy@shop.com", 
                      "789 Cashier St", 420, "03/03/2022", "Miner", "123", false);
 
-        System.out.println("====== Clothing Shop Management System ======");
-        System.out.print("Enter Email: ");
-        String email = scan.nextLine();
-        System.out.print("Enter Password: ");
-        String password = scan.nextLine();
-
-        Employee loggedInUser = Employee.login(email, password);
+        Employee loggedInUser = Employee.login(scan);
 
         if (loggedInUser == null) {
-            System.out.println("Exiting...");
             scan.close();
-            return;
         }
 
         if (loggedInUser.isManager()) {
@@ -45,6 +38,7 @@ public class App {
     public static void managerFeature(Scanner scan) {
         int choice;
         do {
+            clearConsole();
             System.out.println("\n====== Manager Operator ======");
             System.out.println("1. View All Staff");
             System.out.println("2. Update Staff Details");
@@ -58,11 +52,13 @@ public class App {
                     System.out.println("Logging out...");
                     return;
                 case 1:
+                    clearConsole();
                     Employee.viewAllEmployees();
                     System.out.println("< Press enter to continue >");
                     scan.nextLine();
                     break;
                 case 2:
+                    clearConsole();
                     System.out.print("Enter Employee ID to Update: ");
                     int empID = scan.nextInt();
                     scan.nextLine();
@@ -129,6 +125,7 @@ public class App {
     public static void staffFeature(Scanner scan) {
         int choice;
         do {
+            clearConsole();
             System.out.println("\n====== Welcome ======");
             System.out.println("1. Check Clothing Items");
             System.out.println("2. Generate Receipt");
@@ -141,6 +138,7 @@ public class App {
                     System.out.println("Logging out...");
                     return;
                 case 1:
+                    clearConsole();
                     System.out.println("Displaying Available Clothing Items...");
                     break;
                 case 2:
@@ -150,5 +148,18 @@ public class App {
                     System.out.println("Invalid choice, try again.");
             }
         } while (true);
+    }
+
+    // System clear screen
+    public static void clearConsole() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+        }
     }
 }

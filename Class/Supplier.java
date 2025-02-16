@@ -16,15 +16,14 @@ public class Supplier extends Person {
 
     public void addClothes(Clothes clothes) {
         suppliedClothes.add(clothes);
+        if (suppliedClothes.contains(clothes)) {
+            System.out.println("Clothes added successfully");
+        }
     }
 
     // Getter and Setter for id
     public int getId() {
         return this.id;
-    }
-    
-    public void setID(int id) {
-        this.id = id;
     }
 
     // Override Method

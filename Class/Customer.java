@@ -6,7 +6,7 @@ public class Customer extends Person {
     static ArrayList<Customer> customerList = new ArrayList<>();
     static int idCounter = 0;
     int id;
-    String deliveryAddress;
+    private String deliveryAddress;
 
     // Constructor
     public Customer(String name, String phone, String deliveryAddress) {
@@ -15,6 +15,10 @@ public class Customer extends Person {
         this.deliveryAddress = deliveryAddress;
         customerList.add(this);
     }
+
+    // Method
+    public String getDeliveryAddress() { return this.deliveryAddress; }
+    public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
     
     @Override
     public String toString() {

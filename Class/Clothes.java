@@ -13,8 +13,9 @@ public class Clothes {
     String material;
     String fit;
     String style;
+    String preference;
 
-    public Clothes(int id, String name, String brand, String size, double price, int stock, String material, String style, String fit) {
+    public Clothes(int id, String name, String brand, String size, double price, int stock, String material, String style, String fit, String preference) {
         this.id = idCounter++;
         this.name = name;
         this.brand = brand;
@@ -24,6 +25,7 @@ public class Clothes {
         this.material = material;
         this.style = style;
         this.fit = fit;
+        this.preference = preference;
     }
 
     public Clothes(int id, String name, String brand) {
@@ -70,13 +72,6 @@ public class Clothes {
         } else {
             System.out.println("Insufficient stock!");
         }
-    }
-
-    public double applyDiscount(double percentage) {
-        if (percentage > 0 && percentage <= 100) {
-            return (this.price - this.price * (percentage / 100));
-        }
-        return 0;
     }
 
     public boolean isAvailable() {
