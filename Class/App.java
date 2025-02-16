@@ -48,12 +48,15 @@ public class App {
             System.out.println("\n====== Manager Operator ======");
             System.out.println("1. View All Staff");
             System.out.println("2. Update Staff Details");
-            System.out.println("\n0. Logout");
+            System.out.println("\n0. Logout\n");
             System.out.print("=> Select an option: ");
             choice = scan.nextInt();
             scan.nextLine(); 
 
             switch (choice) {
+                case 0:
+                    System.out.println("Logging out...");
+                    return;
                 case 1:
                     Employee.viewAllEmployees();
                     System.out.println("< Press enter to continue >");
@@ -65,9 +68,6 @@ public class App {
                     scan.nextLine();
                     updateEmployee(scan, empID);
                     break;
-                case 3:
-                    System.out.println("Logging out...");
-                    return;
                 default:
                     System.out.println("Invalid choice, try again.");
             }
@@ -83,12 +83,14 @@ public class App {
                 System.out.println("2. Salary");
                 System.out.println("3. Address");
                 System.out.println("4. Phone");
-                System.out.println("5. Cancel");
-                System.out.print("Enter choice: ");
+                System.out.println("\n0. Cancel\n");
+                System.out.print("=> Select an option: ");
                 int choice = scan.nextInt();
                 scan.nextLine();
 
                 switch (choice) {
+                    case 0:
+                        return;
                     case 1:
                         System.out.print("Enter new role: ");
                         String newRole = scan.nextLine();
@@ -114,8 +116,6 @@ public class App {
                         emp.setPhone(newPhone);
                         System.out.println("Phone number updated successfully.");
                         break;
-                    case 5:
-                        return;
                     default:
                         System.out.println("Invalid choice, try again.");
                 }
@@ -132,7 +132,7 @@ public class App {
             System.out.println("\n====== Welcome ======");
             System.out.println("1. Check Clothing Items");
             System.out.println("2. Generate Receipt");
-            System.out.println("0. Logout");
+            System.out.println("\n0. Logout\n");
             System.out.print("\n=> Select an option: ");
             choice = scan.nextInt();
 

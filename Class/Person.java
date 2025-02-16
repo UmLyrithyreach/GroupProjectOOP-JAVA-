@@ -1,12 +1,12 @@
 package Class;
 
 public class Person {
-    String name;
-    int age;
-    String gender;
-    String phoneNumber;
-    String email;
-    String address;
+    protected String name;
+    protected int age;
+    protected String gender;
+    protected String phoneNumber;
+    protected String email;
+    protected String address;
 
     // Constructor for full initialization
     public Person (String name, int age, String gender, String phoneNumber, String email, String address) {
@@ -28,7 +28,7 @@ public class Person {
         this.address = "Unknown";
     }
 
-    //Constructor for Supplier
+    // Constructor for Supplier
     public Person (String name, String phoneNumber, String address) {
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -38,6 +38,26 @@ public class Person {
         this.email = "Unknown";
     }
 
+    // Getter and setter
+    public String getName() { return this.name; }
+    public void setName(String name) { this.name = name; }
+
+    public String phoneNumber() { return this.phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public int getAge() { return this.age; }
+    public void setAge(int age) { this.age = age;}
+
+    public String getGender() { return this.gender; }
+    public void setGender(String gender) { this.gender = gender; }
+
+    public String getEmail() { return this.email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getAddress() { return this.address; }
+    public void setAddress(String address) { this.address = address; }
+
+    // Override Method
     @Override
     public String toString() {
         return ("\nName: " + this.name +
