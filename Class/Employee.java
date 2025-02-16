@@ -11,9 +11,10 @@ public class Employee extends Person {
     private String role;
     private String password;
     private boolean isAdmin;
+    private String username;
 
     // Constructor
-    public Employee(int id, String name, String gender, int age, String phone, String email, String address, double salary, String startDate, String role, String password, boolean isAdmin) {
+    public Employee(int id, String name, String gender, int age, String phone, String email, String address, double salary, String startDate, String role, String password, boolean isAdmin, String username) {
         super(name, age, gender, phone, email, address);
         this.id = id;
         this.salary = salary;
@@ -21,6 +22,7 @@ public class Employee extends Person {
         this.role = role;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.username = username;
         employeeList.add(this);
     }
 
@@ -31,13 +33,14 @@ public class Employee extends Person {
 
         while (tryCounter < max_Attempts) {
             System.out.println("====== Clothing Shop Management System ======");
-            System.out.print("Enter Email: ");
-            String email = scan.nextLine();
+            System.out.print("Enter username: ");
+            String username = scan.nextLine();
             System.out.print("Enter Password: ");
             String password = scan.nextLine();
 
             for (Employee employee : employeeList) {
-                if (employee.email.equals(email) && employee.password.equals(password)) {
+                if (employee.username.equals(username) && employee.password.equals(password)) {
+                    // Tip: Implement a loading method or sleep method here
                     System.out.println("Login Successful! Welcome, " + employee.name);
                     return employee;
                 }
@@ -47,14 +50,6 @@ public class Employee extends Person {
         }
         System.out.println("Maximum login attempts reached. Exiting...");
         return null;
-    }
-
-    // View all employees (Admin Only)
-    public static void viewAllEmployees() {
-        for (Employee employee : employeeList) {
-            System.out.println(employee.toString());
-            System.out.println("==================");
-        }
     }
 
     // Getter and Setter Methods
