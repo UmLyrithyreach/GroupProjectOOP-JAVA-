@@ -1,5 +1,5 @@
 package Class;
 
 public interface Terminal {
-    void clearConsole();
+    void clearTerminal();
 }

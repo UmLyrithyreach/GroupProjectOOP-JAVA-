@@ -1,5 +1,7 @@
 package Class;
 
+import java.util.ArrayList;
+
 public class Person {
     protected String name;
     protected int age;
@@ -56,6 +58,15 @@ public class Person {
 
     public String getAddress() { return this.address; }
     public void setAddress(String address) { this.address = address; }
+
+    public static Person searchByName (ArrayList<? extends Person> list, String name) {
+        for (Person person: list) {
+            if (person.getName().equalsIgnoreCase(name)) {
+                return person;
+            }
+        }
+        return null;
+    }
 
     // Override Method
     @Override
