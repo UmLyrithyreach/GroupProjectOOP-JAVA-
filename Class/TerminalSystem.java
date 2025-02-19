@@ -3,7 +3,8 @@ package Class;
 import java.io.IOException;
 
 public class TerminalSystem implements Terminal {
-    public void clearConsole() {
+    // For clearing terminal
+    public void clearTerminal() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();

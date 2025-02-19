@@ -90,7 +90,7 @@ public class Clothes {
         for (String size: sizes) {
             info += size + " ";
         }
-
+        
         return info;
     }
 }
