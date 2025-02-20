@@ -2,22 +2,22 @@ package Class;
 
 import java.util.ArrayList;
 
-public class Membership extends Person{
-    private static int nextID = 0;
-    private int MemberID;
+public final class Membership extends Customer{
+    private static int nextID = 1;
+    private int MembershipID;
     private static final ArrayList<Membership> MembershipList = new ArrayList<>();  // Membership ID to identify what id of the membership that the user own (extra: final is like const once the value is set it can't be change)
     private String MembershipType;  //Bronze? Silver? Gold?
     private String MembershipStatus;    //Expired? Canceld? Continue?
     private String StartDate;       //Subscribe when?
     private String ExpiredDate;     //Expired When?
     private String renewalDate;     //Renew when?
-    private int pointBalance;
+    public int pointBalance = 0;
 
     public Membership(String name, String phone, String address, String membershipType, 
     String membershipStatus, String startDate, String expiredDate,
     String renewalDate, int pointBalance) {
         super(name, phone, address);
-        this.MemberID = nextID++;
+        this.MembershipID = nextID++;
         this.MembershipType = membershipType;
         this.MembershipStatus = membershipStatus;
         this.StartDate = startDate;
@@ -27,17 +27,31 @@ public class Membership extends Person{
         addMember();
     }
 
-    public ArrayList<Membership> GetAllMembers(){return MembershipList;}   // Mainly because I want it to be able to declare inside the toString Method it isn't neccessary really
-    private void addMember(){MembershipList.add(this);} // prevent data leaked since MembershipID originally a private method(Copilot, Chatgpt)
+    public int getMembershipID(){
+        return this.MembershipID;
+    }
+    public ArrayList<Membership> GetAllMembers(){return MembershipList;}   //print out all members who have membership
+    public void addMember() {       // prevent data leaked since MembershipID originally a private method(Copilot, Chatgpt)
+        if (!isMembership()) {
+            MembershipList.add(this);
+            System.out.println("Membership added successfully!");
+        } else {
+            System.out.println("User is already a member.");
+        }
+    }
     
-    public String displayAll(){
-        Membership member = new Membership(name, phoneNumber, address, MembershipType, MembershipStatus, StartDate, ExpiredDate, renewalDate, pointBalance);
-        return member.toString();
+    public boolean isMembership(){
+        for (Membership m : MembershipList){
+            if(m.getMembershipID() == this.MembershipID){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "Membership ID: " + this.MemberID + super.toString();
+        return "\n------------------------Membership ID: " + this.MembershipID + "------------------------"+ super.toString();
     }
 }

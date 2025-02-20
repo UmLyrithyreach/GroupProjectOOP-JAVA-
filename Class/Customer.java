@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Customer extends Person {
     static ArrayList<Customer> customerList = new ArrayList<>();
-    static int idCounter = 0;
+    static int idCounter = 1;
     int id;
     private String deliveryAddress;
 
@@ -19,10 +19,16 @@ public class Customer extends Person {
     // Method
     public String getDeliveryAddress() { return this.deliveryAddress; }
     public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
-    
+    public void buyMembership(){
+        Membership member = new Membership(name, name, address, gender, gender, name, name, name, age);
+        if(!member.isMembership()){
+            member.addMember();
+        }
+    }
+
     @Override
     public String toString() {
-        return "ID: " + this.id +
+        return "\nCustomer ID: " + this.id +
                 super.toString() +
                 "\nDelivery Address: " + this.deliveryAddress;
     }
