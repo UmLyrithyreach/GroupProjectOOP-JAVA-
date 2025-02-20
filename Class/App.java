@@ -82,7 +82,6 @@ public class App {
                 }
             } while (true);
         } else {
-            int choice;
             do {
                 terminal.clearTerminal();
                 System.out.println("\n====== Welcome ======");
@@ -91,8 +90,7 @@ public class App {
                 System.out.println("Purchase");
                 System.out.println("\n0. Logout\n");
                 System.out.print("\n=> Select an option: ");
-                choice = scan.nextInt();
-    
+                int choice = Integer.valueOf(scan.nextLine());
                 switch (choice) {
                     case 0:
                         terminal.clearTerminal();
@@ -108,7 +106,9 @@ public class App {
                         scan.nextLine();
                         break;
                     case 3:
+                        terminal.clearTerminal();
                         Staff.purchase(loggedInUser);
+                        System.out.println("Press enter to continue");
                         scan.nextLine();
                         break;
                     default:
