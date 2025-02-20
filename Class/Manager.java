@@ -73,9 +73,8 @@ public class Manager extends Staff {
     // View all employees (Admin Only)
     public static void viewAllEmployees() {
         for (Employee employee : employeeList) {
-            System.out.println(employee.toString());
-            System.out.println("==================");
+            System.out.println(employee.toString() + "\n");
         }
-        System.out.println("Total Employees: " + employeeList.size());
+        System.out.println("Total Employees: " + employeeList.size() + "\n");
     }
 }

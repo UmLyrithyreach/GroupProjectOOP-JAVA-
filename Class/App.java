@@ -41,14 +41,18 @@ public class App {
                 System.out.println("1. View All Staff");
                 System.out.println("2. Update Staff Details");
                 System.out.println("3. Search Employee");
+                System.out.println("==============================");
                 System.out.println("\n0. Logout\n");
+                System.out.println("==============================");
                 System.out.print("=> Select an option: ");
                 choice = scan.nextInt();
                 scan.nextLine(); 
 
                 switch (choice) {
                     case 0:
+                        System.out.println("==============================");
                         System.out.println("Logging out...");
+                        System.out.println("==============================");
                         terminal.sleeping();
                         return;
                     case 1:
@@ -85,11 +89,13 @@ public class App {
             int choice;
             do {
                 terminal.clearTerminal();
-                System.out.println("\n====== Welcome ======");
+                System.out.println("\n========== Welcome =========");
                 System.out.println("1. Check Clothing Items");
                 System.out.println("2. Generate Receipt");
-                System.out.println("Purchase");
+                System.out.println("3. Purchase walk_in");
+                System.out.println("==============================");
                 System.out.println("\n0. Logout\n");
+                System.out.println("==============================");
                 System.out.print("\n=> Select an option: ");
                 choice = scan.nextInt();
     

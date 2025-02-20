@@ -42,7 +42,9 @@ public class Employee extends Person {
             for (Employee employee : employeeList) {
                 if (employee.username.equals(username) && employee.password.equals(password)) {
                     // Tip: Implement a loading method or sleep method here
+                    System.out.println("===================================");
                     System.out.println("Login Successful! Welcome, " + employee.name);
+                    System.out.println("===================================");
                     terminal.sleeping();
                     return employee;
                 }
@@ -74,10 +76,14 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
-        return "ID: " + this.id +
+        return("==============================\n" +
+                "ID: " + this.id +
+                "\n==============================" +
                 super.toString() +
                 "\nSalary: " + this.salary +
                 "\nStart Date: " + this.startDate +
-                "\nRole: " + this.role; 
+                "\nRole: " + this.role +
+                "\n=============================="
+        );
     }
 }
