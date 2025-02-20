@@ -44,6 +44,10 @@ public class Clothes {
         return idCounter;
     }
 
+    public int getID() {
+        return this.id;
+    }
+    
     public String getName() {
         return name;
     }
