@@ -1,7 +1,7 @@
 # GroupProjectOOP-JAVA-
 Group Project for Java. First step to Application Development
 
-"I am honored with greatest gratitude to be part of the team. Thus, for I who stumbled upon one who fully sacrifice their time to maintain one prescription."
+"I am honored with greatest gratitude to be part of the team. Thus, I feel honored and would love to you my greatest gratitude to be part of the contributor."
                                                     - Reach
 
 Clothes Store Management System
