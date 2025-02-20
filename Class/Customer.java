@@ -21,7 +21,7 @@ public abstract class Customer extends Person {
     // Method
     public String getDeliveryAddress() { return this.deliveryAddress; }
     public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
-    public abstract void buyMembership();
+    
     @Override
     public String toString() {
         return "\nCustomer ID: " + this.id +

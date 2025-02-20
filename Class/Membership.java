@@ -32,11 +32,8 @@ public final class Membership extends Customer{
         return this.membershipID;
     }
 
-    @Override
-    public void buyMembership(){
-        new Membership(name, phoneNumber, address, membershipType, membershipStatus, startDate, expiredDate, renewalDate, pointBalance);
-    }
-
+ 
+    
     public ArrayList<Customer> GetAllMembers(){return membershipList;}   //print out all members who have membership
     public void addMember() {       // prevent data leaked since MembershipID originally a private method(Copilot, Chatgpt)
         membershipList.add(this);
@@ -54,12 +51,12 @@ public final class Membership extends Customer{
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "\n------------------------Membership ID: " + this.membershipID + "------------------------"+ super.toString();
+        return "\n------------------------Membership ID: " + this.membershipID + "------------------------"+ super.toString() + "\n";
     }
 
     public static void main(String[] args) {
         Membership member = new Membership(null, null, null, null, null, null, null, null, idCounter);
         Customer c1 = new Membership(null, null, null, null, null, null, null, null, idCounter);
-        System.out.println(Membership.membershipList); 
+        System.out.println(Membership.membershipList);
     }
 }
