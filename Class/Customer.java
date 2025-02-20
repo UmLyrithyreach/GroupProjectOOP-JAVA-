@@ -2,7 +2,7 @@ package Class;
 
 import java.util.ArrayList;
 
-public class Customer extends Person {
+public abstract class Customer extends Person {
     static ArrayList<Customer> customerList = new ArrayList<>();
     static int idCounter = 1;
     int id;
@@ -16,16 +16,12 @@ public class Customer extends Person {
         customerList.add(this);
     }
 
+    public abstract int getMembershipID();
+    
     // Method
     public String getDeliveryAddress() { return this.deliveryAddress; }
     public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
-    public void buyMembership(){
-        Membership member = new Membership(name, name, address, gender, gender, name, name, name, age);
-        if(!member.isMembership()){
-            member.addMember();
-        }
-    }
-
+    public abstract void buyMembership();
     @Override
     public String toString() {
         return "\nCustomer ID: " + this.id +
