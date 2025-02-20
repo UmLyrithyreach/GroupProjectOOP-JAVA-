@@ -17,6 +17,7 @@ public class Customer extends Person {
     }
 
     // Method
+
     public String getDeliveryAddress() { return this.deliveryAddress; }
     public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
     

@@ -1,40 +1,52 @@
 package Class;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Order extends Transaction {
-    private static int orderCounter = 1; // Separate counter for Orders
-    private Employee employee;
-    private String orderDate;
-    private String paymentMethod;
-    private List<OrderDetail> orderDetails;
+public class Order {
+    int orderId;
+    static int orderCounter = 0;
+    Employee employeeId;
+    Employee employeeName;
+    ArrayList<Clothes> orderClothes; // name and pricePerUnit of product
+    ArrayList<Integer> quantity;
+    LocalDate orderDate;
+    String paymentMethod;
 
-    public Order(Employee employee, String orderDate, String paymentMethod) {
-        super(0.0); // Calls Transaction constructor
-        this.id = orderCounter++; // Assign unique ID for Order
-        this.employee = employee;
-        this.orderDate = orderDate;
+
+
+    public Order(Employee employeeId, ArrayList<Clothes> clothesList,ArrayList<Integer> quantity, LocalDate orderDate, String paymentMethod) {
+        this.orderId = orderCounter++;
+        this.employeeId = employeeId;
+        this.employeeId = employeeName;
+        this.orderClothes = clothesList;
+        this.orderDate = LocalDate.now();
+        this.quantity = quantity;
         this.paymentMethod = paymentMethod;
-        this.orderDetails = new ArrayList<>();
     }
 
-    public void addOrderDetail(OrderDetail orderDetail) {
-        orderDetails.add(orderDetail);
-        totalAmount += orderDetail.getSubTotal(); // Inherited from Transaction
+
+    public double calculateSubAmount(int quantity, double pricePerUnit) {
+        return quantity * pricePerUnit;
     }
 
+    public double calculateTotalAmount() {
+        double totalAmount = 0;
+        for (Clothes clothes : orderClothes) {
+            totalAmount += calculateSubAmount(quantity, clothes.price);
+        }
+        return totalAmount;
+    }
 
     @Override
     public String toString() {
-        return "Order {\n" +
-                "\n\tID=" + id + // `id` inherited from Transaction
-                ", \n\tEmployee=" + employee.name +
-                ", \n\tOrderDate=" + orderDate +
-                ", \n\tTotal Amount=$" + totalAmount +
-                ", \n\tPaymentMethod=" + paymentMethod +
-                ", \n\tOrderDetails=" + orderDetails +
-                "\n}";
+        return "Order: {" +
+                "\n\t OrderId: " + orderId +
+                "\n\t Taked order by employee's Id: " + employeeId.getEmployeeID() +
+                "\n\t Taked order by employee's name: " + employeeName.getName() +  
+                "\n\t Date of the order: " + orderDate +
+                "\n\t Order quantity: " + quantity +
+                "\n\t Paid by: " + paymentMethod;
     }
 }
 

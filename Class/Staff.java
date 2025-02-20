@@ -16,6 +16,7 @@ public class Staff extends Employee {
             System.out.println("\n====== Welcome ======");
             System.out.println("1. Check Clothing Items");
             System.out.println("2. Generate Receipt");
+            System.out.println("3. Take Order");
             System.out.println("\n0. Logout\n");
             System.out.print("\n=> Select an option: ");
             choice = scan.nextInt();
@@ -32,6 +33,8 @@ public class Staff extends Employee {
                 case 2:
                     System.out.println("Generating Receipt...");
                     break;
+                case 3:
+                    System.out.println("Taking customer order...");
                 default:
                     System.out.println("Invalid choice, try again.");
             }
