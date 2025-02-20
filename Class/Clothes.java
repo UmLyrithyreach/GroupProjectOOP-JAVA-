@@ -47,6 +47,10 @@ public class Clothes {
     public int getID() {
         return this.id;
     }
+    
+    public String getName() {
+        return name;
+    }
 
     public void addSize(String size) {
         if (!this.sizes.contains(size)) {

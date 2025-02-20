@@ -1,52 +1,59 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "java",
-      "name": "Membership",
-      "request": "launch",
-      "mainClass": "Class.Membership",
-      "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
-    },
-    {
-      "type": "java",
-      "name": "App",
-      "request": "launch",
-      "mainClass": "Class.App",
-      "projectName": "GroupProjectOOP-JAVA-_517f277d"
-    },
-    {
-      "type": "java",
-      "name": "App",
-      "request": "launch",
-      "mainClass": "Class.App",
-      "projectName": "GroupProjectOOP-JAVA-_629c4d4"
-    },
-    {
-      "type": "java",
-      "name": "Main",
-      "request": "launch",
-      "mainClass": "Main",
-      "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
-    },
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": ".",
-      "program": "build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
+    "version": "0.2.0",
+    "configurations": [
         {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "Class.App",
+            "projectName": "GroupProjectOOP-JAVA-_d6625c92"
+        },
+        {
+            "type": "java",
+            "name": "Membership",
+            "request": "launch",
+            "mainClass": "Class.Membership",
+            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "Class.App",
+            "projectName": "GroupProjectOOP-JAVA-_517f277d"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "Class.App",
+            "projectName": "GroupProjectOOP-JAVA-_629c4d4"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+        },
+        {
+            "name": "C/C++ Runner: Debug Session",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": false,
+            "externalConsole": true,
+            "cwd": ".",
+            "program": "build/Debug/outDebug",
+            "MIMode": "gdb",
+            "miDebuggerPath": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public final class Membership extends Customer{
     private static int nextID = 1;
-    private int MembershipID;
-    private static final ArrayList<Membership> MembershipList = new ArrayList<>();  // Membership ID to identify what id of the membership that the user own (extra: final is like const once the value is set it can't be change)
-    private String MembershipType;  //Bronze? Silver? Gold?
-    private String MembershipStatus;    //Expired? Canceld? Continue?
-    private String StartDate;       //Subscribe when?
-    private String ExpiredDate;     //Expired When?
+    private final int membershipID;
+    private static ArrayList<Customer> membershipList = new ArrayList<>();  // Membership ID to identify what id of the membership that the user own (extra: final is like const once the value is set it can't be change)
+    private String membershipType;  //Bronze? Silver? Gold?
+    private String membershipStatus;    //Expired? Canceld? Continue?
+    private String startDate;       //Subscribe when?
+    private String expiredDate;     //Expired When?
     private String renewalDate;     //Renew when?
     public int pointBalance = 0;
 
@@ -17,32 +17,31 @@ public final class Membership extends Customer{
     String membershipStatus, String startDate, String expiredDate,
     String renewalDate, int pointBalance) {
         super(name, phone, address);
-        this.MembershipID = nextID++;
-        this.MembershipType = membershipType;
-        this.MembershipStatus = membershipStatus;
-        this.StartDate = startDate;
-        this.ExpiredDate = expiredDate;
+        this.membershipID = nextID++;
+        this.membershipType = membershipType;
+        this.membershipStatus = membershipStatus;
+        this.startDate = startDate;
+        this.expiredDate = expiredDate;
         this.renewalDate = renewalDate;
         this.pointBalance = pointBalance;
         addMember();
     }
 
+    @Override
     public int getMembershipID(){
-        return this.MembershipID;
+        return this.membershipID;
     }
-    public ArrayList<Membership> GetAllMembers(){return MembershipList;}   //print out all members who have membership
+
+ 
+    
+    public ArrayList<Customer> GetAllMembers(){return membershipList;}   //print out all members who have membership
     public void addMember() {       // prevent data leaked since MembershipID originally a private method(Copilot, Chatgpt)
-        if (!isMembership()) {
-            MembershipList.add(this);
-            System.out.println("Membership added successfully!");
-        } else {
-            System.out.println("User is already a member.");
-        }
+        membershipList.add(this);
     }
     
     public boolean isMembership(){
-        for (Membership m : MembershipList){
-            if(m.getMembershipID() == this.MembershipID){
+        for (Customer c : membershipList){
+            if(c.getMembershipID() == this.membershipID){
                 return true;
             }
         }
@@ -52,6 +51,12 @@ public final class Membership extends Customer{
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "\n------------------------Membership ID: " + this.MembershipID + "------------------------"+ super.toString();
+        return "\n------------------------Membership ID: " + this.membershipID + "------------------------"+ super.toString() + "\n";
+    }
+
+    public static void main(String[] args) {
+        Membership member = new Membership(null, null, null, null, null, null, null, null, idCounter);
+        Customer c1 = new Membership(null, null, null, null, null, null, null, null, idCounter);
+        System.out.println(Membership.membershipList);
     }
 }
