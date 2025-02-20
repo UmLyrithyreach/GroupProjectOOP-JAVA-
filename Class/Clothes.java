@@ -44,6 +44,10 @@ public class Clothes {
         return idCounter;
     }
 
+    public int getID() {
+        return this.id;
+    }
+
     public void addSize(String size) {
         if (!this.sizes.contains(size)) {
             this.sizes.add(size);

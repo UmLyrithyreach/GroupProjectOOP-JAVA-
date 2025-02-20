@@ -1,5 +1,6 @@
 package Class;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Staff extends Employee {
@@ -7,34 +8,40 @@ public class Staff extends Employee {
         super(id, name, gender, age, phone, email, address, salary, startDate, role, password, isAdmin, username);
     }
 
-    // Staff
-    public static void feature(Scanner scan) {
-        Terminal terminal = new TerminalSystem();
-        int choice;
-        do {
-            terminal.clearTerminal();
-            System.out.println("\n====== Welcome ======");
-            System.out.println("1. Check Clothing Items");
-            System.out.println("2. Generate Receipt");
-            System.out.println("\n0. Logout\n");
-            System.out.print("\n=> Select an option: ");
-            choice = scan.nextInt();
+    public static void displayClothes() {
+        System.out.println("Pending");
+    }
 
-            switch (choice) {
-                case 0:
-                    terminal.clearTerminal();
-                    System.out.println("Logging out...");
-                    return;
-                case 1:
-                    terminal.clearTerminal();
-                    System.out.println("Displaying Available Clothing Items...");
-                    break;
-                case 2:
-                    System.out.println("Generating Receipt...");
-                    break;
-                default:
-                    System.out.println("Invalid choice, try again.");
+    public void purchase() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("==== Purchase Terminal ====");
+        ArrayList<Clothes> purchasedClothes = new ArrayList<>();
+        ArrayList<Integer> quantity = new ArrayList<>();
+        String addMore = "Y";
+        int verify = 0;
+        while (!addMore.equalsIgnoreCase("N")) {
+            System.out.print("Enter Clothe's Id: ");
+            int clothesID = Integer.valueOf(scan.nextLine());
+            for (Clothes clothes: Shop.clothesList) {
+                if (clothes.getID() == clothesID) {
+                    purchasedClothes.add(clothes);
+                    verify = 1;
+                }
+                if (verify == 1) {
+                    System.out.print("Clothes quantity: ");
+                    int itemQuantity = Integer.valueOf(scan.nextLine());
+                    quantity.add(itemQuantity);
+                    System.out.println("Clothes added successfully");
+                } else {
+                    System.out.println("Clothes not found!");
+                }
             }
-        } while (true);
+            System.out.print("Add another clothes? (Y/N): ");
+            addMore = scan.nextLine();
+        }
+        System.out.print("Payment Method: ");
+        String payment = scan.nextLine();
+        
+        scan.close();
     }
 }

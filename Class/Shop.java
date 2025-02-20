@@ -3,11 +3,7 @@ package Class;
 import java.util.ArrayList;
 
 public class Shop {
-    private ArrayList<Clothes> clothesList;
-
-    public Shop() {
-        this.clothesList = new ArrayList<>();
-    }
+    static ArrayList<Clothes> clothesList = new ArrayList<>();
 
     public void addClothes(Clothes item) {
         clothesList.add(item);

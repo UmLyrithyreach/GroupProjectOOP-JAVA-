@@ -28,6 +28,7 @@ public class Employee extends Person {
 
     // Login method
     public static Employee login(Scanner scan) {
+        Terminal terminal = new TerminalSystem();
         int tryCounter = 0;
         int max_Attempts = 3;
 
@@ -42,6 +43,7 @@ public class Employee extends Person {
                 if (employee.username.equals(username) && employee.password.equals(password)) {
                     // Tip: Implement a loading method or sleep method here
                     System.out.println("Login Successful! Welcome, " + employee.name);
+                    terminal.sleeping();
                     return employee;
                 }
             }
@@ -49,6 +51,7 @@ public class Employee extends Person {
             System.out.println("Login Failed! Invalid email or password.");
         }
         System.out.println("Maximum login attempts reached. Exiting...");
+        terminal.sleeping();
         return null;
     }
 
@@ -78,6 +81,3 @@ public class Employee extends Person {
                 "\nRole: " + this.role; 
     }
 }
-
-
-

@@ -8,57 +8,9 @@ public class Manager extends Staff {
         super(id, name, gender, age, phone, email, address, salary, startDate, role, password, isAdmin, username);
     }
 
-    // Manager Feature
-    public static void mfeature(Scanner scan) {
-        Terminal terminal = new TerminalSystem();
-        int choice;
-        do {
-            terminal.clearTerminal();
-            System.out.println("\n====== Manager Operator ======");
-            System.out.println("1. View All Staff");
-            System.out.println("2. Update Staff Details");
-            System.out.println("\n0. Logout\n");
-            System.out.print("=> Select an option: ");
-            choice = scan.nextInt();
-            scan.nextLine(); 
-
-            switch (choice) {
-                case 0:
-                    System.out.println("Logging out...");
-                    return;
-                case 1:
-                    terminal.clearTerminal();
-                    Manager.viewAllEmployees();
-                    System.out.println("< Press enter to continue >");
-                    scan.nextLine();
-                    break;
-                case 2:
-                    terminal.clearTerminal();
-                    System.out.print("Enter Employee ID to Update: ");
-                    int employeeId = scan.nextInt();
-                    scan.nextLine();
-                    updateEmployee(scan, employeeId);
-                    break;
-                case 3:
-                    terminal.clearTerminal();
-                    System.out.print("Enter employee name: ");
-                    String employeeName = scan.nextLine();
-                    Employee foundEmployee = (Employee) Person.searchByName(employeeList, employeeName);
-                    if (foundEmployee == null) {
-                        System.out.println("Employee not found!");
-                    } else {
-                        System.out.println(foundEmployee);
-                    }
-                    scan.nextLine();
-                    break;
-                default:
-                    System.out.println("Invalid choice, try again.");
-            }
-        } while (true);
-    }
-
     // Update Employee 
-    public static void updateEmployee(Scanner scan, int employeeId) {
+    public static void updateEmployee(int employeeId) {
+        Scanner scan = new Scanner(System.in);
         Terminal terminal = new TerminalSystem();
         for (Employee employee : Employee.employeeList) {
             if (employee.getEmployeeID() == employeeId) {
@@ -72,7 +24,6 @@ public class Manager extends Staff {
                 System.out.print("=> Select an option: ");
                 int choice = scan.nextInt();
                 scan.nextLine();
-
                 switch (choice) {
                     case 0:
                         return;
@@ -111,10 +62,12 @@ public class Manager extends Staff {
                         System.out.println("Invalid choice, try again.");
                         scan.nextLine();
                 }
+                scan.close();
                 return;
             }
         }
         System.out.println("Employee not found.");
+        scan.close();
     }
 
     // View all employees (Admin Only)
