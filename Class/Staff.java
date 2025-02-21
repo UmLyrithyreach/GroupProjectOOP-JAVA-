@@ -52,9 +52,7 @@ public class Staff extends Employee {
     
         Order order = new Order(employee, purchasedClothes, quantity, LocalDate.now(), payment);
         System.out.println(order.toString());
-        
         // Do NOT close the scanner here if it's used elsewhere in the program.
-        scan.close();
     }
     
 }
