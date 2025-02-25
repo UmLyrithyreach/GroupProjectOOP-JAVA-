@@ -20,6 +20,17 @@ public class App {
         new Employee(4, "Diddy", "Male", 40, "0876543210", "Diddy@shop.com", 
                      "789 Cashier St", 420, "03/03/2022", "Miner", "123", false, "diddy123");
 
+        Shop.addClothes(new Clothes(1, "T-Shirt", "Nike", "M", 50.0, 10, "Cotton", "Casual", "Regular", "None"));
+        Shop.addClothes(new Clothes(2, "Jeans", "Levis", "M", 100.0, 5, "Denim", "Casual", "Regular", "None"));
+        Shop.addClothes(new Clothes(3, "Dress Shirt", "H&M", "M", 80.0, 7, "Cotton", "Formal", "Regular", "None"));
+        Shop.addClothes(new Clothes(4, "Sweater", "Uniqlo", "M", 70.0, 3, "Wool", "Casual", "Regular", "None"));
+        Shop.addClothes(new Clothes(5, "Shorts", "Adidas", "M", 40.0, 8, "Polyester", "Casual", "Regular", "None"));
+        Shop.addClothes(new Clothes(6, "Skirt", "Zara", "F", 60.0, 6, "Cotton", "Casual", "Regular", "None"));
+        Shop.addClothes(new Clothes(7, "Blouse", "Forever 21", "F", 45.0, 4, "Silk", "Casual", "Regular", "None"));
+        Shop.addClothes(new Clothes(8, "Dress", "Zara", "F", 90.0, 2, "Polyester", "Formal", "Regular", "None"));
+        Shop.addClothes(new Clothes(9, "Pants", "Patagonia", "F", 85.0, 12, "Cotton", "Casual", "Regular", "None"));
+        Shop.addClothes(new Clothes(10, "Jacket", "North Face", "F", 120.0, 9, "Polyester", "Casual", "Regular", "None"));
+
         Employee loggedInUser = Employee.login(scan);
 
         if (loggedInUser.isManager()) {
@@ -30,14 +41,18 @@ public class App {
                 System.out.println("1. View All Staff");
                 System.out.println("2. Update Staff Details");
                 System.out.println("3. Search Employee");
+                System.out.println("==============================");
                 System.out.println("\n0. Logout\n");
+                System.out.println("==============================");
                 System.out.print("=> Select an option: ");
                 choice = scan.nextInt();
                 scan.nextLine(); 
 
                 switch (choice) {
                     case 0:
+                        System.out.println("==============================");
                         System.out.println("Logging out...");
+                        System.out.println("==============================");
                         terminal.sleeping();
                         return;
                     case 1:
@@ -71,16 +86,17 @@ public class App {
                 }
             } while (true);
         } else {
-            int choice;
             do {
                 terminal.clearTerminal();
-                System.out.println("\n====== Welcome ======");
+                System.out.println("\n========== Welcome =========");
                 System.out.println("1. Check Clothing Items");
                 System.out.println("2. Generate Receipt");
+                System.out.println("3. Purchase walk_in");
+                System.out.println("==============================");
                 System.out.println("\n0. Logout\n");
+                System.out.println("==============================");
                 System.out.print("\n=> Select an option: ");
-                choice = scan.nextInt();
-    
+                int choice = Integer.valueOf(scan.nextLine());
                 switch (choice) {
                     case 0:
                         terminal.clearTerminal();
@@ -93,6 +109,12 @@ public class App {
                         break;
                     case 2:
                         System.out.println("Generating Receipt...");
+                        scan.nextLine();
+                        break;
+                    case 3:
+                        terminal.clearTerminal();
+                        Staff.purchase(loggedInUser);
+                        System.out.println("Press enter to continue");
                         scan.nextLine();
                         break;
                     default:

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Shop {
     static ArrayList<Clothes> clothesList = new ArrayList<>();
 
-    public void addClothes(Clothes item) {
+    public static void addClothes(Clothes item) {
         clothesList.add(item);
     }
 
