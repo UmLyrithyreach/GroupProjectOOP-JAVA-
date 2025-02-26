@@ -1,7 +1,5 @@
-package Class;
-public interface Terminal {
-
-interface Terminal {
-    void clearTerminal();
-    void sleeping();
-}
+    package Class;
+    public interface Terminal {
+        void clearTerminal();
+        void sleeping();
+    }
