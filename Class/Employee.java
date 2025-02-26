@@ -42,9 +42,9 @@ public class Employee extends Person {
             for (Employee employee : employeeList) {
                 if (employee.username.equals(username) && employee.password.equals(password)) {
                     // Tip: Implement a loading method or sleep method here
-                    System.out.println("===================================");
+                    System.out.println("=============================================");
                     System.out.println("Login Successful! Welcome, " + employee.name);
-                    System.out.println("===================================");
+                    System.out.println("=============================================");
                     terminal.sleeping();
                     return employee;
                 }

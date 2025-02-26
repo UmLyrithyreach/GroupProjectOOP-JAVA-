@@ -9,16 +9,16 @@ public class App {
         terminal.clearTerminal();
         
         new Employee(1, "Bro Eng", "Male", 35, "0123456789", "BroEng@shop.com", 
-                     "123 Admin St", 5000, "01/01/2020", "Administrator", "admin123", true, "broEng123");
+                    "123 Admin St", 5000, "01/01/2020", "Administrator", "admin123", true, "broEng123");
 
         new Employee(2, "PapaN", "Male", 28, "0987654321", "PapaN@shop.com", 
-                     "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", false , "papaN123");
+                    "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", false , "papaN123");
 
         new Employee(3, "Kimju", "Female", 25, "0876543210", "jane@shop.com", 
-                     "789 Cashier St", 1500, "03/03/2022", "Cashier", "123", false, "kimju123");
+                    "789 Cashier St", 1500, "03/03/2022", "Cashier", "123", false, "kimju123");
         
         new Employee(4, "Diddy", "Male", 40, "0876543210", "Diddy@shop.com", 
-                     "789 Cashier St", 420, "03/03/2022", "Miner", "123", false, "diddy123");
+                    "789 Cashier St", 420, "03/03/2022", "Miner", "123", false, "diddy123");
 
         Shop.addClothes(new Clothes(1, "T-Shirt", "Nike", "M", 50.0, 10, "Cotton", "Casual", "Regular", "None"));
         Shop.addClothes(new Clothes(2, "Jeans", "Levis", "M", 100.0, 5, "Denim", "Casual", "Regular", "None"));
@@ -42,7 +42,7 @@ public class App {
                 System.out.println("2. Update Staff Details");
                 System.out.println("3. Search Employee");
                 System.out.println("==============================");
-                System.out.println("\n0. Logout\n");
+                System.out.println("0. Logout");
                 System.out.println("==============================");
                 System.out.print("=> Select an option: ");
                 choice = scan.nextInt();
@@ -58,7 +58,7 @@ public class App {
                     case 1:
                         terminal.clearTerminal();
                         Manager.viewAllEmployees();
-                        System.out.println("< Press enter to continue >");
+                        System.out.println("Press <Enter> to continue...");
                         scan.nextLine();
                         break;
                     case 2:
@@ -88,12 +88,12 @@ public class App {
         } else {
             do {
                 terminal.clearTerminal();
-                System.out.println("\n========== Welcome =========");
+                System.out.println("\n========= Welcome ============");
                 System.out.println("1. Check Clothing Items");
                 System.out.println("2. Generate Receipt");
-                System.out.println("3. Purchase walk_in");
+                System.out.println("3. Walk in purchasing");
                 System.out.println("==============================");
-                System.out.println("\n0. Logout\n");
+                System.out.println("0. Logout");
                 System.out.println("==============================");
                 System.out.print("\n=> Select an option: ");
                 int choice = Integer.valueOf(scan.nextLine());
@@ -108,13 +108,15 @@ public class App {
                         scan.nextLine();
                         break;
                     case 2:
+                        terminal.clearTerminal();
                         System.out.println("Generating Receipt...");
                         scan.nextLine();
                         break;
+                    // walk in purchase
                     case 3:
                         terminal.clearTerminal();
                         Staff.purchase(loggedInUser);
-                        System.out.println("Press enter to continue");
+                        System.out.println("Press <Enter> to continue...");
                         scan.nextLine();
                         break;
                     default:

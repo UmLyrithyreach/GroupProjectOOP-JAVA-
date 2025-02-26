@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Order {
     int orderId;
-    static int orderCounter = 0;
+    static int orderCounter = 1;
     int employeeId;
     String employeeName;
     ArrayList<Clothes> orderClothes; // name and pricePerUnit of product
@@ -28,7 +28,11 @@ public class Order {
     public String generateClothesReceipt(ArrayList<Clothes> clothesList, ArrayList<Integer> quantity) {
         String receipt = "";
         for (int i = 0; i < clothesList.size(); i++) {
-            receipt += clothesList.get(i).name + ", Price: " + clothesList.get(i).price + ", Quantity: " + quantity.get(i) + ", Total Price: " + calculateSubAmount(quantity.get(i), clothesList.get(i).price) + "\n";
+            receipt += "\n\t\t" + clothesList.get(i).name + 
+            ", Price per unit: $" + clothesList.get(i).price +
+            ", Quantity: " + quantity.get(i) +
+            ", Price: $" + calculateSubAmount(quantity.get(i), clothesList.get(i).price);
+            // "\n\t\t";
         }
         return receipt;
     }
@@ -50,13 +54,15 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order: {" +
-                "\n\t OrderId: " + orderId +
-                "\n\t Taked order by employee's Id: " + employeeId +
-                "\n\t Taked order by employee's name: " + employeeName + 
-                "\n\t Purchased Item:" + generateClothesReceipt(orderClothes, quantity) +
-                "\n\t Date of the order: " + orderDate +
-                "\n\t Paid by: " + paymentMethod;
+        return "\n\n=================================== Order Summary ===================================" +
+                "\nOrderId: " + orderId +
+                "\nTaked order by employee's Id: " + employeeId +
+                "\nTaked order by employee's name: " + employeeName + 
+                "\nPurchased Item:" + generateClothesReceipt(orderClothes, quantity) +
+                "\n====================================================================================="+
+                "\nDate of the order: " + orderDate +
+                "\nPaid by: " + paymentMethod+
+                "\n=====================================================================================";
     }
 }
 
