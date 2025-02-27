@@ -82,7 +82,7 @@ public class App {
                         scan.nextLine();
                         break;
                     default:
-                        System.out.println("Invalid choice, try again.");
+                        System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         scan.nextLine();
                 }
             } while (true);
@@ -121,7 +121,7 @@ public class App {
                         scan.nextLine();
                         break;
                     default:
-                        System.out.println("Invalid choice, try again.");
+                        System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         scan.nextLine();
                 }
             } while (true);

@@ -17,7 +17,7 @@ public class Manager extends Staff {
         for (Employee employee : Employee.employeeList) {
             if (employee.getEmployeeID() == employeeId) {
                 terminal.clearTerminal();
-                System.out.println("Choose a field to update:");
+                System.out.println("========== Update Employee Info ==========");
                 System.out.println("1. Name");
                 System.out.println("2. Username");
                 System.out.println("3. Age");
@@ -30,7 +30,7 @@ public class Manager extends Staff {
                 System.out.println("10. Role");
                 System.out.println("11. Password");
                 System.out.println("12. Admin Status");
-                System.out.println("\n0. Cancel\n");
+                System.out.println("==============================\n0. Cancel\n==============================");
                 System.out.print("=> Select an option: ");
                 int choice = terminal.getValidIntegerInput(scan);
                 switch (choice) {
