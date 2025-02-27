@@ -45,8 +45,7 @@ public class App {
                 System.out.println("0. Logout");
                 System.out.println("==============================");
                 System.out.print("=> Select an option: ");
-                choice = scan.nextInt();
-                scan.nextLine(); 
+                choice = terminal.getValidIntegerInput(scan);
 
                 switch (choice) {
                     case 0:

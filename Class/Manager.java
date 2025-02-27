@@ -16,17 +16,31 @@ public class Manager extends Staff {
             if (employee.getEmployeeID() == employeeId) {
                 terminal.clearTerminal();
                 System.out.println("Choose a field to update:");
-                System.out.println("1. Role");
-                System.out.println("2. Salary");
-                System.out.println("3. Address");
-                System.out.println("4. Phone");
+                System.out.println("1. Name");
+                System.out.println("2. Username");
+                System.out.println("3. Age");
+                System.out.println("4. Gender");
+                System.out.println("5. Phone");
+                System.out.println("6. Email");
+                System.out.println("7. Address");
+                System.out.println("8. Salary");
+                System.out.println("9. Start Date");
+                System.out.println("10. Role");
+                System.out.println("11. Password");
+                System.out.println("12. Admin Status");
                 System.out.println("\n0. Cancel\n");
                 System.out.print("=> Select an option: ");
-                int choice = scan.nextInt();
-                scan.nextLine();
+                int choice = Integer.valueOf(scan.nextLine());
                 switch (choice) {
                     case 0:
                         return;
+                    case 5: 
+                        terminal.clearTerminal();
+                        System.out.print("Enter new phone: ");
+                        String newPhone = scan.nextLine();
+                        employee.setPhoneNumber(newPhone);
+                        System.out.println("Phone number updated successfully.");
+                        break;
                     case 1:
                         terminal.clearTerminal();
                         System.out.print("Enter new role: ");
@@ -52,9 +66,6 @@ public class Manager extends Staff {
                         break;
                     case 4:
                         terminal.clearTerminal();
-                        System.out.print("Enter new phone: ");
-                        String newPhone = scan.nextLine();
-                        employee.setPhoneNumber(newPhone);
                         System.out.println("Phone number updated successfully.");
                         break;
                     default:

@@ -1,5 +1,9 @@
-    package Class;
-    public interface Terminal {
-        void clearTerminal();
-        void sleeping();
-    }
+package Class;
+
+import java.util.Scanner;
+
+public interface Terminal {
+    void clearTerminal();
+    void sleeping();
+    int getValidIntegerInput(Scanner scan);
+}
