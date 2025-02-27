@@ -2,8 +2,10 @@ package Class;
 
 import java.util.Scanner;
 
+import javax.security.auth.login.LoginException;
+
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LoginException {
         Scanner scan = new Scanner(System.in);
         Terminal terminal = new TerminalSystem();
         terminal.clearTerminal();

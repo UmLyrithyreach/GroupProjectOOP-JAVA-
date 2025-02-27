@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class Manager extends Staff {
 
-    public Manager(int id, String name, String gender, int age, String phone, String email, String address, double salary, String startDate, String role, String password, boolean isAdmin, String username) {
+    public Manager(int id, String name, String gender, int age, String phone, String email, String address, 
+                  double salary, String startDate, String role, String password, boolean isAdmin, String username) {
         super(id, name, gender, age, phone, email, address, salary, startDate, role, password, isAdmin, username);
     }
 
@@ -12,6 +13,7 @@ public class Manager extends Staff {
     public static void updateEmployee(int employeeId) {
         Scanner scan = new Scanner(System.in);
         Terminal terminal = new TerminalSystem();
+        
         for (Employee employee : Employee.employeeList) {
             if (employee.getEmployeeID() == employeeId) {
                 terminal.clearTerminal();
@@ -70,8 +72,9 @@ public class Manager extends Staff {
                         break;
                     default:
                         terminal.clearTerminal();
-                        System.out.println("Invalid choice, try again.");
-                        scan.nextLine();
+                        System.out.println("Press Enter to try again...");
+                        scan.nextLine(); // Wait for user to press Enter
+                    }
                 }
                 scan.close();
                 return;
@@ -86,6 +89,6 @@ public class Manager extends Staff {
         for (Employee employee : employeeList) {
             System.out.println(employee.toString() + "\n");
         }
-        System.out.println("Total Employees: " + employeeList.size() + "\n");
+        System.out.println("Total Employees: " + employeeList.size() + "\n\n==============================");
     }
 }
