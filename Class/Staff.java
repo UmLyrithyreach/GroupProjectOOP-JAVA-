@@ -32,14 +32,14 @@ public class Staff extends Employee {
                 int clothesID = Integer.parseInt(scan.nextLine().trim()); // Use parseInt for better exception handling
 
                 // check if clothID is not smaller than 0
-                if(clothesID <= 0) {
+                if (clothesID <= 0) {
                     throw new PurchaseException("Clothes ID must be a positive number.");
                 }
 
                 Clothes selectedClothes = null;
 
                 // Find the clothes item by ID
-                for (Clothes clothes : Shop.clothesList) {
+                for (Clothes clothes: Shop.clothesList) {
                     if (clothes.getID() == clothesID) {
                         selectedClothes = clothes;
                         break; // Stop searching once found
