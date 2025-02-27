@@ -16,64 +16,62 @@ public class Manager extends Staff {
         
         for (Employee employee : Employee.employeeList) {
             if (employee.getEmployeeID() == employeeId) {
-                boolean validInput = false;
-                while (!validInput) {
-                    terminal.clearTerminal();
-                    System.out.println("Choose a field to update:");
-                    System.out.println("1. Role");
-                    System.out.println("2. Salary");
-                    System.out.println("3. Address");
-                    System.out.println("4. Phone");
-                    System.out.println("\n0. Cancel\n");
-                    System.out.print("=> Select an option: ");
-
-                    try {
-                        int choice = scan.nextInt();
-                        scan.nextLine(); // Consume newline
-                        validInput = true; // If we reach here, input was valid
-
-                        switch (choice) {
-                            case 0:
-                                scan.close();
-                                return;
-                            case 1:
-                                terminal.clearTerminal();
-                                System.out.print("Enter new role: ");
-                                String newRole = scan.nextLine();
-                                employee.setRole(newRole);
-                                System.out.println("Role updated successfully.");
-                                break;
-                            case 2:
-                                terminal.clearTerminal();
-                                System.out.print("Enter new salary: ");
-                                double newSalary = scan.nextDouble();
-                                scan.nextLine();
-                                employee.setSalary(newSalary);
-                                System.out.println("Salary updated successfully.");
-                                break;
-                            case 3:
-                                terminal.clearTerminal();
-                                System.out.print("Enter new address: ");
-                                String newAddress = scan.nextLine();
-                                employee.setAddress(newAddress);
-                                System.out.println("Address updated successfully.");
-                                break;
-                            case 4:
-                                terminal.clearTerminal();
-                                System.out.print("Enter new phone: ");
-                                String newPhone = scan.nextLine();
-                                employee.setPhoneNumber(newPhone);
-                                System.out.println("Phone number updated successfully.");
-                                break;
-                            default:
-                                terminal.clearTerminal();
-                                System.out.println("Invalid choice. Please enter a number between 0 and 4.");
-                                break;
-                        }
-                    } catch (java.util.InputMismatchException e) {
+                terminal.clearTerminal();
+                System.out.println("Choose a field to update:");
+                System.out.println("1. Name");
+                System.out.println("2. Username");
+                System.out.println("3. Age");
+                System.out.println("4. Gender");
+                System.out.println("5. Phone");
+                System.out.println("6. Email");
+                System.out.println("7. Address");
+                System.out.println("8. Salary");
+                System.out.println("9. Start Date");
+                System.out.println("10. Role");
+                System.out.println("11. Password");
+                System.out.println("12. Admin Status");
+                System.out.println("\n0. Cancel\n");
+                System.out.print("=> Select an option: ");
+                int choice = Integer.valueOf(scan.nextLine());
+                switch (choice) {
+                    case 0:
+                        return;
+                    case 5: 
                         terminal.clearTerminal();
-                        System.out.println("Error: Invalid input. Please enter a number (0-4) instead of letters.");
-                        scan.nextLine(); // Clear the invalid input
+                        System.out.print("Enter new phone: ");
+                        String newPhone = scan.nextLine();
+                        employee.setPhoneNumber(newPhone);
+                        System.out.println("Phone number updated successfully.");
+                        break;
+                    case 1:
+                        terminal.clearTerminal();
+                        System.out.print("Enter new role: ");
+                        String newRole = scan.nextLine();
+                        employee.setRole(newRole);
+                        System.out.println("Role updated successfully.");
+                        scan.nextLine();
+                        break;
+                    case 2:
+                        terminal.clearTerminal();
+                        System.out.print("Enter new salary: ");
+                        double newSalary = scan.nextDouble();
+                        scan.nextLine();
+                        employee.setSalary(newSalary);
+                        System.out.println("Salary updated successfully.");
+                        break;
+                    case 3:
+                        terminal.clearTerminal();
+                        System.out.print("Enter new address: ");
+                        String newAddress = scan.nextLine();
+                        employee.setAddress(newAddress);
+                        System.out.println("Address updated successfully.");
+                        break;
+                    case 4:
+                        terminal.clearTerminal();
+                        System.out.println("Phone number updated successfully.");
+                        break;
+                    default:
+                        terminal.clearTerminal();
                         System.out.println("Press Enter to try again...");
                         scan.nextLine(); // Wait for user to press Enter
                     }
