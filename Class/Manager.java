@@ -8,7 +8,7 @@ public class Manager extends Staff {
         super(id, name, gender, age, phone, email, address, salary, startDate, role, password, isAdmin, username);
     }
 
-    // Update Employee 
+    // Update Employee
     public static void updateEmployee(int employeeId) {
         Scanner scan = new Scanner(System.in);
         Terminal terminal = new TerminalSystem();
