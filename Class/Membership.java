@@ -39,14 +39,14 @@ public final class Membership extends Customer{
         membershipList.add(this);
     }
     
-    public boolean isMembership(){
-        for (Customer c : membershipList){
-            if(c.getMembershipID() == this.membershipID){
-                return true;
-            }
-        }
-        return false;
-    }
+    // public boolean isMembership(){
+    //     for (Customer c : membershipList){
+    //         if(c.getMembershipID() == this.membershipID){
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }        I'll think about this later
 
     @Override
     public String toString() {
