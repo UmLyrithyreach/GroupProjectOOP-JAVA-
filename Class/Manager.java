@@ -75,6 +75,6 @@ public class Manager extends Staff {
         for (Employee employee : employeeList) {
             System.out.println(employee.toString() + "\n");
         }
-        System.out.println("Total Employees: " + employeeList.size() + "\n");
+        System.out.println("Total Employees: " + employeeList.size() + "\n\n==============================");
     }
 }
