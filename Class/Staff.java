@@ -21,87 +21,103 @@ public class Staff extends Employee {
         ArrayList<Integer> quantity = new ArrayList<>();
         String addMore = "Y";
 
-        // Valid Y/N options
-        ArrayList<String> validYes = new ArrayList<>(Arrays.asList("Y", "y", "Yes", "YES", "yes"));
-        ArrayList<String> validNo = new ArrayList<>(Arrays.asList("N", "n", "No", "NO", "no"));
+        while (!addMore.equals("N")) {
+            Clothes selectedClothes = null;
+            int itemQuantity = 0;
+            boolean validItem = false;
 
-        //changed by someth
-        while (!addMore.equalsIgnoreCase("N")) {
-            try {
-                System.out.print("Enter Clothe's Id: ");
-                int clothesID = Integer.parseInt(scan.nextLine().trim()); // Use parseInt for better exception handling
-
-                // check if clothID is not smaller than 0
-                if (clothesID <= 0) {
-                    throw new PurchaseException("Clothes ID must be a positive number.");
-                }
-
-                Clothes selectedClothes = null;
-
-                // Find the clothes item by ID
-                for (Clothes clothes: Shop.clothesList) {
-                    if (clothes.getID() == clothesID) {
-                        selectedClothes = clothes;
-                        break; // Stop searching once found
+            // Loop for Clothes ID until valid
+            while (!validItem) {
+                try {
+                    System.out.print("Enter Clothe's Id: ");
+                    int clothesID = Integer.parseInt(scan.nextLine().trim());
+                    if (clothesID <= 0) {
+                        throw new PurchaseException("Clothes ID must be a positive number.\n==============================");
                     }
+
+                    // Find the clothes item by ID
+                    for (Clothes clothes : Shop.clothesList) {
+                        if (clothes.getID() == clothesID) {
+                            selectedClothes = clothes;
+                            break;
+                        }
+                    }
+                    if (selectedClothes == null) {
+                        throw new PurchaseException("Clothes with ID " + clothesID + " not found!\n==============================");
+                    }
+                    validItem = true; // ID is valid, exit this loop
+
+                } catch (NumberFormatException e) {
+                    System.out.println("==============================");
+                    System.out.println("Error: Please enter a valid number for ID.\n==============================");
+                } catch (PurchaseException e) {
+                    System.out.println("==============================");
+                    System.out.println("Error: " + e.getMessage());
                 }
-
-                if (selectedClothes == null) {
-                    throw new PurchaseException("Clothes with ID " + clothesID + " not found!");
-                }
-
-                System.out.print("Clothes quantity: ");
-                int itemQuantity = Integer.parseInt(scan.nextLine().trim());
-
-                // Validate quantity
-                if (itemQuantity <= 0) {
-                    throw new PurchaseException("Quantity must be a positive number.");
-                }
-
-                purchasedClothes.add(selectedClothes);
-                quantity.add(itemQuantity);
-                System.out.println("==============================");
-                System.out.println("Clothes added successfully.");
-            } catch (NumberFormatException e) {
-                System.out.println("==============================");
-                System.out.println("Error: Please enter a valid number for ID or quantity.");
-            } catch (PurchaseException e) {
-                System.out.println("==============================");
-                System.out.println("Error: " + e.getMessage());
             }
 
+            // Loop for Quantity until valid
+            while (true) {
+                try {
+                    System.out.print("Clothes quantity: ");
+                    itemQuantity = Integer.parseInt(scan.nextLine().trim());
+                    if (itemQuantity <= 0) {
+                        throw new PurchaseException("Quantity must be a positive number.\n==============================");
+                    }
+                    break; // Quantity is valid, exit this loop
+
+                } catch (NumberFormatException e) {
+                    System.out.println("==============================");
+                    System.out.println("Error: Please enter a valid number for quantity.\n==============================");
+                } catch (PurchaseException e) {
+                    System.out.println("==============================");
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+
+            // Add the valid item and quantity
+            purchasedClothes.add(selectedClothes);
+            quantity.add(itemQuantity);
+            System.out.println("==============================");
+            System.out.println("Clothes added successfully.");
+
+            // Y/N prompt after successful addition
+            int attempts = 0;
+            final int MAX_ATTEMPTS = 3;
             while (true) {
                 System.out.println("==============================");
                 System.out.print("Add another clothes? (Y/N): ");
                 addMore = scan.nextLine().trim();
-                if (validYes.contains(addMore) || validNo.contains(addMore)) {
-                    break; // Valid input, exit the loop
+                if (addMore.equals("Y") || addMore.equals("N")) {
+                    break;
                 } else {
+                    attempts++;
                     System.out.println("==============================");
-                    System.out.println("Error: Please enter \n\t\t'Y', 'y', 'Yes', 'YES', 'yes' for Yes, \n\t\tor \n\t\t'N', 'n', 'No', 'NO', 'no' for No.");
+                    System.out.println("Error: Invalid input. Please enter exactly 'Y' or 'N' (uppercase only).");
+                    if (attempts >= MAX_ATTEMPTS) {
+                        System.out.println("Too many invalid attempts. Defaulting to 'N' to proceed.");
+                        addMore = "N";
+                        break;
+                    }
                 }
             }
         }
 
-        // payment method handling
+        // Payment method handling
         String payment = "";
-        ArrayList<String> validPayments = new ArrayList<>(Arrays.asList("Cash", "Card", "ABA", "KHQR Code Scan to Pay"));
+        ArrayList<String> validPayments = new ArrayList<>(Arrays.asList("Cash", "Card", "ABA", "KHQR"));
         while (true) {
             try {
                 System.out.println("==============================");
-                System.out.println("Payment Options: \n\t\tCash, \n\t\tCard, \n\t\tABA, \n\t\tKHQR Code Scan to Pay");
+                System.out.println("Payment Options: \n\t\tCash, \n\t\tCard, \n\t\tABA, \n\t\tKHQR");
                 System.out.print("Payment Method: ");
                 payment = scan.nextLine().trim();
-
                 if (payment.isEmpty()) {
                     throw new PurchaseException("Payment method cannot be empty. Purchase could not be completed.");
                 }
-
                 if (!validPayments.contains(payment)) {
-                    throw new PurchaseException("Invalid payment method. Please choose from: Cash, Card, ABA, KHQR Code Scan to Pay.");
+                    throw new PurchaseException("Invalid payment method. Please choose from: Cash, Card, ABA, KHQR.");
                 }
-
-                // If we reach here, payment is valid
                 break;
 
             } catch (PurchaseException e) {
