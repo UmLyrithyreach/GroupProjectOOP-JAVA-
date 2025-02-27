@@ -32,7 +32,7 @@ public class Manager extends Staff {
                 System.out.println("12. Admin Status");
                 System.out.println("\n0. Cancel\n");
                 System.out.print("=> Select an option: ");
-                int choice = Integer.valueOf(scan.nextLine());
+                int choice = terminal.getValidIntegerInput(scan);
                 switch (choice) {
                     case 0:
                         return;
@@ -74,11 +74,10 @@ public class Manager extends Staff {
                         terminal.clearTerminal();
                         System.out.println("Press Enter to try again...");
                         scan.nextLine(); // Wait for user to press Enter
-                    }
                 }
-                scan.close();
-                return;
             }
+            scan.close();
+            return;
         }
         System.out.println("Employee not found.");
         scan.close();
