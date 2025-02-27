@@ -39,8 +39,9 @@ public class TerminalSystem implements Terminal {
             try {
                 return Integer.parseInt(input); // Try parsing input
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input! Please enter a number.");
                 flag = 1;
+
+                System.out.println("\n==============================\nInvalid input! Please enter a number.\n==============================");
             }
         }
     }
