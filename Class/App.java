@@ -51,7 +51,7 @@ public class App {
 
                 switch (choice) {
                     case 0:
-                        System.out.println("==============================");
+                        System.out.println("\n==============================");
                         System.out.println("Logging out...");
                         System.out.println("==============================");
                         terminal.sleeping();
@@ -64,10 +64,11 @@ public class App {
                         break;
                     case 2:
                         terminal.clearTerminal();
-                        System.out.print("Enter Employee ID to Update: ");
+                        System.out.print("========================================\nEnter Employee ID to Update: ");
                         int employeeId = scan.nextInt();
                         scan.nextLine();
                         Manager.updateEmployee(employeeId);
+                        System.out.print("\n========================================");
                         break;
                     case 3:
                         terminal.clearTerminal();
@@ -101,7 +102,7 @@ public class App {
                 switch (choice) {
                     case 0:
                         terminal.clearTerminal();
-                        System.out.println("Logging out...");
+                        System.out.println("\n==============================\nLogging out...\n==============================");
                         return;
                     case 1:
                         terminal.clearTerminal();

@@ -30,7 +30,7 @@ public class Manager extends Staff {
                 System.out.println("10. Role");
                 System.out.println("11. Password");
                 System.out.println("12. Admin Status");
-                System.out.println("==============================\n0. Cancel\n==============================");
+                System.out.println("========================================\n0. Cancel\n========================================");
                 System.out.print("=> Select an option: ");
                 int choice = terminal.getValidIntegerInput(scan);
                 switch (choice) {
@@ -72,7 +72,7 @@ public class Manager extends Staff {
                         break;
                     default:
                         terminal.clearTerminal();
-                        System.out.println("Press Enter to try again...");
+                        System.out.println("========================================\nPress Enter to try again...\n========================================");
                         scan.nextLine(); // Wait for user to press Enter
                 }
             }
