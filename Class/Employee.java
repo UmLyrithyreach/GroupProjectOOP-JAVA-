@@ -39,9 +39,8 @@ public class Employee extends Person {
             System.out.print("Enter Password: ");
             String password = scan.nextLine();
 
-            for (Employee employee : employeeList) {
+            for (Employee employee: employeeList) {
                 if (employee.username.equals(username) && employee.password.equals(password)) {
-                    // Tip: Implement a loading method or sleep method here
                     System.out.println("=============================================");
                     System.out.println("Login Successful! Welcome, " + employee.name);
                     System.out.println("=============================================");
@@ -57,22 +56,22 @@ public class Employee extends Person {
         return null;
     }
 
-    // Getter and Setter Methods
-    public int getEmployeeID() { return id; }
-    public boolean isManager() { return isAdmin; }
+    // Setter Methods
+    public int getEmployeeID() { return this.id; }
+
     public void setRole(String newRole) { this.role = newRole; }
 
-    public void setPhone(String newPhone) {
-        throw new UnsupportedOperationException("Unimplemented method 'setPhone'");
-    }
+    public void setSalary(double newSalary) { this.salary = newSalary; }
 
-    public void setAddress(String newAddress) {
-        throw new UnsupportedOperationException("Unimplemented method 'setAddress'");
-    }
+    public void setStartDate(String newStartDate) { this.startDate = newStartDate; }
 
-    public void setSalary(double newSalary) {
-        throw new UnsupportedOperationException("Unimplemented method 'setSalary'");
-    }
+    public void setPassword(String newPassword) { this.password = newPassword; }
+    public String getPassword() { return this.password; }
+
+    public void setIsAdmin(boolean newIsAdmin) { this.isAdmin = newIsAdmin; }
+
+    public void setUsername(String newUsername) { this.username = newUsername; }
+    
 
     @Override
     public String toString() {
@@ -83,6 +82,8 @@ public class Employee extends Person {
                 "\nSalary: " + this.salary +
                 "\nStart Date: " + this.startDate +
                 "\nRole: " + this.role +
+                "\nUsername: " + this.username +
+                "\nAdmin Status: " + this.isAdmin +
                 "\n=============================="
         );
     }
