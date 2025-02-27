@@ -49,7 +49,7 @@ public class Employee extends Person {
                 }
             }
 
-            System.out.println("Login Failed! Invalid username or password.");
+            System.out.println("==============================/nLogin Failed! Invalid username or password./n==============================");
         }
         System.out.println("Maximum login attempts reached. Exiting...");
         terminal.sleeping();
