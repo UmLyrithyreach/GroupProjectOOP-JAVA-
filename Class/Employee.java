@@ -56,6 +56,8 @@ public class Employee extends Person {
         return null;
     }
 
+    public boolean isManager() { return this.isAdmin; }
+
     // Setter Methods
     public int getEmployeeID() { return this.id; }
 
