@@ -30,12 +30,17 @@ public class TerminalSystem implements Terminal {
     }
 
     public int getValidIntegerInput(Scanner scan) {
+        int flag = 0;
         while (true) {
-            System.out.print("=> Select an option: ");
+            if (flag == 1) {
+                System.out.print("=> Select an option: ");
+            }
             String input = scan.nextLine();
             try {
                 return Integer.parseInt(input); // Try parsing input
             } catch (NumberFormatException e) {
+                flag = 1;
+
                 System.out.println("\n==============================\nInvalid input! Please enter a number.\n==============================");
             }
         }

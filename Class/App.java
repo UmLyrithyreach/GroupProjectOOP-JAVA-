@@ -65,7 +65,8 @@ public class App {
                     case 2:
                         terminal.clearTerminal();
                         System.out.print("========================================\nEnter Employee ID to Update: ");
-                        int employeeId = scan.nextInt();
+                        int employeeId = terminal.getValidIntegerInput(scan);
+
                         scan.nextLine();
                         Manager.updateEmployee(employeeId);
                         System.out.print("\n========================================");
