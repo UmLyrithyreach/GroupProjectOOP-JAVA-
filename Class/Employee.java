@@ -41,6 +41,7 @@ public class Employee extends Person {
 
             for (Employee employee: employeeList) {
                 if (employee.username.equals(username) && employee.password.equals(password)) {
+                    terminal.clearTerminal();
                     System.out.println("=============================================");
                     System.out.println("Login Successful! Welcome, " + employee.name);
                     System.out.println("=============================================");

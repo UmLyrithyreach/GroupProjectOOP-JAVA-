@@ -1,6 +1,7 @@
 package Class;
 
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TerminalSystem implements Terminal {
@@ -27,4 +28,17 @@ public class TerminalSystem implements Terminal {
             System.out.println("Loaded");
         }
     }
+
+    public int getValidIntegerInput(Scanner scan) {
+        while (true) {
+            System.out.print("=> Select an option: ");
+            String input = scan.nextLine();
+            try {
+                return Integer.parseInt(input); // Try parsing input
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a number.");
+            }
+        }
+    }
+
 }
