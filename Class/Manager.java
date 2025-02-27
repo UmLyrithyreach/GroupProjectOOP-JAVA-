@@ -62,7 +62,7 @@ public class Manager extends Staff {
                                 terminal.clearTerminal();
                                 System.out.print("Enter new phone: ");
                                 String newPhone = scan.nextLine();
-                                employee.setPhone(newPhone);
+                                employee.setPhoneNumber(newPhone);
                                 System.out.println("Phone number updated successfully.");
                                 break;
                             default:
