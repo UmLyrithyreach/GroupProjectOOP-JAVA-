@@ -38,26 +38,24 @@ public class Manager extends Staff {
                         return;
                     case 1:
                         terminal.clearTerminal();
-                        System.out.print("Enter new role: ");
-                        String newRole = scan.nextLine();
-                        employee.setRole(newRole);
-                        System.out.println("Role updated successfully.");
-                        scan.nextLine();
+                        System.out.print("Enter new name: ");
+                        String newName = scan.nextLine();
+                        employee.setName(newName);
+                        System.out.println("Name updated successfully.");
                         break;
                     case 2:
                         terminal.clearTerminal();
-                        System.out.print("Enter new salary: ");
-                        double newSalary = scan.nextDouble();
-                        scan.nextLine();
-                        employee.setSalary(newSalary);
-                        System.out.println("Salary updated successfully.");
+                        System.out.print("Enter new username: ");
+                        String newUsername = scan.nextLine();
+                        employee.setUsername(newUsername);
+                        System.out.println("Username updated successfully.");
                         break;
                     case 3:
                         terminal.clearTerminal();
-                        System.out.print("Enter new address: ");
-                        String newAddress = scan.nextLine();
-                        employee.setAddress(newAddress);
-                        System.out.println("Address updated successfully.");
+                        System.out.println("Enter new age: ");
+                        int newAge = scan.nextInt();
+                        employee.setAge(newAge);
+                        System.out.println("Age updated successfully.");
                         break;
                     case 4:
                         terminal.clearTerminal();
@@ -76,32 +74,39 @@ public class Manager extends Staff {
                         System.out.println("Impletmenting");
                         scan.nextLine();
                         break;
-                        case 7:
+                    case 7:
+                        terminal.clearTerminal();
+                        System.out.print("Enter new address: ");
+                        String newAddress = scan.nextLine();
+                        employee.setAddress(newAddress);
+                        System.out.println("Address updated successfully.");
+                        break;
+                    case 8:
+                        terminal.clearTerminal();
+                        System.out.print("Enter new salary: ");
+                        double newSalary = scan.nextDouble();
+                        employee.setSalary(newSalary);
+                        System.out.println("Salary updated successfully.");
+                        break;
+                    case 9:
                         terminal.clearTerminal();
                         System.out.println("Impletmenting");
                         scan.nextLine();
                         break;
-                        case 8:
+                    case 10:
+                        terminal.clearTerminal();
+                        System.out.print("Enter new role: ");
+                        String newRole = scan.nextLine();
+                        employee.setRole(newRole);
+                        System.out.println("Role updated successfully.");
+                        scan.nextLine();
+                        break;
+                    case 11:
                         terminal.clearTerminal();
                         System.out.println("Impletmenting");
                         scan.nextLine();
                         break;
-                        case 9:
-                        terminal.clearTerminal();
-                        System.out.println("Impletmenting");
-                        scan.nextLine();
-                        break;
-                        case 10:
-                        terminal.clearTerminal();
-                        System.out.println("Impletmenting");
-                        scan.nextLine();
-                        break;
-                        case 11:
-                        terminal.clearTerminal();
-                        System.out.println("Impletmenting");
-                        scan.nextLine();
-                        break;
-                        case 12:
+                    case 12:
                         terminal.clearTerminal();
                         System.out.println("Impletmenting");
                         scan.nextLine();
