@@ -6,6 +6,13 @@
             "name": "App",
             "request": "launch",
             "mainClass": "Class.App",
+            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "Class.App",
             "projectName": "GroupProjectOOP-JAVA-_d6625c92"
         },
         {
