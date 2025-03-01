@@ -30,3 +30,6 @@ Java (Object-Oriented Programming)
 ArrayLists for data management
 File handling (if applicable)
 Exception handling
+
+- Team Member:
+Someth, Huyty, Reach, ChhunHour
