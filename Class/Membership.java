@@ -43,6 +43,10 @@ public final class Membership extends Customer{
     public void addMember() {       // prevent data leaked since MembershipID originally a private method(Copilot, Chatgpt)
         membershipList.add(this);
     }
+
+    public boolean isExpired(){
+        return this.startDate.isAfter(expiredDate);
+    }
     
     // public boolean isMembership(){
     //     for (Customer c : membershipList){
@@ -71,6 +75,8 @@ public final class Membership extends Customer{
     public static void main(String[] args) {
         new Membership("Um Lyrithyreach" , "09592780", "Street1067", "Bronze", "Actvie", LocalDate.now(), LocalDate.now().plusYears(1), LocalDate.now().minusDays(30), 100);
         new Membership("Hein Schmát" , "09592780", "Street1067", "Bronze", "Actvie", LocalDate.now(), LocalDate.now().plusYears(1), LocalDate.now().minusDays(30), 100);
+        new Membership("Ming Dúng" , "09592780", "Street1067", "Bronze", "Actvie", LocalDate.now(), LocalDate.now().plusYears(1), LocalDate.now().minusDays(30), 100);
         System.out.println(Membership.membershipList);
+
     }
 }
