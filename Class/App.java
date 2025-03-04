@@ -318,7 +318,7 @@ public class App {
                         }
                         System.out.println("Press <Enter> to continue...");
                         scan.nextLine();
-                        break;
+                        break; 
                     default:
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         System.out.println("Press <Enter> to continue...");
