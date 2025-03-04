@@ -13,9 +13,9 @@ public class Clothes {
     String material;
     String fit;
     String style;
-    String preference;
+    int supplierId;
 
-    public Clothes(int id, String name, String brand, String size, double price, int stock, String material, String style, String fit, String preference) {
+    public Clothes(String name, String brand, String size, double price, int stock, String material, String style, String fit, int supplierId) {
         this.id = idCounter++;
         this.name = name;
         this.brand = brand;
@@ -25,7 +25,7 @@ public class Clothes {
         this.material = material;
         this.style = style;
         this.fit = fit;
-        this.preference = preference;
+        this.supplierId = supplierId;
     }
 
     public Clothes(int id, String name, String brand) {
