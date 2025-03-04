@@ -5,22 +5,12 @@ import java.util.ArrayList;
 public class ClothingSupplier extends Person {
     static int idCounter = 1;
     int id;
-    private ArrayList<Clothes> suppliedClothes;
     public static ArrayList<ClothingSupplier> supplierList = new ArrayList<>();
 
     // Constructor
     public ClothingSupplier(String name, String phoneNumber, String address) {
         super(name, phoneNumber, address);
         this.id = idCounter++;
-        this.suppliedClothes = new ArrayList<>();
-        supplierList.add(this);
-    }
-
-    public void addClothes(Clothes clothes) {
-        suppliedClothes.add(clothes);
-        if (suppliedClothes.contains(clothes)) {
-            System.out.println("Clothes added successfully");
-        }
     }
 
     public static ClothingSupplier searchSupplier(String name) {
@@ -69,12 +59,6 @@ public class ClothingSupplier extends Person {
         }
     }
 
-    public static void displaySuppliedClothes(ClothingSupplier supplier) {
-        for (Clothes clothes: supplier.suppliedClothes) {
-            System.out.println(clothes);
-        }
-    }
-
     public static void addSupplier(ClothingSupplier supplier) {
         supplierList.add(supplier);
     }
@@ -89,15 +73,6 @@ public class ClothingSupplier extends Person {
     public String toString() {
         String result = "ID: " + this.id + "\n";
         result += super.toString();
-        result += "\nSupplied Clothes:\n";
-
-        if (suppliedClothes.isEmpty()) {
-            result += "No clothes supplied.\n";
-        } else {
-            for (Clothes clothes: suppliedClothes) {
-                result += clothes.toString() + "\n";
-            }
-        }
         
         return result;
     }
