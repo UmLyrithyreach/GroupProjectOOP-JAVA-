@@ -9,14 +9,14 @@ public class Shop {
         clothesList.add(item);
     }
 
-    public void displayClothes() {
+    public static void displayClothes() {
         for (Clothes clothes: clothesList) {
             System.out.println(clothes);
         }
     }
 
     // Search by name
-    public Clothes searchByName(String name) {
+    public static Clothes searchByName(String name) {
         for (Clothes clothes: clothesList) {
             if (clothes.name.equalsIgnoreCase(name)) {
                 return clothes;
@@ -26,7 +26,7 @@ public class Shop {
     }
 
     // Search by brand
-    public ArrayList<Clothes> searchByBrand(String brand) {
+    public static ArrayList<Clothes> searchByBrand(String brand) {
         ArrayList<Clothes> sameBrand = new ArrayList<>();
         for (Clothes clothes: clothesList) {
             if (clothes.brand.equalsIgnoreCase(brand)) {
@@ -37,12 +37,34 @@ public class Shop {
     }
 
     // Search by ID
-    public Clothes searchById(int id) {
+    public static Clothes searchById(int id) {
         for (Clothes clothes: clothesList) {
             if (clothes.id == id) {
                 return clothes;
             }
         }
         return null;
+    }
+
+    public static int totalClothes() {
+        return clothesList.size();
+    }
+
+    public static int totalStock() {
+        int totalStock = 0;
+        for (Clothes clothes: clothesList) {
+            totalStock += clothes.stock;
+        }
+        return totalStock;
+    }
+
+    public static void removeClothesById(int id) {
+        Clothes clothes = searchById(id);
+        if (clothes != null) {
+            clothesList.remove(clothes);
+            System.out.println("Clothes removed successfully.");
+        } else {
+            System.out.println("Clothes not found!");
+        }
     }
 }

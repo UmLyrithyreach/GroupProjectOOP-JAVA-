@@ -1,6 +1,8 @@
 package Class;
 
 import java.util.Scanner;
+import java.util.function.Supplier;
+import java.util.ArrayList;
 
 import javax.security.auth.login.LoginException;
 
@@ -33,6 +35,16 @@ public class App {
         Shop.addClothes(new Clothes(9, "Pants", "Patagonia", "F", 85.0, 12, "Cotton", "Casual", "Regular", "None"));
         Shop.addClothes(new Clothes(10, "Jacket", "North Face", "F", 120.0, 9, "Polyester", "Casual", "Regular", "None"));
 
+        new ClothingSupplier("Nike", "123 Nike St", "0123456789");
+        new ClothingSupplier("Levis", "456 Levis St", "0987654321");
+        new ClothingSupplier("H&M", "789 H&M St", "0876543210");
+        new ClothingSupplier("Uniqlo", "123 Uniqlo St", "0123456789");
+        new ClothingSupplier("Adidas", "456 Adidas St", "0987654321");
+        new ClothingSupplier("Zara", "789 Zara St", "0876543210");
+        new ClothingSupplier("Forever 21", "123 Forever 21 St", "0123456789");
+        new ClothingSupplier("Patagonia", "456 Patagonia St", "0987654321");
+        new ClothingSupplier("North Face", "789 North Face St", "0876543210");
+
         Employee loggedInUser = Employee.login(scan);
 
         if (loggedInUser.isManager()) {
@@ -40,9 +52,19 @@ public class App {
             do {
                 terminal.clearTerminal();
                 System.out.println("\n====== Manager Operator ======");
-                System.out.println("1. View All Staff");
-                System.out.println("2. Update Staff Details");
+                System.out.println("1. View All Employees");
+                System.out.println("2. Update Employee's Details");
                 System.out.println("3. Search Employee");
+                System.out.println("4. View All Clothes");
+                System.out.println("5. Search clothes by name");
+                System.out.println("6. Search clothes by brand");
+                System.out.println("7. Search clothes by ID");
+                System.out.println("8. Add Clothes");
+                System.out.println("9. Remove Clothes");
+                System.out.println("10. View All Suppliers");
+                System.out.println("11. Add Supplier");
+                System.out.println("12. Remove Supplier By Name");
+                System.out.println("13. Remove Supplier By ID");
                 System.out.println("==============================");
                 System.out.println("0. Logout");
                 System.out.println("==============================");
@@ -82,6 +104,121 @@ public class App {
                         }
                         scan.nextLine();
                         break;
+                    case 4:
+                        terminal.clearTerminal();
+                        Shop.displayClothes();
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 5:
+                        terminal.clearTerminal();
+                        System.out.print("Enter clothes name: ");
+                        String clothesName = scan.nextLine();
+                        Clothes foundClothes = Shop.searchByName(clothesName);
+                        if (foundClothes == null) {
+                            System.out.println("Clothes not found!");
+                        } else {
+                            System.out.println(foundClothes);
+                        }
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 6:
+                        terminal.clearTerminal();
+                        System.out.print("Enter brand name: ");
+                        String brandName = scan.nextLine();
+                        ArrayList<Clothes> sameBrand = Shop.searchByBrand(brandName);
+                        if (sameBrand.isEmpty()) {
+                            System.out.println("No clothes found!");
+                        } else {
+                            for (Clothes clothes : sameBrand) {
+                                System.out.println(clothes);
+                            }
+                        }
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 7:
+                        terminal.clearTerminal();
+                        System.out.print("Enter clothes ID: ");
+                        int clothesID = Integer.parseInt(scan.nextLine());
+                        Clothes foundClothesID = Shop.searchById(clothesID);
+                        if (foundClothesID == null) {
+                            System.out.println("Clothes not found!");
+                        } else {
+                            System.out.println(foundClothesID);
+                        }
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 8:
+                        terminal.clearTerminal();
+                        System.out.print("Enter clothes name: ");
+                        String name = scan.nextLine();
+                        System.out.print("Enter brand: ");
+                        String brand = scan.nextLine();
+                        System.out.print("Enter size: ");
+                        String size = scan.nextLine();
+                        System.out.print("Enter price: ");
+                        double price = Double.parseDouble(scan.nextLine());
+                        System.out.print("Enter stock: ");
+                        int stock = Integer.parseInt(scan.nextLine());
+                        System.out.print("Enter material: ");
+                        String material = scan.nextLine();
+                        System.out.print("Enter type: ");
+                        String type = scan.nextLine();
+                        System.out.print("Enter fit: ");
+                        String fit = scan.nextLine();
+                        System.out.print("Enter design: ");
+                        String design = scan.nextLine();
+                        Shop.addClothes(new Clothes(Shop.totalClothes() + 1, name, brand, size, price, stock, material, type, fit, design));
+                        System.out.println("Clothes added successfully.");
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 9:
+                        terminal.clearTerminal();
+                        System.out.print("Enter clothes ID to remove: ");
+                        int removeClothesID = Integer.parseInt(scan.nextLine());
+                        Shop.removeClothesById(removeClothesID);
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 10:
+                        terminal.clearTerminal();
+                        ClothingSupplier.displaySuppliers();
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 11:
+                        terminal.clearTerminal();
+                        System.out.print("Enter supplier name: ");
+                        String supplierName = scan.nextLine();
+                        System.out.print("Enter supplier address: ");
+                        String supplierAddress = scan.nextLine();
+                        System.out.print("Enter supplier contact: ");
+                        String supplierContact = scan.nextLine();
+                        ClothingSupplier.addSupplier(new ClothingSupplier(supplierName, supplierAddress, supplierContact));
+                        System.out.println("Supplier added successfully.");
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 12:
+                        terminal.clearTerminal();
+                        System.out.print("Enter supplier name to remove: ");
+                        String removeSupplierName = scan.nextLine();
+                        ClothingSupplier.removeSupplier(removeSupplierName);
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 13:
+                        terminal.clearTerminal();
+                        System.out.print("Enter supplier ID to remove: ");
+                        int removeSupplierID = Integer.parseInt(scan.nextLine());
+                        ClothingSupplier.removeSupplier(removeSupplierID);
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
                     default:
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         scan.nextLine();
@@ -91,9 +228,11 @@ public class App {
             do {
                 terminal.clearTerminal();
                 System.out.println("\n========= Welcome ============");
-                System.out.println("1. Check Clothing Items");
-                System.out.println("2. Generate Receipt");
-                System.out.println("3. Walk in purchasing");
+                System.out.println("1. Check Stock");
+                System.out.println("2. Purchase");
+                System.out.println("3. Search clothes by name");
+                System.out.println("4. Search clothes by brand");
+                System.out.println("5. Search clothes by ID");
                 System.out.println("==============================");
                 System.out.println("0. Logout");
                 System.out.println("==============================");
@@ -106,23 +245,60 @@ public class App {
                         return;
                     case 1:
                         terminal.clearTerminal();
-                        System.out.println("Displaying Available Clothing Items...");
+                        Shop.displayClothes();
+                        System.out.println("Press <Enter> to continue...");
                         scan.nextLine();
                         break;
                     case 2:
                         terminal.clearTerminal();
-                        System.out.println("Generating Receipt...");
+                        Staff.purchase(loggedInUser);
+                        System.out.println("Press <Enter> to continue...");
                         scan.nextLine();
                         break;
-                    // walk in purchase
                     case 3:
                         terminal.clearTerminal();
-                        Staff.purchase(loggedInUser);
+                        System.out.print("Enter clothes name: ");
+                        String clothesName = scan.nextLine();
+                        Clothes foundClothes = Shop.searchByName(clothesName);
+                        if (foundClothes == null) {
+                            System.out.println("Clothes not found!");
+                        } else {
+                            System.out.println(foundClothes);
+                        }
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 4:
+                        terminal.clearTerminal();
+                        System.out.print("Enter brand name: ");
+                        String brandName = scan.nextLine();
+                        ArrayList<Clothes> sameBrand = Shop.searchByBrand(brandName);
+                        if (sameBrand.isEmpty()) {
+                            System.out.println("No clothes found!");
+                        } else {
+                            for (Clothes clothes : sameBrand) {
+                                System.out.println(clothes);
+                            }
+                        }
+                        System.out.println("Press <Enter> to continue...");
+                        scan.nextLine();
+                        break;
+                    case 5:
+                        terminal.clearTerminal();
+                        System.out.print("Enter clothes ID: ");
+                        int clothesID = Integer.parseInt(scan.nextLine());
+                        Clothes foundClothesID = Shop.searchById(clothesID);
+                        if (foundClothesID == null) {
+                            System.out.println("Clothes not found!");
+                        } else {
+                            System.out.println(foundClothesID);
+                        }
                         System.out.println("Press <Enter> to continue...");
                         scan.nextLine();
                         break; 
                     default:
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
+                        System.out.println("Press <Enter> to continue...");
                         scan.nextLine();
                 }
             } while (true);
