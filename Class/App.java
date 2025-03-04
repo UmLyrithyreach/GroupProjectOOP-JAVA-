@@ -88,10 +88,9 @@ public class App {
                         terminal.clearTerminal();
                         System.out.print("========================================\nEnter Employee ID to Update: ");
                         int employeeId = terminal.getValidIntegerInput(scan);
-
+                        System.out.print("========================================\nPress <Enter> to continue...");
                         scan.nextLine();
                         Manager.updateEmployee(employeeId);
-                        System.out.print("\n========================================");
                         break;
                     case 3:
                         terminal.clearTerminal();
@@ -99,7 +98,7 @@ public class App {
                         String employeeName = scan.nextLine();
                         Employee foundEmployee = (Employee) Person.searchByName(Employee.employeeList, employeeName);
                         if (foundEmployee == null) {
-                            System.out.println("Employee not found!");
+                            System.out.println("==============================\nEmployee not found!\n==============================");
                         } else {
                             System.out.println(foundEmployee);
                         }
@@ -296,7 +295,7 @@ public class App {
                         }
                         System.out.println("Press <Enter> to continue...");
                         scan.nextLine();
-                        break;
+                        break; 
                     default:
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         System.out.println("Press <Enter> to continue...");
