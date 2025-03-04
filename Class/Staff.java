@@ -10,10 +10,6 @@ public class Staff extends Employee {
         super(id, name, gender, age, phone, email, address, salary, startDate, role, password, isAdmin, username);
     }
 
-    public static void displayClothes() {
-        System.out.println("Pending");
-    }
-
     public static void purchase(Employee employee) {
         Scanner scan = new Scanner(System.in);
         System.out.println("===== Walk in Purchasing =====");
