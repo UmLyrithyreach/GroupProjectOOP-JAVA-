@@ -35,6 +35,8 @@ public class App {
         new ClothingSupplier("Patagonia", "456 Patagonia St", "0987654321");
         new ClothingSupplier("North Face", "789 North Face St", "0876543210");
 
+        //Handle Exception login null
+
         Employee loggedInUser = Employee.login(scan);
 
         if (loggedInUser.isManager()) {
@@ -86,6 +88,7 @@ public class App {
                                     scan.nextLine();
                                     Manager.updateEmployee(employeeId);
                                     System.out.print("\n========================================");
+                                    scan.nextLine();
                                     break;
                                 case 3:
                                     terminal.clearTerminal();
