@@ -92,12 +92,13 @@ public class Clothes {
 
     @Override
     public String toString() {
-        String info = "ID: " + this.id
+        String info = "====================================\nID: " + this.id
                 + "\nName: " + this.name
                 + "\nBrand: " + this.brand
-                + "\nPrice: " + this.price
+                + "\nPrice: $" + this.price
                 + "\nStock: " + this.stock
-                + "\nSize: ";
+                + "\nSize: " + this.sizes
+                + "\n====================================\n";
                 
         for (String size: sizes) {
             info += size + " ";
