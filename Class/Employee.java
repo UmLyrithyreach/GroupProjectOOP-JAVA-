@@ -61,9 +61,19 @@ public class Employee extends Person {
         return null;
     }
 
+    public static Employee searchByID(int id) {
+        for (Employee employee: employeeList) {
+            if (employee.id == id) {
+                return employee;
+            }
+        }
+        return null;
+    }
+
+    
+    // Setter Methods
     public boolean isManager() { return this.isAdmin; }
 
-    // Setter Methods
     public int getEmployeeID() { return this.id; }
 
     public void setRole(String newRole) { this.role = newRole; }

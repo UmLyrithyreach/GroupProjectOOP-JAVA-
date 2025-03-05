@@ -59,7 +59,10 @@ public class Staff extends Employee {
                     itemQuantity = Integer.parseInt(scan.nextLine().trim());
                     if (itemQuantity <= 0) {
                         throw new PurchaseException("Quantity must be a positive number.\n==============================");
+                    } else if (itemQuantity > selectedClothes.getStock()) {
+                        throw new PurchaseException("Quantity exceeds available stock (" + selectedClothes.getStock() + ").\n==============================");
                     }
+                    selectedClothes.decreaseStock(itemQuantity);
                     break; // Quantity is valid, exit this loop
 
                 } catch (NumberFormatException e) {
