@@ -52,7 +52,7 @@ public class App {
                 System.out.println("==============================");
                 System.out.print("=> Select an option: ");
                 choice = terminal.getValidIntegerInput(scan);
-
+                
                 switch (choice) {
                     case 0:
                         terminal.clearTerminal();
@@ -85,7 +85,6 @@ public class App {
                                     terminal.clearTerminal();
                                     System.out.print("========================================\nEnter Employee ID to Update: ");
                                     int employeeId = terminal.getValidIntegerInput(scan);
-                                    scan.nextLine();
                                     Manager.updateEmployee(employeeId);
                                     System.out.print("\n========================================");
                                     scan.nextLine();
@@ -172,6 +171,7 @@ public class App {
                                     scan.nextLine();
                                     break;
                                 case 4:
+                                //Exception handling for searching clothes by ID
                                     terminal.clearTerminal();
                                     System.out.print("Enter clothes ID: ");
                                     int clothesID = Integer.parseInt(scan.nextLine());
@@ -185,6 +185,7 @@ public class App {
                                     scan.nextLine();
                                     break;
                                 case 5:
+                                //Exception handling for adding clothes for Supplier ID
                                     terminal.clearTerminal();
                                     System.out.print("Enter clothes name: ");
                                     String name = scan.nextLine();
@@ -209,6 +210,18 @@ public class App {
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
+                                case 6:
+                                //Exception handling for removing clothes by ID
+                                    terminal.clearTerminal();
+                                    System.out.print("Enter clothes ID to remove: ");
+                                    int removeClothesID = Integer.parseInt(scan.nextLine());
+                                    Shop.removeClothesById(removeClothesID);
+                                    System.out.println("\nPress <Enter> to continue...");
+                                    scan.nextLine();
+                                    break;
+                                default:
+                                    System.out.println("==============================\nInvalid choice, try again.\n==============================");
+                                    scan.nextLine();
                             }
                         } while (choice02 != 0);
                         break;
@@ -241,7 +254,7 @@ public class App {
                                     String supplierAddress = scan.nextLine();
                                     System.out.print("Enter supplier contact: ");
                                     String supplierContact = scan.nextLine();
-                                    ClothingSupplier.addSupplier(new ClothingSupplier(supplierName, supplierAddress, supplierContact));
+                                    ClothingSupplier.addSupplier(new ClothingSupplier(supplierName, supplierContact, supplierAddress));
                                     System.out.println("Supplier added successfully.");
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
@@ -255,6 +268,7 @@ public class App {
                                     scan.nextLine();
                                     break;
                                 case 4:
+                                //Exception handling for removing supplier by ID
                                     terminal.clearTerminal();
                                     System.out.print("Enter supplier ID to remove: ");
                                     int removeSupplierID = Integer.parseInt(scan.nextLine());
@@ -269,7 +283,7 @@ public class App {
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         scan.nextLine();
                 }
-            } while (true);
+            } while (choice != 0);
         } else {
             do {
                 terminal.clearTerminal();
