@@ -13,11 +13,12 @@ public class Manager extends Staff {
     public static void updateEmployee(int employeeId) {
         Scanner scan = new Scanner(System.in);
         Terminal terminal = new TerminalSystem();
+        int identifier = 0;
         
         for (Employee employee : Employee.employeeList) {
-            //Use do while loop to keep the program running until the user decides to exit
             if (employee.getEmployeeID() == employeeId) {
                 int choice;
+                identifier = 1;
                 do {
                     terminal.clearTerminal();
                     System.out.println("========= Update Employee Info =========");
@@ -143,8 +144,9 @@ public class Manager extends Staff {
                 } while(choice != 0);
             }
         }
-        System.out.println("==============================\nEmployee not found.\n==============================");
-        scan.close();
+        if (identifier == 0) {
+            System.out.println("==============================\nEmployee not found.\n==============================");
+        }
     }
 
     // View all employees (Admin Only)
