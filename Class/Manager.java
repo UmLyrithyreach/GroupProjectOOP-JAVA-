@@ -42,6 +42,7 @@ public class Manager extends Staff {
                         String newName = scan.nextLine();
                         employee.setName(newName);
                         System.out.println("Name updated successfully.");
+                        scan.nextLine();
                         break;
                     case 2:
                         terminal.clearTerminal();
@@ -49,6 +50,7 @@ public class Manager extends Staff {
                         String newUsername = scan.nextLine();
                         employee.setUsername(newUsername);
                         System.out.println("Username updated successfully.");
+                        scan.nextLine();
                         break;
                     case 3:
                         terminal.clearTerminal();
@@ -56,10 +58,15 @@ public class Manager extends Staff {
                         int newAge = scan.nextInt();
                         employee.setAge(newAge);
                         System.out.println("Age updated successfully.");
+                        scan.nextLine();
                         break;
                     case 4:
                         terminal.clearTerminal();
-                        System.out.println("Phone number updated successfully.");
+                        System.out.print("Enter new gender: ");
+                        String newGender = scan.nextLine();
+                        employee.setGender(newGender);
+                        System.out.println("Gender updated successfully.");
+                        scan.nextLine();
                         break;
                     case 5: 
                         terminal.clearTerminal();
@@ -71,7 +78,10 @@ public class Manager extends Staff {
                         break;
                     case 6:
                         terminal.clearTerminal();
-                        System.out.println("Impletmenting");
+                        System.out.print("Enter new email: ");
+                        String newEmail = scan.nextLine();
+                        employee.setEmail(newEmail);
+                        System.out.println("Email updated successfully.");
                         scan.nextLine();
                         break;
                     case 7:
@@ -90,7 +100,10 @@ public class Manager extends Staff {
                         break;
                     case 9:
                         terminal.clearTerminal();
-                        System.out.println("Impletmenting");
+                        System.out.print("Enter new start date: ");
+                        String newStartDate = scan.nextLine();
+                        employee.setStartDate(newStartDate);
+                        System.out.println("Start date updated successfully.");
                         scan.nextLine();
                         break;
                     case 10:
@@ -103,12 +116,18 @@ public class Manager extends Staff {
                         break;
                     case 11:
                         terminal.clearTerminal();
-                        System.out.println("Impletmenting");
+                        System.out.print("Enter new password: ");
+                        String newPassword = scan.nextLine();
+                        employee.setPassword(newPassword);
+                        System.out.println("Password updated successfully.");
                         scan.nextLine();
                         break;
                     case 12:
                         terminal.clearTerminal();
-                        System.out.println("Impletmenting");
+                        System.out.print("Enter new admin status (true/false): ");
+                        boolean newAdminStatus = scan.nextBoolean();
+                        employee.setIsAdmin(newAdminStatus);
+                        System.out.println("Admin status updated successfully.");
                         scan.nextLine();
                         break;
                     default:

@@ -62,7 +62,8 @@ public class App {
                             System.out.println("====== Employee Operations ======");
                             System.out.println("1. View All Employees");
                             System.out.println("2. Update Employee's Details");
-                            System.out.println("3. Search Employee");
+                            System.out.println("3. Search Employee By Name");
+                            System.out.println("4. Search Employee By ID");
                             System.out.println("0. Back");
                             System.out.print("=> Select an option: ");
                             choice01 = terminal.getValidIntegerInput(scan);
@@ -80,7 +81,6 @@ public class App {
                                     terminal.clearTerminal();
                                     System.out.print("========================================\nEnter Employee ID to Update: ");
                                     int employeeId = terminal.getValidIntegerInput(scan);
-
                                     scan.nextLine();
                                     Manager.updateEmployee(employeeId);
                                     System.out.print("\n========================================");
@@ -94,6 +94,18 @@ public class App {
                                         System.out.println("Employee not found!");
                                     } else {
                                         System.out.println(foundEmployee);
+                                    }
+                                    scan.nextLine();
+                                    break;
+                                case 4:
+                                    terminal.clearTerminal();
+                                    System.out.print("Enter employee ID: ");
+                                    int employeeID = Integer.parseInt(scan.nextLine());
+                                    Employee foundEmployeeID = Employee.searchByID(employeeID);
+                                    if (foundEmployeeID == null) {
+                                        System.out.println("Employee not found!");
+                                    } else {
+                                        System.out.println(foundEmployeeID);
                                     }
                                     scan.nextLine();
                                     break;

@@ -82,6 +82,10 @@ public class Clothes {
         }
     }
 
+    public int getStock() {
+        return this.stock;
+    }
+
     public boolean isAvailable() {
         return (this.stock > 0) ? true : false;
     }
