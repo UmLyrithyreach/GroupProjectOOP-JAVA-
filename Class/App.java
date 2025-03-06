@@ -3,15 +3,14 @@ package Class;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.security.auth.login.LoginException;
-import java.io.*;
-import java.nio.Buffer;
-
 public class App {
     public static void main(String[] args) throws LoginException {
         Scanner scan = new Scanner(System.in);
         Terminal terminal = new TerminalSystem();
         terminal.clearTerminal();
-    
+
+        DatabaseConnection.getConnection();
+
         Employee.loadEmployeesFromFile("Class\\src\\employee.txt");
 
         new Employee(2, "PapaN", "Male", 28, "0987654321", "PapaN@shop.com", 

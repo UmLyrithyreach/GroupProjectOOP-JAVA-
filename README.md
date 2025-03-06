@@ -33,3 +33,18 @@ Exception handling
 
 # Team Member:
 Someth, Huyty, Reach, ChhunHour
+
+# Database information
+Before you start the app, You have to create a database and it table
+
+CREATE DATABASE clothing_store;
+
+USE clothing_store;
+
+CREATE TABLE suppliers (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(20),
+    address VARCHAR(255)
+);
+
