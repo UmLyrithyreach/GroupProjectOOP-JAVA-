@@ -1,13 +1,12 @@
 package Class;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Employee extends Person {
     public static ArrayList<Employee> employeeList = new ArrayList<>();
@@ -20,24 +19,25 @@ public class Employee extends Person {
     private String username;
     private int phone;
     
-        // Constructor
-        public Employee(int id, String name, String gender, int age, String phone, String email, String address, double salary, String startDate, String role, String password, boolean isAdmin, String username) {
-            super(name, age, gender, phone, email, address);
-            this.id = id;
-            this.salary = salary;
-            this.startDate = startDate;
-            this.role = role;
-            this.password = password;
-            this.isAdmin = isAdmin;
-            this.username = username;
-            employeeList.add(this);
-        }
-        // Save employee data to a file
-        public static void saveEmployeesToFile(String filename) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-                for (Employee employee : employeeList) {
-                    writer.write(employee.id + "," + employee.name + "," + employee.gender + "," + employee.age + "," + employee.phone + "," + employee.email + "," + employee.address + "," + employee.salary + "," + employee.startDate + "," + employee.role + "," + employee.password + "," + employee.isAdmin + "," + employee.username);
-                writer.newLine();
+    // Constructor
+    public Employee(int id, String name, String gender, int age, String phone, String email, String address, double salary, String startDate, String role, String password, boolean isAdmin, String username) {
+        super(name, age, gender, phone, email, address);
+        this.id = id;
+        this.salary = salary;
+        this.startDate = startDate;
+        this.role = role;
+        this.password = password;
+        this.isAdmin = isAdmin;
+        this.username = username;
+        employeeList.add(this);
+    }
+
+    // Save employee data to a file
+    public static void saveEmployeesToFile(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (Employee employee : employeeList) {
+                writer.write(employee.id + "," + employee.name + "," + employee.gender + "," + employee.age + "," + employee.phone + "," + employee.email + "," + employee.address + "," + employee.salary + "," + employee.startDate + "," + employee.role + "," + employee.password + "," + employee.isAdmin + "," + employee.username);
+            writer.newLine();
             }
             System.out.println("Employee data saved to " + filename);
         } catch (IOException e) {
@@ -46,10 +46,15 @@ public class Employee extends Person {
     }
 
     public static void loadEmployeesFromFile(String filename) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println("Reading line: " + line); // Debugging
+        File file = new File(filename);
+        if (!file.exists()) {
+            System.out.println("File not found: " + filename);
+            return;
+        }
+    
+        try (Scanner fileReader = new Scanner(file)) {  // Use File, not String
+            while (fileReader.hasNextLine()) {
+                String line = fileReader.nextLine();
                 String[] data = line.split(",");
                 if (data.length != 13) {
                     System.out.println("Invalid line format: " + line);
@@ -76,7 +81,7 @@ public class Employee extends Person {
                 }
             }
             System.out.println("Employee data loaded from " + filename);
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {  // Correct exception type
             System.out.println("Error loading employee data: " + e.getMessage());
         }
     }
