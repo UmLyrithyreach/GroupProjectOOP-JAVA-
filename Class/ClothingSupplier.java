@@ -1,16 +1,19 @@
 package Class;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
 public class ClothingSupplier extends Person {
-    static int idCounter = 1;
     int id;
     public static ArrayList<ClothingSupplier> supplierList = new ArrayList<>();
 
     // Constructor
     public ClothingSupplier(String name, String phoneNumber, String address) {
         super(name, phoneNumber, address);
-        this.id = idCounter++;
     }
 
     public static ClothingSupplier searchSupplier(String name) {
@@ -59,8 +62,43 @@ public class ClothingSupplier extends Person {
         }
     }
 
-    public static void addSupplier(ClothingSupplier supplier) {
-        supplierList.add(supplier);
+    // Save supplier data to database
+    public void saveToDatabase() {
+        String query = "INSERT INTO suppliers (name, phone_number, address) VALUES (?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setString(1, this.name);
+            stmt.setString(2, this.phoneNumber);
+            stmt.setString(3, this.address);
+            stmt.executeUpdate();
+
+            // Retrieve the auto-generated ID
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                this.id = rs.getInt(1); // Get the auto-generated ID
+            }
+
+            System.out.println("Supplier added successfully.");
+        } catch (SQLException e) {
+            System.out.println("Error adding supplier: " + e.getMessage());
+        }
+    }
+
+    public static void addSupplier() {
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter supplier name: ");
+        String supplierName = scan.nextLine();
+        System.out.print("Enter supplier address: ");
+        String supplierAddress = scan.nextLine();
+        System.out.print("Enter supplier contact: ");
+        String supplierContact = scan.nextLine();
+
+        ClothingSupplier supplier = new ClothingSupplier(supplierName, supplierContact, supplierAddress);
+        supplier.saveToDatabase();
+        
+        System.out.println("Supplier added successfully.");
+        scan.close();
     }
 
     // Getter and Setter for id
