@@ -9,6 +9,10 @@ public class Shop {
         clothesList.add(item);
     }
 
+    public static void addClothesToFile(Clothes item) {
+        try (buffered)
+    }
+
     public static void displayClothes() {
         for (Clothes clothes: clothesList) {
             System.out.println(clothes);
