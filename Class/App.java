@@ -14,7 +14,7 @@ public class App {
         Employee.loadEmployeesFromFile("Class\\src\\employee.txt");
 
         new Employee(2, "PapaN", "Male", 28, "0987654321", "PapaN@shop.com", 
-                    "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", true , "papaN123");
+                    "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", false , "papaN123");
 
         new Employee(3, "Kimju", "Female", 25, "0876543210", "jane@shop.com", 
                     "789 Cashier St", 1500, "03/03/2022", "Cashier", "123", false, "kimju123");
@@ -65,8 +65,6 @@ public class App {
                             System.out.println("2. Update Employee's Details");
                             System.out.println("3. Search Employee By Name");
                             System.out.println("4. Search Employee By ID");
-                            System.out.println("5. Add Employee");
-                            System.out.println("6. Remove Employee");
                             System.out.println("=================================");
                             System.out.println("0. Back");
                             System.out.println("=================================");
@@ -112,13 +110,6 @@ public class App {
                                     } else {
                                         System.out.println(foundEmployeeID);
                                     }
-                                    scan.nextLine();
-                                    break;
-                                case 5:
-                                    terminal.clearTerminal();
-                                    // Not yet implemented
-                                    Manager.addEmployee();
-                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 default:
@@ -252,7 +243,14 @@ public class App {
                                     break;
                                 case 2:
                                     terminal.clearTerminal();
-                                    ClothingSupplier.addSupplier();
+                                    System.out.print("Enter supplier name: ");
+                                    String supplierName = scan.nextLine();
+                                    System.out.print("Enter supplier address: ");
+                                    String supplierAddress = scan.nextLine();
+                                    System.out.print("Enter supplier contact: ");
+                                    String supplierContact = scan.nextLine();
+                                    ClothingSupplier.addSupplier(new ClothingSupplier(supplierName, supplierContact, supplierAddress));
+                                    System.out.println("Supplier added successfully.");
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
