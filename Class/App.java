@@ -1,8 +1,7 @@
 package Class;
 
-import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.util.Scanner;
 import javax.security.auth.login.LoginException;
 
 public class App {
@@ -296,7 +295,7 @@ public class App {
                 System.out.println("0. Logout");
                 System.out.println("==============================");
                 System.out.print("\n=> Select an option: ");
-                int choice = Integer.valueOf(scan.nextLine());
+                int choice = terminal.getValidIntegerInput(scan);
                 switch (choice) {
                     case 0:
                         terminal.clearTerminal();
