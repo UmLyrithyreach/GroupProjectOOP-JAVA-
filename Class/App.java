@@ -3,6 +3,8 @@ package Class;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.security.auth.login.LoginException;
+import java.io.*;
+import java.nio.Buffer;
 
 public class App {
     public static void main(String[] args) throws LoginException {
@@ -287,6 +289,7 @@ public class App {
                 System.out.println("3. Search clothes by name");
                 System.out.println("4. Search clothes by brand");
                 System.out.println("5. Search clothes by ID");
+                System.out.println("6. Check all Order Summary");
                 System.out.println("==============================");
                 System.out.println("0. Logout");
                 System.out.println("==============================");
@@ -349,7 +352,13 @@ public class App {
                         }
                         System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
-                        break; 
+                        break;
+                    case 6:
+                        terminal.clearTerminal();
+                        viewAllOrderSummaries();
+                        System.out.println("\nPress <Enter> to continue...");
+                        scan.nextLine();
+                        break;
                     default:
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         System.out.println("\nPress <Enter> to continue...");
@@ -357,5 +366,26 @@ public class App {
                 }
             } while (true);
         }
+    }
+
+    // Updated method to view all order summaries from a single text file
+    private static void viewAllOrderSummaries() {
+        File file = new File("all_order_summaries.txt");
+
+        if (!file.exists()) {
+            System.out.println("No order summaries found.");
+            return;
+        }
+
+        System.out.println("=================================== All Order Summaries ===================================");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading order summaries: " + e.getMessage());
+        }
+        System.out.println("=============================================================================================");
     }
 }
