@@ -10,7 +10,7 @@ public class Shop {
     }
 
     public static void addClothesToFile(Clothes item) {
-        try (buffered)
+        // try (buffered)
     }
 
     public static void displayClothes() {

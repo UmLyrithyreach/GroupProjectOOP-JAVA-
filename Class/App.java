@@ -352,12 +352,12 @@ public class App {
                         System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
-                    case 6:
-                        terminal.clearTerminal();
-                        viewAllOrderSummaries();
-                        System.out.println("\nPress <Enter> to continue...");
-                        scan.nextLine();
-                        break;
+                    // case 6:
+                    //     terminal.clearTerminal();
+                    //     viewAllOrderSummaries();
+                    //     System.out.println("\nPress <Enter> to continue...");
+                    //     scan.nextLine();
+                    //     break;
                     default:
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         System.out.println("\nPress <Enter> to continue...");
@@ -365,26 +365,5 @@ public class App {
                 }
             } while (true);
         }
-    }
-
-    // Updated method to view all order summaries from a single text file
-    private static void viewAllOrderSummaries() {
-        File file = new File("all_order_summaries.txt");
-
-        if (!file.exists()) {
-            System.out.println("No order summaries found.");
-            return;
-        }
-
-        System.out.println("=================================== All Order Summaries ===================================");
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading order summaries: " + e.getMessage());
-        }
-        System.out.println("=============================================================================================");
     }
 }
