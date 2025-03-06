@@ -12,7 +12,7 @@ public class App {
         Terminal terminal = new TerminalSystem();
         terminal.clearTerminal();
     
-        Employee.loadEmployeesFromFile("employee.txt");
+        Employee.loadEmployeesFromFile("Class\\src\\employee.txt");
 
         new Employee(2, "PapaN", "Male", 28, "0987654321", "PapaN@shop.com", 
                     "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", false , "papaN123");
