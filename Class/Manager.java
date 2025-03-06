@@ -17,7 +17,7 @@ public class Manager extends Staff {
         for (Employee employee : Employee.employeeList) {
             if (employee.getEmployeeID() == employeeId) {
                 terminal.clearTerminal();
-                System.out.println("========== Update Employee Info ==========");
+                System.out.println("========= Update Employee Info =========");
                 System.out.println("1. Name");
                 System.out.println("2. Username");
                 System.out.println("3. Age");
@@ -139,7 +139,7 @@ public class Manager extends Staff {
             scan.close();
             return;
         }
-        System.out.println("Employee not found.");
+        System.out.println("==============================\nEmployee not found.\n==============================");
         scan.close();
     }
 

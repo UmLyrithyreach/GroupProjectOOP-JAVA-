@@ -41,7 +41,7 @@ public class TerminalSystem implements Terminal {
             } catch (NumberFormatException e) {
                 flag = 1;
 
-                System.out.println("\n==============================\nInvalid input! Please enter a number.\n==============================");
+                System.out.println("\n====================================\nInvalid input! Please enter a number.\n====================================");
             }
         }
     }

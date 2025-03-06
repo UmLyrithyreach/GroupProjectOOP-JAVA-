@@ -23,7 +23,7 @@ public class App {
         new Employee(4, "Diddy", "Male", 40, "0876543210", "Diddy@shop.com", 
                     "789 Cashier St", 420, "03/03/2022", "Miner", "123", false, "diddy123");
 
-        Shop.addClothes(new Clothes("T-Shirt", "Nike", "M", 50.00, 100, "Cotton", "Casual", "Regular", 1));
+        Shop.addClothes(new Clothes("T-Shirt", "Nike", "M", 50.00, 100, "Regular", 1));
 
         new ClothingSupplier("Nike", "123 Nike St", "0123456789");
         new ClothingSupplier("Levis", "456 Levis St", "0987654321");
@@ -188,15 +188,11 @@ public class App {
                                     double price = Double.parseDouble(scan.nextLine());
                                     System.out.print("Enter stock: ");
                                     int stock = Integer.parseInt(scan.nextLine());
-                                    System.out.print("Enter material: ");
-                                    String material = scan.nextLine();
                                     System.out.print("Enter type: ");
                                     String type = scan.nextLine();
-                                    System.out.print("Enter fit: ");
-                                    String fit = scan.nextLine();
                                     System.out.print("Enter supplier ID: ");
                                     int supplierId = Integer.parseInt(scan.nextLine());
-                                    Shop.addClothes(new Clothes(name, brand, size, price, stock, material, type, fit, supplierId));
+                                    Shop.addClothes(new Clothes(name, brand, size, price, stock, type, supplierId));
                                     System.out.println("Clothes added successfully.");
                                     System.out.println("Press <Enter> to continue...");
                                     scan.nextLine();
@@ -330,7 +326,7 @@ public class App {
                         }
                         System.out.println("Press <Enter> to continue...");
                         scan.nextLine();
-                        break;
+                        break; 
                     default:
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         System.out.println("Press <Enter> to continue...");
