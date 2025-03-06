@@ -10,48 +10,59 @@ public class Clothes {
     ArrayList<String> sizes;
     double price;
     int stock;
-    String material;
-    String fit;
     String style;
     int supplierId;
 
-    public Clothes(String name, String brand, String size, double price, int stock, String material, String style, String fit, int supplierId) {
+    public Clothes(String name, String brand, String size, double price, int stock, String style, int supplierId) {
         this.id = idCounter++;
         this.name = name;
         this.brand = brand;
-        this.sizes = new ArrayList<>();
         this.price = price;
         this.stock = stock;
-        this.material = material;
         this.style = style;
-        this.fit = fit;
         this.supplierId = supplierId;
+        this.sizes = new ArrayList<>();
     }
 
     public Clothes(int id, String name, String brand) {
         this.id = idCounter++;
         this.name = name;
         this.brand = brand;
-        this.sizes = new ArrayList<>();
         this.price = 0.0;
         this.stock = 0;
-        this.material = "Unknown";
         this.style = "Unknown";
-        this.fit = "Unknown";
+        this.sizes = new ArrayList<>();
     }
 
-    public static int getIdCounter() {
-        return idCounter;
-    }
+    // Getter Methods
+    public static int getIdCounter() { return idCounter; }
 
-    public int getID() {
-        return this.id;
-    }
+    public int getID() { return this.id; }
     
-    public String getName() {
-        return name;
+    public String getName() { return name; }
+
+    public int getStock() { return this.stock; }
+
+    public double getPrice() { return this.price; }
+
+    public String getStyle() { return this.style; }
+
+    public int getSupplierId() { return this.supplierId; }
+
+    public ArrayList<String> getSizes() { return this.sizes; }
+
+    public String getSizesString() {
+        String sizeString = "";
+        for (String size: sizes) {
+            sizeString += size + " ";
+        }
+        return sizeString;
     }
 
+    public String getBrand() { return this.brand; }
+    
+
+    // Setter Methods
     public void addSize(String size) {
         if (!this.sizes.contains(size)) {
             this.sizes.add(size);
@@ -80,10 +91,6 @@ public class Clothes {
         } else {
             System.out.println("Insufficient stock!");
         }
-    }
-
-    public int getStock() {
-        return this.stock;
     }
 
     public boolean isAvailable() {

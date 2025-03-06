@@ -1,8 +1,7 @@
 package Class;
 
-import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.util.Scanner;
 import javax.security.auth.login.LoginException;
 
 public class App {
@@ -10,9 +9,8 @@ public class App {
         Scanner scan = new Scanner(System.in);
         Terminal terminal = new TerminalSystem();
         terminal.clearTerminal();
-        
-        new Employee(1, "Bro Eng", "Male", 35, "0123456789", "BroEng@shop.com", 
-                    "123 Admin St", 5000, "01/01/2020", "Administrator", "admin123", true, "broEng123");
+    
+        Employee.loadEmployeesFromFile("employee.txt");
 
         new Employee(2, "PapaN", "Male", 28, "0987654321", "PapaN@shop.com", 
                     "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", false , "papaN123");
@@ -23,7 +21,7 @@ public class App {
         new Employee(4, "Diddy", "Male", 40, "0876543210", "Diddy@shop.com", 
                     "789 Cashier St", 420, "03/03/2022", "Miner", "123", false, "diddy123");
 
-        Shop.addClothes(new Clothes("T-Shirt", "Nike", "M", 50.00, 100, "Cotton", "Casual", "Regular", 1));
+        Shop.addClothes(new Clothes("T-Shirt", "Nike", "M", 50.00, 100, "Regular", 1));
 
         new ClothingSupplier("Nike", "123 Nike St", "0123456789");
         new ClothingSupplier("Levis", "456 Levis St", "0987654321");
@@ -197,15 +195,11 @@ public class App {
                                     double price = Double.parseDouble(scan.nextLine());
                                     System.out.print("Enter stock: ");
                                     int stock = Integer.parseInt(scan.nextLine());
-                                    System.out.print("Enter material: ");
-                                    String material = scan.nextLine();
                                     System.out.print("Enter type: ");
                                     String type = scan.nextLine();
-                                    System.out.print("Enter fit: ");
-                                    String fit = scan.nextLine();
                                     System.out.print("Enter supplier ID: ");
                                     int supplierId = Integer.parseInt(scan.nextLine());
-                                    Shop.addClothes(new Clothes(name, brand, size, price, stock, material, type, fit, supplierId));
+                                    Shop.addClothes(new Clothes(name, brand, size, price, stock, type, supplierId));
                                     System.out.println("Clothes added successfully.");
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
@@ -297,7 +291,7 @@ public class App {
                 System.out.println("0. Logout");
                 System.out.println("==============================");
                 System.out.print("\n=> Select an option: ");
-                int choice = Integer.valueOf(scan.nextLine());
+                int choice = terminal.getValidIntegerInput(scan);
                 switch (choice) {
                     case 0:
                         terminal.clearTerminal();

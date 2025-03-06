@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class TerminalSystem implements Terminal {
     // For clearing terminal
+    @Override   //declaration that it is from another file overwritten on a different file
     public void clearTerminal() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
@@ -19,6 +20,7 @@ public class TerminalSystem implements Terminal {
     }
 
     // For generating random loading
+    @Override
     public void sleeping() {
         int sleepTime = ThreadLocalRandom.current().nextInt(2000, 3001);
         try {
