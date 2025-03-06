@@ -10,7 +10,7 @@ public class Shop {
     }
 
     public static void addClothesToFile(Clothes item) {
-        System.out.println("Clothes added successfully.");
+        try (buffered)
     }
 
     public static void displayClothes() {
