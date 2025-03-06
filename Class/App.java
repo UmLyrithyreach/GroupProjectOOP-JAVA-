@@ -289,7 +289,7 @@ public class App {
                 terminal.clearTerminal();
                 System.out.println("\n========= Welcome ============");
                 System.out.println("1. Check Stock");
-                System.out.println("2. Purchase");
+                System.out.println("2. Walk in Purchase");
                 System.out.println("3. Search clothes by name");
                 System.out.println("4. Search clothes by brand");
                 System.out.println("5. Search clothes by ID");
