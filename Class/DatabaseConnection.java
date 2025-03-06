@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 
 public class DatabaseConnection {
 
+    // Helo Wold
+
     private static Connection connection = null;
     private static final String URL = "jdbc:mysql://localhost:3306/clothing_store";
     private static final String USERNAME = "root";
