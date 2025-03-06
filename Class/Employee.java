@@ -130,6 +130,10 @@ public class Employee extends Person {
         return null;
     }
 
+    public static void addEmployee() {
+        System.out.println("Adding new employee...");
+    }
+
     
     // Setter Methods
     public boolean isManager() { return this.isAdmin; }
