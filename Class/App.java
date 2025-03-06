@@ -12,9 +12,6 @@ public class App {
     
         Employee.loadEmployeesFromFile("Class\\src\\employee.txt");
 
-        new Employee(2, "PapaN", "Male", 28, "0987654321", "PapaN@shop.com", 
-                    "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", false , "papaN123");
-
         new Employee(3, "Kimju", "Female", 25, "0876543210", "jane@shop.com", 
                     "789 Cashier St", 1500, "03/03/2022", "Cashier", "123", false, "kimju123");
         
