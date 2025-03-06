@@ -1,28 +1,86 @@
-    package Class;
+package Class;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
+import java.sql.Statement;
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
+import com.mysql.cj.exceptions.CJCommunicationsException;
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 
-    public class DatabaseConnection {
-        private static final String URL = "jdbc:mysql://localhost:3306/clothing_store";
-        private static final String USER = "root";
-        private static final String PASSWORD = "1234";
+import java.sql.ResultSet;
 
-        private static Connection connection;
+public class DatabaseConnection {
 
-        private DatabaseConnection() {}
+    // Helo Wold
 
-        public static Connection getConnection() {
-            if (connection  == null) {
-                try {
-                    connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                    System.out.println("Connected to database.");
-                } catch (SQLException e) {
-                    System.out.println("Error connecting to database.");
-                    e.printStackTrace();
-                }
+    private static Connection connection = null;
+    private static final String URL = "jdbc:mysql://localhost:3306/clothing_store";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "rootAdmin123";
+
+    // Establish the connection
+    public static Connection getConnection() {
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                System.out.println("Connected to MySQL successfully!");
+            }catch (CJCommunicationsException e) {
+                System.out.println("please check ur db server");
+               
             }
-            return connection;
+            catch (CommunicationsException e) {
+                System.out.println("please check ur db server");
+                
+            }
+            catch (SQLSyntaxErrorException e) {
+                System.out.println("Connection failed!");
+                
+            }
+            catch (SQLException e) {
+                System.out.println("Connection failed!");
+                
+            }
+        }
+        return connection;
+    }
+
+    // Execute a query (SELECT)
+    public static ResultSet executeQuery(String query) {
+        try {
+            Statement statement = getConnection().createStatement();
+            return statement.executeQuery(query);
+        } catch (SQLException e) {
+            System.out.println("Query execution failed!");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Execute an update (INSERT, UPDATE, DELETE)
+    public static int executeUpdate(String query) {
+        try {
+            Statement statement = getConnection().createStatement();
+            return statement.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println("Update execution failed!");
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    // Close the connection
+    public static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                connection = null;
+                System.out.println("Connection closed.");
+            } catch (SQLException e) {
+                System.out.println("Failed to close the connection!");
+                e.printStackTrace();
+            }
         }
     }
+    
+}
