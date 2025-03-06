@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalDate;
+import java.io.*;
 
 public class Staff extends Employee {
     public Staff(int id, String name, String gender, int age, String phone, String email, String address, double salary, String startDate, String role, String password, boolean isAdmin, String username) {
@@ -129,5 +130,18 @@ public class Staff extends Employee {
         Order order = new Order(employee, purchasedClothes, quantity, LocalDate.now(), payment);
         System.out.println(order.toString());
         // Do NOT close the scanner here if it's used elsewhere in the program.
+        storeOrderSummary(order);
+    }
+    // Method to store the order summary in a text file
+    private static void storeOrderSummary(Order order) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("order_summary_" + order.orderId + ".txt", true))) {
+            writer.write("--- Order Summary (ID: " + order.orderId + ") ---\n");
+            writer.write(order.toString());
+            writer.newLine(); // Add a newline for readability
+            writer.newLine(); // Extra newline for separation between orders
+            System.out.println("Order summary saved to 'all_order_summaries.txt'");
+        } catch (IOException e) {
+            System.out.println("Error saving order summary: " + e.getMessage());
+        }
     }
 }
