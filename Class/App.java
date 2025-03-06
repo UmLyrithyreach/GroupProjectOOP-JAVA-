@@ -10,9 +10,8 @@ public class App {
         Scanner scan = new Scanner(System.in);
         Terminal terminal = new TerminalSystem();
         terminal.clearTerminal();
-        
-        new Employee(1, "Bro Eng", "Male", 35, "0123456789", "BroEng@shop.com", 
-                    "123 Admin St", 5000, "01/01/2020", "Administrator", "admin123", true, "broEng123");
+    
+        Employee.loadEmployeesFromFile("employee.txt");
 
         new Employee(2, "PapaN", "Male", 28, "0987654321", "PapaN@shop.com", 
                     "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", false , "papaN123");
