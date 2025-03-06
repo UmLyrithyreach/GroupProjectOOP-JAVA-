@@ -1,7 +1,20 @@
 {
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "Class.App",
+            "projectName": "GroupProjectOOP-JAVA-_7db7624b"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "Class.App",
+            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+        },
         {
             "type": "java",
             "name": "App",

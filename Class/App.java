@@ -10,9 +10,8 @@ public class App {
         Scanner scan = new Scanner(System.in);
         Terminal terminal = new TerminalSystem();
         terminal.clearTerminal();
-        
-        new Employee(1, "Bro Eng", "Male", 35, "0123456789", "BroEng@shop.com", 
-                    "123 Admin St", 5000, "01/01/2020", "Administrator", "admin123", true, "broEng123");
+    
+        Employee.loadEmployeesFromFile("employee.txt");
 
         new Employee(2, "PapaN", "Male", 28, "0987654321", "PapaN@shop.com", 
                     "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", false , "papaN123");
@@ -35,6 +34,8 @@ public class App {
         new ClothingSupplier("Patagonia", "456 Patagonia St", "0987654321");
         new ClothingSupplier("North Face", "789 North Face St", "0876543210");
 
+        //Handle Exception login null
+
         Employee loggedInUser = Employee.login(scan);
 
         if (loggedInUser.isManager()) {
@@ -50,7 +51,7 @@ public class App {
                 System.out.println("==============================");
                 System.out.print("=> Select an option: ");
                 choice = terminal.getValidIntegerInput(scan);
-
+                
                 switch (choice) {
                     case 0:
                         terminal.clearTerminal();
@@ -64,7 +65,9 @@ public class App {
                             System.out.println("2. Update Employee's Details");
                             System.out.println("3. Search Employee By Name");
                             System.out.println("4. Search Employee By ID");
+                            System.out.println("=================================");
                             System.out.println("0. Back");
+                            System.out.println("=================================");
                             System.out.print("=> Select an option: ");
                             choice01 = terminal.getValidIntegerInput(scan);
                             switch (choice01) {
@@ -74,16 +77,16 @@ public class App {
                                 case 1:
                                     terminal.clearTerminal();
                                     Manager.viewAllEmployees();
-                                    System.out.println("Press <Enter> to continue...");
+                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 2:
                                     terminal.clearTerminal();
                                     System.out.print("========================================\nEnter Employee ID to Update: ");
                                     int employeeId = terminal.getValidIntegerInput(scan);
-                                    scan.nextLine();
                                     Manager.updateEmployee(employeeId);
                                     System.out.print("\n========================================");
+                                    scan.nextLine();
                                     break;
                                 case 3:
                                     terminal.clearTerminal();
@@ -119,33 +122,36 @@ public class App {
                         int choice02;
                         do {
                             terminal.clearTerminal();
+                            System.out.println("===== Clothes Operations =====");
                             System.out.println("1. View All Clothes");
                             System.out.println("2. Search clothes by name");
                             System.out.println("3. Search clothes by brand");
                             System.out.println("4. Search clothes by ID");
                             System.out.println("5. Add Clothes");
                             System.out.println("6. Remove Clothes");
+                            System.out.println("==============================");
                             System.out.println("0. Back");
+                            System.out.println("==============================");
                             System.out.print("=> Select an option: ");
                             choice02 = terminal.getValidIntegerInput(scan);
                             switch (choice02) {
                                 case 1:
                                     terminal.clearTerminal();
                                     Shop.displayClothes();
-                                    System.out.println("Press <Enter> to continue...");
+                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 2:
                                     terminal.clearTerminal();
-                                    System.out.print("Enter clothes name: ");
+                                    System.out.print("====================================\nEnter clothes name: ");
                                     String clothesName = scan.nextLine();
                                     Clothes foundClothes = Shop.searchByName(clothesName);
                                     if (foundClothes == null) {
-                                        System.out.println("Clothes not found!");
+                                        System.out.println("====================================\nClothes not found!\n====================================");
                                     } else {
                                         System.out.println(foundClothes);
                                     }
-                                    System.out.println("Press <Enter> to continue...");
+                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 3:
@@ -160,10 +166,11 @@ public class App {
                                             System.out.println(clothes);
                                         }
                                     }
-                                    System.out.println("Press <Enter> to continue...");
+                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 4:
+                                //Exception handling for searching clothes by ID
                                     terminal.clearTerminal();
                                     System.out.print("Enter clothes ID: ");
                                     int clothesID = Integer.parseInt(scan.nextLine());
@@ -173,10 +180,11 @@ public class App {
                                     } else {
                                         System.out.println(foundClothesID);
                                     }
-                                    System.out.println("Press <Enter> to continue...");
+                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 5:
+                                //Exception handling for adding clothes for Supplier ID
                                     terminal.clearTerminal();
                                     System.out.print("Enter clothes name: ");
                                     String name = scan.nextLine();
@@ -194,9 +202,21 @@ public class App {
                                     int supplierId = Integer.parseInt(scan.nextLine());
                                     Shop.addClothes(new Clothes(name, brand, size, price, stock, type, supplierId));
                                     System.out.println("Clothes added successfully.");
-                                    System.out.println("Press <Enter> to continue...");
+                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
+                                case 6:
+                                //Exception handling for removing clothes by ID
+                                    terminal.clearTerminal();
+                                    System.out.print("Enter clothes ID to remove: ");
+                                    int removeClothesID = Integer.parseInt(scan.nextLine());
+                                    Shop.removeClothesById(removeClothesID);
+                                    System.out.println("\nPress <Enter> to continue...");
+                                    scan.nextLine();
+                                    break;
+                                default:
+                                    System.out.println("==============================\nInvalid choice, try again.\n==============================");
+                                    scan.nextLine();
                             }
                         } while (choice02 != 0);
                         break;
@@ -204,18 +224,21 @@ public class App {
                         int choice03;
                         do {
                             terminal.clearTerminal();
+                            System.out.println("===== Supplier Operations =====");
                             System.out.println("1. View All Suppliers");
                             System.out.println("2. Add Supplier");
                             System.out.println("3. Remove Supplier By Name");
                             System.out.println("4. Remove Supplier By ID");
+                            System.out.println("==============================");
                             System.out.println("0. Back");
+                            System.out.println("==============================");
                             System.out.print("=> Select an option: ");
                             choice03 = terminal.getValidIntegerInput(scan);
                             switch (choice03) {
                                 case 1:
                                     terminal.clearTerminal();
                                     ClothingSupplier.displaySuppliers();
-                                    System.out.println("Press <Enter> to continue...");
+                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 2:
@@ -226,9 +249,9 @@ public class App {
                                     String supplierAddress = scan.nextLine();
                                     System.out.print("Enter supplier contact: ");
                                     String supplierContact = scan.nextLine();
-                                    ClothingSupplier.addSupplier(new ClothingSupplier(supplierName, supplierAddress, supplierContact));
+                                    ClothingSupplier.addSupplier(new ClothingSupplier(supplierName, supplierContact, supplierAddress));
                                     System.out.println("Supplier added successfully.");
-                                    System.out.println("Press <Enter> to continue...");
+                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 3:
@@ -236,15 +259,16 @@ public class App {
                                     System.out.print("Enter supplier name to remove: ");
                                     String removeSupplierName = scan.nextLine();
                                     ClothingSupplier.removeSupplier(removeSupplierName);
-                                    System.out.println("Press <Enter> to continue...");
+                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 4:
+                                //Exception handling for removing supplier by ID
                                     terminal.clearTerminal();
                                     System.out.print("Enter supplier ID to remove: ");
                                     int removeSupplierID = Integer.parseInt(scan.nextLine());
                                     ClothingSupplier.removeSupplier(removeSupplierID);
-                                    System.out.println("Press <Enter> to continue...");
+                                    System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                             }
@@ -254,7 +278,7 @@ public class App {
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         scan.nextLine();
                 }
-            } while (true);
+            } while (choice != 0);
         } else {
             do {
                 terminal.clearTerminal();
@@ -277,13 +301,13 @@ public class App {
                     case 1:
                         terminal.clearTerminal();
                         Shop.displayClothes();
-                        System.out.println("Press <Enter> to continue...");
+                        System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
                     case 2:
                         terminal.clearTerminal();
                         Staff.purchase(loggedInUser);
-                        System.out.println("Press <Enter> to continue...");
+                        System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
                     case 3:
@@ -296,7 +320,7 @@ public class App {
                         } else {
                             System.out.println(foundClothes);
                         }
-                        System.out.println("Press <Enter> to continue...");
+                        System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
                     case 4:
@@ -311,7 +335,7 @@ public class App {
                                 System.out.println(clothes);
                             }
                         }
-                        System.out.println("Press <Enter> to continue...");
+                        System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
                     case 5:
@@ -324,12 +348,12 @@ public class App {
                         } else {
                             System.out.println(foundClothesID);
                         }
-                        System.out.println("Press <Enter> to continue...");
+                        System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break; 
                     default:
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
-                        System.out.println("Press <Enter> to continue...");
+                        System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                 }
             } while (true);
