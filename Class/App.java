@@ -351,12 +351,12 @@ public class App {
                         System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
-                    case 6:
-                        terminal.clearTerminal();
-                        viewAllOrderSummaries();
-                        System.out.println("\nPress <Enter> to continue...");
-                        scan.nextLine();
-                        break;
+                    // case 6:
+                    //     terminal.clearTerminal();
+                    //     viewAllOrderSummaries();
+                    //     System.out.println("\nPress <Enter> to continue...");
+                    //     scan.nextLine();
+                    //     break;
                     default:
                         System.out.println("==============================\nInvalid choice, try again.\n==============================");
                         System.out.println("\nPress <Enter> to continue...");
