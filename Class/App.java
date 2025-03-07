@@ -3,6 +3,7 @@ package Class;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.security.auth.login.LoginException;
+
 public class App {
     public static void main(String[] args) throws LoginException {
         Scanner scan = new Scanner(System.in);
@@ -10,8 +11,6 @@ public class App {
         terminal.clearTerminal();
 
         DatabaseConnection.getConnection();
-
-        Employee.loadEmployeesFromFile("Class\\src\\employee.txt");
 
         new Employee(2, "PapaN", "Male", 28, "0987654321", "PapaN@shop.com", 
                     "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", false , "papaN123");
@@ -365,26 +364,5 @@ public class App {
                 }
             } while (true);
         }
-    }
-
-    // Updated method to view all order summaries from a single text file
-    private static void viewAllOrderSummaries() {
-        File file = new File("all_order_summaries.txt");
-
-        if (!file.exists()) {
-            System.out.println("No order summaries found.");
-            return;
-        }
-
-        System.out.println("=================================== All Order Summaries ===================================");
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading order summaries: " + e.getMessage());
-        }
-        System.out.println("=============================================================================================");
     }
 }
