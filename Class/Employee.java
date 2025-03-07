@@ -1,12 +1,7 @@
 package Class;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
 
 public class Employee extends Person {
     public static ArrayList<Employee> employeeList = new ArrayList<>();
@@ -17,7 +12,6 @@ public class Employee extends Person {
     private String password;
     private boolean isAdmin;
     private String username;
-    private int phone;
     
     // Constructor
     public Employee(int id, String name, String gender, int age, String phone, String email, String address, double salary, String startDate, String role, String password, boolean isAdmin, String username) {
@@ -30,60 +24,6 @@ public class Employee extends Person {
         this.isAdmin = isAdmin;
         this.username = username;
         employeeList.add(this);
-    }
-
-    // Save employee data to a file
-    public static void saveEmployeesToFile(String filename) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            for (Employee employee : employeeList) {
-                writer.write(employee.id + "," + employee.name + "," + employee.gender + "," + employee.age + "," + employee.phone + "," + employee.email + "," + employee.address + "," + employee.salary + "," + employee.startDate + "," + employee.role + "," + employee.password + "," + employee.isAdmin + "," + employee.username);
-            writer.newLine();
-            }
-            System.out.println("Employee data saved to " + filename);
-        } catch (IOException e) {
-            System.out.println("Error saving employee data: " + e.getMessage());
-        }
-    }
-
-    public static void loadEmployeesFromFile(String filename) {
-        File file = new File(filename);
-        if (!file.exists()) {
-            System.out.println("File not found: " + filename);
-            return;
-        }
-    
-        try (Scanner fileReader = new Scanner(file)) {  // Use File, not String
-            while (fileReader.hasNextLine()) {
-                String line = fileReader.nextLine();
-                String[] data = line.split(",");
-                if (data.length != 13) {
-                    System.out.println("Invalid line format: " + line);
-                    continue;
-                }
-                try {
-                    int id = Integer.parseInt(data[0]);
-                    String name = data[1];
-                    String gender = data[2];
-                    int age = Integer.parseInt(data[3]);
-                    String phone = data[4];
-                    String email = data[5];
-                    String address = data[6];
-                    double salary = Double.parseDouble(data[7]);
-                    String startDate = data[8];
-                    String role = data[9];
-                    String password = data[10];
-                    boolean isAdmin = Boolean.parseBoolean(data[11]);
-                    String username = data[12];
-    
-                    new Employee(id, name, gender, age, phone, email, address, salary, startDate, role, password, isAdmin, username);
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Skipping invalid line: " + line);
-                }
-            }
-            System.out.println("Employee data loaded from " + filename);
-        } catch (FileNotFoundException e) {  // Correct exception type
-            System.out.println("Error loading employee data: " + e.getMessage());
-        }
     }
 
     // Login method

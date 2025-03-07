@@ -3,6 +3,7 @@ package Class;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.security.auth.login.LoginException;
+
 public class App {
     public static void main(String[] args) throws LoginException {
         Scanner scan = new Scanner(System.in);
@@ -10,8 +11,6 @@ public class App {
         terminal.clearTerminal();
 
         DatabaseConnection.getConnection();
-
-        Employee.loadEmployeesFromFile("Class\\src\\employee.txt");
 
         new Employee(2, "PapaN", "Male", 28, "0987654321", "PapaN@shop.com", 
                     "456 Worker St", 1200, "02/02/2021", "Sales Assistant", "password123", false , "papaN123");
