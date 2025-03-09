@@ -1,6 +1,5 @@
 package Class;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -177,7 +176,7 @@ public class Clothes {
         String query = "SELECT * FROM clothes WHERE brand = ?";
 
         // Execute the query
-        ResultSet rs = DatabaseConnection.executePreparedQuery(query, brandName);
+        ResultSet rs = DatabaseConnection.executePreparedQuery(query, brand);
 
         // Process the result set
         try {
@@ -196,13 +195,49 @@ public class Clothes {
                 int supplierId = rs.getInt("supplierId");
     
                 System.out.println(toString(id, name, brand, style, price, stock, size, supplierId));
-            }
+            } while (rs.next());
+        } catch (SQLException e) {
+            System.out.println("Error while searching for clothes");
+        } finally {
+            DatabaseConnection.closeResultSet(rs);
         }
     }
 
     // Search by ID
     public static void searchById() {
-        
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter ID: ");
+        int id = Integer.valueOf(scanner.nextLine());
+
+        // String query to search for id
+        String query = "SELECT * FROM clothes WHERE id = ?";
+
+        // Execute the query
+        ResultSet rs = DatabaseConnection.executePreparedQuery(query, id);
+
+        // Process the result set
+        try {
+            if (rs == null || !rs.next()) {
+                System.out.println("No ID found!");
+                return;
+            }
+
+            String name = rs.getString("name");
+            String size = rs.getString("size");
+            BigDecimal price = rs.getBigDecimal("price");
+            int stock = rs.getInt("stock");
+            String style = rs.getString("style");
+            int supplierId = rs.getInt("supplierId");
+            String brand = rs.getString("brand");
+
+            System.out.println(toString(id, name, brand, style, price, stock, size, supplierId));
+
+        } catch (SQLException e) {
+            System.out.println("Error while searching for clothes");
+        } finally {
+            DatabaseConnection.closeResultSet(rs);
+        }
     }
 
     public static int totalClothes() {
@@ -214,7 +249,21 @@ public class Clothes {
     }
 
     public static void removeClothesById() {
-        
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter ID: ");
+        int id = Integer.valueOf(scanner.nextLine());
+
+        // String query to search for id
+        String query = "DELETE FROM clothes WHERE id = ?";
+
+        int rowsAffected = DatabaseConnection.executePreparedUpdate(query, id);
+
+        if (rowsAffected > 0) {
+            System.out.println("Clothes deleted successfully!");
+        } else {
+            System.out.println("Failed to delete clothes");
+        }
     }
 
     public static String toString(int id, String name, String brand, String style, BigDecimal price, int stock, String size, int supplierId) {

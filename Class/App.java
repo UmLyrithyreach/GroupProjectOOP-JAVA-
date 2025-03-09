@@ -102,7 +102,7 @@ public class App {
                                     terminal.clearTerminal();
                                     System.out.print("Enter employee name: ");
                                     String employeeName = scan.nextLine();
-                                    Employee foundEmployee = (Employee) Person.searchByName(Employee.employeeList, employeeName);
+                                    GeneralEmployee foundEmployee = (GeneralEmployee) Person.searchByName(GeneralEmployee.employeeList, employeeName);
                                     if (foundEmployee == null) {
                                         System.out.println("Employee not found!");
                                     } else {
@@ -114,7 +114,7 @@ public class App {
                                     terminal.clearTerminal();
                                     System.out.print("Enter employee ID: ");
                                     int employeeID = Integer.parseInt(scan.nextLine());
-                                    Employee foundEmployeeID = Employee.searchByID(employeeID);
+                                    GeneralEmployee foundEmployeeID = GeneralEmployee.searchByID(employeeID);
                                     if (foundEmployeeID == null) {
                                         System.out.println("Employee not found!");
                                     } else {
@@ -166,14 +166,7 @@ public class App {
                                 case 4:
                                 //Exception handling for searching clothes by ID
                                     terminal.clearTerminal();
-                                    System.out.print("Enter clothes ID: ");
-                                    int clothesID = Integer.parseInt(scan.nextLine());
-                                    Clothes foundClothesID = Clothes.searchById(clothesID);
-                                    if (foundClothesID == null) {
-                                        System.out.println("Clothes not found!");
-                                    } else {
-                                        System.out.println(foundClothesID);
-                                    }
+                                    Clothes.searchById();
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
@@ -188,9 +181,7 @@ public class App {
                                 case 6:
                                     //Exception handling for removing clothes by ID
                                     terminal.clearTerminal();
-                                    System.out.print("Enter clothes ID to remove: ");
-                                    int removeClothesID = Integer.parseInt(scan.nextLine());
-                                    Clothes.removeClothesById(removeClothesID);
+                                    Clothes.removeClothesById();
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
@@ -236,11 +227,9 @@ public class App {
                                     scan.nextLine();
                                     break;
                                 case 4:
-                                    //Exception handling for removing supplier by ID
+                                    // Exception handling for removing supplier by ID
                                     terminal.clearTerminal();
-                                    System.out.print("Enter supplier ID to remove: ");
-                                    int removeSupplierID = Integer.parseInt(scan.nextLine());
-                                    ClothingSupplier.removeSupplier(removeSupplierID);
+                                    ClothingSupplier.removeSupplier();
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
@@ -286,7 +275,7 @@ public class App {
                         return;
                     case 1:
                         terminal.clearTerminal();
-                        Shop.displayClothes();
+                        Clothes.displayClothes();
                         System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
@@ -298,42 +287,19 @@ public class App {
                         break;
                     case 3:
                         terminal.clearTerminal();
-                        System.out.print("Enter clothes name: ");
-                        String clothesName = scan.nextLine();
-                        Clothes foundClothes = Shop.searchByName(clothesName);
-                        if (foundClothes == null) {
-                            System.out.println("Clothes not found!");
-                        } else {
-                            System.out.println(foundClothes);
-                        }
+                        Clothes.searchByName();
                         System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
                     case 4:
                         terminal.clearTerminal();
-                        System.out.print("Enter brand name: ");
-                        String brandName = scan.nextLine();
-                        ArrayList<Clothes> sameBrand = Shop.searchByBrand(brandName);
-                        if (sameBrand.isEmpty()) {
-                            System.out.println("No clothes found!");
-                        } else {
-                            for (Clothes clothes : sameBrand) {
-                                System.out.println(clothes);
-                            }
-                        }
+                        Clothes.searchByBrand();
                         System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
                     case 5:
                         terminal.clearTerminal();
-                        System.out.print("Enter clothes ID: ");
-                        int clothesID = Integer.parseInt(scan.nextLine());
-                        Clothes foundClothesID = Shop.searchById(clothesID);
-                        if (foundClothesID == null) {
-                            System.out.println("Clothes not found!");
-                        } else {
-                            System.out.println(foundClothesID);
-                        }
+                        Clothes.searchById();
                         System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
