@@ -21,7 +21,7 @@ public class Manager extends Cashier {
                 identifier = 1;
                 do {
                     terminal.clearTerminal();
-                    System.out.println("========= Update Employee Info =========");
+                    System.out.println("========= Update Cashier Info =========");
                     System.out.println("1. Name");
                     System.out.println("2. Username");
                     System.out.println("3. Age");

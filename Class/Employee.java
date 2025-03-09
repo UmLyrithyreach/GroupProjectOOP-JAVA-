@@ -60,8 +60,16 @@ public class Employee extends Person {
         String role = scanner.nextLine();
 
         // String query to add new employee
-        String query = "INSERT INTO employees"
+        String query = "INSERT INTO employees (name, age, gender, phoneNumber, email, address, salary, startDate, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+        // Execute the query using PreparedStatement with the user input as parameters
+        int rowsAffected = DatabaseConnection.executePreparedUpdate(query, name, age, inputGender, phoneNumber, email, address, salary, startDate, role);
+
+        if (rowsAffected > 0) {
+            System.out.println("Employee added successfully.");
+        } else {
+            System.out.println("Failed to add employee.");
+        }
     }
 
     // Setter Methods

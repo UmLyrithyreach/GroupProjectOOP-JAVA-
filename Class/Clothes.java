@@ -1,41 +1,32 @@
 package Class;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Clothes {
-    static int idCounter = 1;
     int id;
     String name;
     String brand;
-    ArrayList<String> sizes;
+    String size;
     double price;
     int stock;
     String style;
     int supplierId;
 
     public Clothes(String name, String brand, String size, double price, int stock, String style, int supplierId) {
-        this.id = idCounter++;
         this.name = name;
         this.brand = brand;
         this.price = price;
         this.stock = stock;
         this.style = style;
         this.supplierId = supplierId;
-        this.sizes = new ArrayList<>();
-    }
-
-    public Clothes(int id, String name, String brand) {
-        this.id = idCounter++;
-        this.name = name;
-        this.brand = brand;
-        this.price = 0.0;
-        this.stock = 0;
-        this.style = "Unknown";
-        this.sizes = new ArrayList<>();
+        this.size = size;
     }
 
     // Getter Methods
-    public static int getIdCounter() { return idCounter; }
 
     public int getID() { return this.id; }
     
@@ -49,36 +40,12 @@ public class Clothes {
 
     public int getSupplierId() { return this.supplierId; }
 
-    public ArrayList<String> getSizes() { return this.sizes; }
-
-    public String getSizesString() {
-        String sizeString = "";
-        for (String size: sizes) {
-            sizeString += size + " ";
-        }
-        return sizeString;
-    }
+    public String getSizes() { return this.size; }
 
     public String getBrand() { return this.brand; }
     
 
     // Setter Methods
-    public void addSize(String size) {
-        if (!this.sizes.contains(size)) {
-            this.sizes.add(size);
-        } else {
-            System.out.println("Size exists!");
-        }
-    }
-
-    public void removeSize(String size) {
-        if (this.sizes.contains(size)) {
-            this.sizes.remove(size);
-        } else {
-            System.out.println("Size does not exist!");
-        }
-    }
-
     public void increaseStock(int amount) {
         if (amount > 0) {
             this.stock += amount;
@@ -97,20 +64,169 @@ public class Clothes {
         return (this.stock > 0) ? true : false;
     }
 
-    @Override
-    public String toString() {
-        String info = "====================================\nID: " + this.id
-                + "\nName: " + this.name
-                + "\nBrand: " + this.brand
-                + "\nPrice: $" + this.price
-                + "\nStock: " + this.stock
-                + "\nSize: " + this.sizes
-                + "\n====================================\n";
-                
-        for (String size: sizes) {
-            info += size + " ";
+    public static void addClothes() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter clothes name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter brand: ");
+        String brand = scanner.nextLine();
+        System.out.print("Enter size: ");
+        String size = scanner.nextLine();
+        System.out.print("Enter price: ");
+        double price = Double.parseDouble(scanner.nextLine());
+        System.out.print("Enter stock: ");
+        int stock = Integer.parseInt(scanner.nextLine());
+        System.out.print("Enter type: ");
+        String style = scanner.nextLine();
+        System.out.print("Enter supplier ID: ");
+        int supplierId = Integer.parseInt(scanner.nextLine());
+
+        // String query to insert the clothes into the database
+        String query = "INSERT INTO clothes (name, brand, size, price, stock, style, supplierId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        // Execute the query using PreparedStatement with the user input as parameters
+        int rowsAffected = DatabaseConnection.executePreparedUpdate(query, name, brand, size, price, stock, style, supplierId);
+
+        if (rowsAffected > 0) {
+            System.out.println("Clothes added successfully.");
+        } else {
+            System.out.println("Failed to add clothes.");
         }
+    }
+
+    public static void displayClothes() {
+        // String query to get all clothes
+        String query = "SELECT * FROM clothes";
+
+        // Execute the query
+        ResultSet rs = DatabaseConnection.executeQuery(query);
+
+        // Process the result set
+        try {
+            if (rs == null || !rs.next()) {
+                System.out.println("No clothes found!");
+                return;
+            }
+
+            do {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String brand = rs.getString("brand");
+                String size = rs.getString("size");
+                BigDecimal price = rs.getBigDecimal("price");
+                int stock = rs.getInt("stock");
+                String style = rs.getString("style");
+                int supplierId = rs.getInt("supplierId");
+
+                System.out.println(toString(id, name, brand, style, price, stock, size, supplierId));
+            } while (rs.next());
+
+        } catch (SQLException e) {
+            System.out.println("Error while displaying clothes.");
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeResultSet(rs);
+        }
+    }
+
+    // Search by name
+    public static void searchByName() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter clothe name: ");
+        String name = scanner.nextLine();
+
+        // String query to search for the clothe's name
+        String query = "SELECT * FROM clothes WHERE name = ?";
+
+        // Execute the query
+        ResultSet rs = DatabaseConnection.executePreparedQuery(query, name);
+
+        // Process the result set
+        try {
+            if (rs == null || !rs.next()) {
+                System.out.println("No clothes found!");
+                return;
+            }
+
+            int id = rs.getInt("id");
+            String brand = rs.getString("brand");
+            String size = rs.getString("size");
+            BigDecimal price = rs.getBigDecimal("price");
+            int stock = rs.getInt("stock");
+            String style = rs.getString("style");
+            int supplierId = rs.getInt("supplierId");
+
+            System.out.println(toString(id, name, brand, style, price, stock, size, supplierId));
+        } catch (SQLException e) {
+            System.out.println("Error while searching for clothes");
+        } finally {
+            DatabaseConnection.closeResultSet(rs);
+        }
+    }
+
+    // Search by brand
+    public static void searchByBrand() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter brand: ");
+        String brand = scanner.nextLine();
+
+        // String query to search for clothes brand
+        String query = "SELECT * FROM clothes WHERE brand = ?";
+
+        // Execute the query
+        ResultSet rs = DatabaseConnection.executePreparedQuery(query, brandName);
+
+        // Process the result set
+        try {
+            if (rs == null || !rs.next()) {
+                System.out.println("No brand found!");
+                return;
+            }
+
+            do {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String size = rs.getString("size");
+                BigDecimal price = rs.getBigDecimal("price");
+                int stock = rs.getInt("stock");
+                String style = rs.getString("style");
+                int supplierId = rs.getInt("supplierId");
+    
+                System.out.println(toString(id, name, brand, style, price, stock, size, supplierId));
+            }
+        }
+    }
+
+    // Search by ID
+    public static void searchById() {
         
+    }
+
+    public static int totalClothes() {
+        
+    }
+
+    public static int totalStock() {
+        
+    }
+
+    public static void removeClothesById() {
+        
+    }
+
+    public static String toString(int id, String name, String brand, String style, BigDecimal price, int stock, String size, int supplierId) {
+        String info = "====================================\nID: " + id
+                + "\nName: " + name
+                + "\nBrand: " + brand
+                + "\nStyle: " + style
+                + "\nPrice: $" + price
+                + "\nStock: " + stock
+                + "\nSize: " + size
+                + "\nSupplier ID: " + supplierId
+                + "\n====================================\n";
         return info;
     }
 }

@@ -147,35 +147,19 @@ public class App {
                             switch (choice02) {
                                 case 1:
                                     terminal.clearTerminal();
-                                    Shop.displayClothes();
+                                    Clothes.displayClothes();
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 2:
                                     terminal.clearTerminal();
-                                    System.out.print("====================================\nEnter clothes name: ");
-                                    String clothesName = scan.nextLine();
-                                    Clothes foundClothes = Shop.searchByName(clothesName);
-                                    if (foundClothes == null) {
-                                        System.out.println("====================================\nClothes not found!\n====================================");
-                                    } else {
-                                        System.out.println(foundClothes);
-                                    }
+                                    Clothes.searchByName();
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 3:
                                     terminal.clearTerminal();
-                                    System.out.print("Enter brand name: ");
-                                    String brandName = scan.nextLine();
-                                    ArrayList<Clothes> sameBrand = Shop.searchByBrand(brandName);
-                                    if (sameBrand.isEmpty()) {
-                                        System.out.println("No clothes found!");
-                                    } else {
-                                        for (Clothes clothes : sameBrand) {
-                                            System.out.println(clothes);
-                                        }
-                                    }
+                                    Clothes.searchByBrand();
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
@@ -184,7 +168,7 @@ public class App {
                                     terminal.clearTerminal();
                                     System.out.print("Enter clothes ID: ");
                                     int clothesID = Integer.parseInt(scan.nextLine());
-                                    Clothes foundClothesID = Shop.searchById(clothesID);
+                                    Clothes foundClothesID = Clothes.searchById(clothesID);
                                     if (foundClothesID == null) {
                                         System.out.println("Clothes not found!");
                                     } else {
@@ -196,21 +180,7 @@ public class App {
                                 case 5:
                                 //Exception handling for adding clothes for Supplier ID
                                     terminal.clearTerminal();
-                                    System.out.print("Enter clothes name: ");
-                                    String name = scan.nextLine();
-                                    System.out.print("Enter brand: ");
-                                    String brand = scan.nextLine();
-                                    System.out.print("Enter size: ");
-                                    String size = scan.nextLine();
-                                    System.out.print("Enter price: ");
-                                    double price = Double.parseDouble(scan.nextLine());
-                                    System.out.print("Enter stock: ");
-                                    int stock = Integer.parseInt(scan.nextLine());
-                                    System.out.print("Enter type: ");
-                                    String type = scan.nextLine();
-                                    System.out.print("Enter supplier ID: ");
-                                    int supplierId = Integer.parseInt(scan.nextLine());
-                                    Shop.addClothes(new Clothes(name, brand, size, price, stock, type, supplierId));
+                                    Clothes.addClothes();
                                     System.out.println("Clothes added successfully.");
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
@@ -220,7 +190,7 @@ public class App {
                                     terminal.clearTerminal();
                                     System.out.print("Enter clothes ID to remove: ");
                                     int removeClothesID = Integer.parseInt(scan.nextLine());
-                                    Shop.removeClothesById(removeClothesID);
+                                    Clothes.removeClothesById(removeClothesID);
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
@@ -266,7 +236,7 @@ public class App {
                                     scan.nextLine();
                                     break;
                                 case 4:
-                                //Exception handling for removing supplier by ID
+                                    //Exception handling for removing supplier by ID
                                     terminal.clearTerminal();
                                     System.out.print("Enter supplier ID to remove: ");
                                     int removeSupplierID = Integer.parseInt(scan.nextLine());
