@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class Employee extends Person {
+public class Employee extends Person implements Terminal {
     public static ArrayList<Employee> employeeList = new ArrayList<>();
     int id;
     private double salary;

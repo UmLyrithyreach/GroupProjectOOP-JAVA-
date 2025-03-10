@@ -213,6 +213,12 @@ public class App {
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
+                                case 0:
+                                // go back handling
+                                    terminal.clearTerminal();
+                                    System.out.println("Going back.");
+                                    continue;
+                                    
                                 default:
                                     System.out.println("==============================\nInvalid choice, try again.\n==============================");
                                     scan.nextLine();
