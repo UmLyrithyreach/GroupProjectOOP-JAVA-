@@ -63,7 +63,7 @@ public final class Membership extends Customer{
         return "\n------------------------Membership ID: " + this.membershipID + "------------------------"+ "\n"
         + "Name: " + this.getName() + "\n"
         + "Phone Number: " + this.phoneNumber() + "\n" 
-        + "Address: " + this.getDeliveryAddress() + "\n"
+        + "Address: " + this.getCustomerAddress() + "\n"
         + "Membership Type: " + this.membershipType + "\n"
         + "Membership status: " + this.membershipStatus + "\n"
         + "Start date: " + this.startDate + "\n"

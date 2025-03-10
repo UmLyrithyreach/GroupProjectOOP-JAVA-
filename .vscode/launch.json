@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Customer",
+            "request": "launch",
+            "mainClass": "Class.Customer",
+            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "Class.App",

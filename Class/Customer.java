@@ -1,32 +1,33 @@
 package Class;
-
 import java.util.ArrayList;
 
-public abstract class Customer extends Person {
+public class Customer extends Person {
     static ArrayList<Customer> customerList = new ArrayList<>();
     static int idCounter = 1;
     int id;
-    private String deliveryAddress;
+    private String customerAddress;
 
     // Constructor
-    public Customer(String name, String phone, String deliveryAddress) {
+    public Customer(String name, String phone, String customerAddress) {
         super(name, phone);
         this.id = idCounter++;
-        this.deliveryAddress = deliveryAddress;
-        customerList.add(this);
+        this.customerAddress = customerAddress;
+        addCustomerToList();
     }
 
-    public abstract int getMembershipID();
+    // Setter
+    private void addCustomerToList() {customerList.add(this);}
+    // public abstract int getMembershipID();
+    public String getCustomerAddress() { return this.customerAddress; }
+    public void setCustomerAddress(String customerAddress) { this.customerAddress = customerAddress; }
     
-    // Method
-
-    public String getDeliveryAddress() { return this.deliveryAddress; }
-    public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
     
     @Override
     public String toString() {
         return "\nCustomer ID: " + this.id +
                 super.toString() +
-                "\nDelivery Address: " + this.deliveryAddress;
+                "\nDelivery Address: " + this.customerAddress;
     }
+
+    
 }
