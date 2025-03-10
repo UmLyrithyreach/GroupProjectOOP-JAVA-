@@ -2,7 +2,7 @@ package Class;
 
 import java.util.Scanner;
 
-public class Manager extends Staff {
+public class Manager extends Cashier {
 
     public Manager(int id, String name, String gender, int age, String phone, String email, String address, 
                   double salary, String startDate, String role, String password, boolean isAdmin, String username) {
@@ -15,13 +15,13 @@ public class Manager extends Staff {
         Terminal terminal = new TerminalSystem();
         int identifier = 0;
         
-        for (Employee employee : Employee.employeeList) {
-            if (employee.getEmployeeID() == employeeId) {
+        for (Cashier cashier : Cashier.cashierList) {
+            if (cashier.getEmployeeID() == employeeId) {
                 int choice;
                 identifier = 1;
                 do {
                     terminal.clearTerminal();
-                    System.out.println("========= Update Employee Info =========");
+                    System.out.println("========= Update Cashier Info =========");
                     System.out.println("1. Name");
                     System.out.println("2. Username");
                     System.out.println("3. Age");
@@ -46,7 +46,7 @@ public class Manager extends Staff {
                             terminal.clearTerminal();
                             System.out.print("Enter new name: ");
                             String newName = scan.nextLine();
-                            employee.setName(newName);
+                            cashier.setName(newName);
                             System.out.println("Name updated successfully.");
                             scan.nextLine();
                             break;
@@ -54,7 +54,7 @@ public class Manager extends Staff {
                             terminal.clearTerminal();
                             System.out.print("Enter new username: ");
                             String newUsername = scan.nextLine();
-                            employee.setUsername(newUsername);
+                            cashier.setUsername(newUsername);
                             System.out.println("Username updated successfully.");
                             scan.nextLine();
                             break;
@@ -62,7 +62,7 @@ public class Manager extends Staff {
                             terminal.clearTerminal();
                             System.out.println("Enter new age: ");
                             int newAge = scan.nextInt();
-                            employee.setAge(newAge);
+                            cashier.setAge(newAge);
                             System.out.println("Age updated successfully.");
                             scan.nextLine();
                             break;
@@ -70,7 +70,7 @@ public class Manager extends Staff {
                             terminal.clearTerminal();
                             System.out.print("Enter new gender: ");
                             String newGender = scan.nextLine();
-                            employee.setGender(newGender);
+                            cashier.setGender(newGender);
                             System.out.println("Gender updated successfully.");
                             scan.nextLine();
                             break;
@@ -78,7 +78,7 @@ public class Manager extends Staff {
                             terminal.clearTerminal();
                             System.out.print("Enter new phone: ");
                             String newPhone = scan.nextLine();
-                            employee.setPhoneNumber(newPhone);
+                            cashier.setPhoneNumber(newPhone);
                             System.out.println("Phone number updated successfully.");
                             scan.nextLine();
                             break;
@@ -86,7 +86,7 @@ public class Manager extends Staff {
                             terminal.clearTerminal();
                             System.out.print("Enter new email: ");
                             String newEmail = scan.nextLine();
-                            employee.setEmail(newEmail);
+                            cashier.setEmail(newEmail);
                             System.out.println("Email updated successfully.");
                             scan.nextLine();
                             break;
@@ -94,21 +94,21 @@ public class Manager extends Staff {
                             terminal.clearTerminal();
                             System.out.print("Enter new address: ");
                             String newAddress = scan.nextLine();
-                            employee.setAddress(newAddress);
+                            cashier.setAddress(newAddress);
                             System.out.println("Address updated successfully.");
                             break;
                         case 8:
                             terminal.clearTerminal();
                             System.out.print("Enter new salary: ");
                             double newSalary = scan.nextDouble();
-                            employee.setSalary(newSalary);
+                            cashier.setSalary(newSalary);
                             System.out.println("Salary updated successfully.");
                             break;
                         case 9:
                             terminal.clearTerminal();
                             System.out.print("Enter new start date: ");
                             String newStartDate = scan.nextLine();
-                            employee.setStartDate(newStartDate);
+                            cashier.setStartDate(newStartDate);
                             System.out.println("Start date updated successfully.");
                             scan.nextLine();
                             break;
@@ -116,7 +116,7 @@ public class Manager extends Staff {
                             terminal.clearTerminal();
                             System.out.print("Enter new role: ");
                             String newRole = scan.nextLine();
-                            employee.setRole(newRole);
+                            cashier.setRole(newRole);
                             System.out.println("Role updated successfully.");
                             scan.nextLine();
                             break;
@@ -124,7 +124,7 @@ public class Manager extends Staff {
                             terminal.clearTerminal();
                             System.out.print("Enter new password: ");
                             String newPassword = scan.nextLine();
-                            employee.setPassword(newPassword);
+                            // cashier.setPassword(newPassword);
                             System.out.println("Password updated successfully.");
                             scan.nextLine();
                             break;
@@ -132,7 +132,7 @@ public class Manager extends Staff {
                             terminal.clearTerminal();
                             System.out.print("Enter new admin status (true/false): ");
                             boolean newAdminStatus = scan.nextBoolean();
-                            employee.setIsAdmin(newAdminStatus);
+                            // cashier.setIsAdmin(newAdminStatus);
                             System.out.println("Admin status updated successfully.");
                             scan.nextLine();
                             break;
@@ -151,7 +151,7 @@ public class Manager extends Staff {
 
     // View all employees (Admin Only)
     public static void viewAllEmployees() {
-        for (Employee employee : employeeList) {
+        for (GeneralEmployee employee : employeeList) {
             System.out.println(employee.toString() + "\n");
         }
         System.out.println("Total Employees: " + employeeList.size() + "\n\n==============================");
