@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.io.*;
 
-public class Cashier extends Employee {
+public class Cashier extends GeneralEmployee {
     public static ArrayList<Cashier> cashierList = new ArrayList<>();
     String password;
     boolean isAdmin;
@@ -16,7 +16,7 @@ public class Cashier extends Employee {
         super(id, name, gender, age, phone, email, address, salary, startDate, role);
     }
 
-    public static void purchase(Employee employee) {
+    public static void purchase(GeneralEmployee employee) {
         Scanner scan = new Scanner(System.in);
         System.out.println("===== Walk in Purchasing =====");
         ArrayList<Clothes> purchasedClothes = new ArrayList<>();

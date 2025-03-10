@@ -151,7 +151,7 @@ public class Manager extends Cashier {
 
     // View all employees (Admin Only)
     public static void viewAllEmployees() {
-        for (Employee employee : employeeList) {
+        for (GeneralEmployee employee : employeeList) {
             System.out.println(employee.toString() + "\n");
         }
         System.out.println("Total Employees: " + employeeList.size() + "\n\n==============================");

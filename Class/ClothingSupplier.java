@@ -93,7 +93,12 @@ public class ClothingSupplier extends Person {
         }
     }
 
-    public static void removeSupplier(int id) {
+    public static void removeSupplier() {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Enter supplier ID to remove: ");
+        int id = Integer.parseInt(scan.nextLine());
+
         // String query to remove supplier by id
         String query = "DELETE FROM supplier WHERE id = ?";
 
