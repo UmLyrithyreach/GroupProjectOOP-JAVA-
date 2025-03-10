@@ -1,7 +1,11 @@
 package Class;
 
 import java.util.Scanner;
+
+import javax.xml.crypto.Data;
+
 import java.math.BigDecimal;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -99,10 +103,7 @@ public class Clothes {
         String query = "SELECT * FROM clothes";
 
         // Execute the query
-        ResultSet rs = DatabaseConnection.executeQuery(query);
-
-        // Process the result set
-        try {
+        try (ResultSet rs = DatabaseConnection.executeQuery(query)) {
             if (rs == null || !rs.next()) {
                 System.out.println("No clothes found!");
                 return;
@@ -124,8 +125,6 @@ public class Clothes {
         } catch (SQLException e) {
             System.out.println("Error while displaying clothes.");
             e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeResultSet(rs);
         }
     }
 
@@ -140,10 +139,8 @@ public class Clothes {
         String query = "SELECT * FROM clothes WHERE name = ?";
 
         // Execute the query
-        ResultSet rs = DatabaseConnection.executePreparedQuery(query, name);
-
-        // Process the result set
-        try {
+        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, name);
+             ResultSet rs = stmt.executeQuery()) {
             if (rs == null || !rs.next()) {
                 System.out.println("No clothes found!");
                 return;
@@ -160,8 +157,6 @@ public class Clothes {
             System.out.println(toString(id, name, brand, style, price, stock, size, supplierId));
         } catch (SQLException e) {
             System.out.println("Error while searching for clothes");
-        } finally {
-            DatabaseConnection.closeResultSet(rs);
         }
     }
 
@@ -176,16 +171,16 @@ public class Clothes {
         String query = "SELECT * FROM clothes WHERE brand = ?";
 
         // Execute the query
-        ResultSet rs = DatabaseConnection.executePreparedQuery(query, brand);
+        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, brand);
+             ResultSet rs = stmt.executeQuery()) {
 
-        // Process the result set
-        try {
             if (rs == null || !rs.next()) {
                 System.out.println("No brand found!");
                 return;
             }
 
             do {
+                // Fetch data
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String size = rs.getString("size");
@@ -194,12 +189,11 @@ public class Clothes {
                 String style = rs.getString("style");
                 int supplierId = rs.getInt("supplierId");
     
+                // Print clothes details
                 System.out.println(toString(id, name, brand, style, price, stock, size, supplierId));
             } while (rs.next());
         } catch (SQLException e) {
             System.out.println("Error while searching for clothes");
-        } finally {
-            DatabaseConnection.closeResultSet(rs);
         }
     }
 
@@ -218,6 +212,7 @@ public class Clothes {
 
         // Process the result set
         try {
+            
             if (rs == null || !rs.next()) {
                 System.out.println("No ID found!");
                 return;

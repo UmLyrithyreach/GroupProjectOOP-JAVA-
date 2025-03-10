@@ -15,11 +15,10 @@ public class DatabaseConnection {
 
     // Execute a SELECT query
     public static ResultSet executeQuery(String query) {
-        try (Connection conn = getConnection();
-             Statement statement = conn.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
-            return resultSet;  // The caller must handle the ResultSet properly
+        try {
+            Connection conn = getConnection();
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(query);   // Caller must close the ResultSet
 
         } catch (SQLException e) {
             System.out.println("Query execution failed: " + e.getMessage());
@@ -43,15 +42,16 @@ public class DatabaseConnection {
     }
 
     // Execute a parameterized query (Prevents SQL Injection)
-    public static ResultSet executePreparedQuery(String query, Object... params) {
-        try (Connection conn = getConnection();
-             PreparedStatement statement = conn.prepareStatement(query)) {
+    public static PreparedStatement executePreparedQuery(String query, Object... params) {
+        try {
+            Connection conn = getConnection();
+            PreparedStatement statement = conn.prepareStatement(query);
 
             // Set all parameters dynamically
             for (int i = 0; i < params.length; i++) {
                 statement.setObject(i + 1, params[i]);
             }
-            return statement.executeQuery();
+            return statement;
 
         } catch (SQLException e) {
             System.out.println("Prepared query execution failed: " + e.getMessage());
@@ -76,15 +76,5 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
         return 0;
-    }
-
-    public static void closeResultSet(ResultSet rs) {
-        if (rs != null) {
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

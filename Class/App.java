@@ -2,7 +2,6 @@ package Class;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import javax.security.auth.login.LoginException;
 
@@ -32,7 +31,7 @@ public class App {
         // new Employee(4, "Diddy", "Male", 40, "0876543210", "Diddy@shop.com", 
         //             "789 Cashier St", 420, "03/03/2022", "Miner", "123", false, "diddy123");
 
-        Shop.addClothes(new Clothes("T-Shirt", "Nike", "M", 50.00, 100, "Regular", 1));
+        // .addClothes(new Clothes("T-Shirt", "Nike", "M", 50.00, 100, "Regular", 1));
 
         new ClothingSupplier("Nike", "123 Nike St", "0123456789");
         new ClothingSupplier("Levis", "456 Levis St", "0987654321");
@@ -46,9 +45,12 @@ public class App {
 
         //Handle Exception login null
 
-        Cashier loggedInUser = Cashier.login(scan);
+        // Cashier loggedInUser = Cashier.login(scan);
 
-        if (loggedInUser.isManager()) {
+        boolean manager = true;
+
+        // loggedInUser.isManager()
+        if (manager) {
             int choice;
             do {
                 terminal.clearTerminal();
@@ -287,7 +289,7 @@ public class App {
                         break;
                     case 2:
                         terminal.clearTerminal();
-                        Cashier.purchase(loggedInUser);
+                        // Cashier.purchase(loggedInUser);
                         System.out.println("\nPress <Enter> to continue...");
                         scan.nextLine();
                         break;
