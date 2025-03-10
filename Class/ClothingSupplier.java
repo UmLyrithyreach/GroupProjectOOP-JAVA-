@@ -2,7 +2,7 @@ package Class;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class ClothingSupplier extends Person {
@@ -21,14 +21,13 @@ public class ClothingSupplier extends Person {
         // String query to get the supplier by name
         String query = "SELECT * FROM suppliers WHERE name = ?";
 
-        // Execute the query
-        ResultSet rs = DatabaseConnection.executePreparedQuery(query, name);
-
-        try {
+        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, name);
+            ResultSet rs = stmt.executeQuery()) {
             if (rs == null || !rs.next()) {
                 System.out.println("Supplier with name '" + name + "' not found!");
             }
             
+            // Fetch Data
             int id = rs.getInt("id");
             String contact = rs.getString("contact");
             String address = rs.getString("address");
@@ -39,8 +38,6 @@ public class ClothingSupplier extends Person {
         } catch (SQLException e) {
             System.out.println("Error while searching for supplier.");
             e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeResultSet(rs);
         }
     }
 
@@ -50,28 +47,27 @@ public class ClothingSupplier extends Person {
         int id = Integer.valueOf(scanner.nextLine());
 
         // String query to get the supplier by ID.
-        String query = "SELECT * FROM supplier WHERE id = ?";
-
-        // Execute the query
-        ResultSet rs = DatabaseConnection.executePreparedQuery(query, id);
+        String query = "SELECT * FROM suppliers WHERE id = ?";
 
         // Execute the query using PreparedStatement
-        try {
+        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, id);
+             ResultSet rs = stmt.executeQuery()) {
+
             if (rs == null || !rs.next()) {
                 System.out.println("Supplier not found!");
             }
             
+            // Fetch data
             String name = rs.getString("name");
             String contact = rs.getString("contact");
             String address = rs.getString("address");
 
+            // Print supplier details
             System.out.println(toString(id, name, address, contact));
 
         } catch (SQLException e) {
             System.out.println("Error while searching for supplier.");
             e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeResultSet(rs);
         }
     }
 
@@ -100,7 +96,7 @@ public class ClothingSupplier extends Person {
         int id = Integer.parseInt(scan.nextLine());
 
         // String query to remove supplier by id
-        String query = "DELETE FROM supplier WHERE id = ?";
+        String query = "DELETE FROM suppliers WHERE id = ?";
 
         // Execute the query using PreparedStatement
         int rowsAffected = DatabaseConnection.executePreparedUpdate(query, id);
@@ -116,12 +112,9 @@ public class ClothingSupplier extends Person {
         // String query to get all suppliers from the database
         String query = "SELECT * FROM suppliers";
 
-        // Execute the query
-        ResultSet rs = DatabaseConnection.executeQuery(query);
-
         // Process the result set
-        try {
-            if (rs == null || !rs.next()) {
+        try (ResultSet rs = DatabaseConnection.executeQuery(query)) {
+            if (!rs.next()) {
                 System.out.println("No suppliers found.");
                 return;
             }
@@ -138,8 +131,6 @@ public class ClothingSupplier extends Person {
         } catch (SQLException e) {
             System.out.println("Error while displaying suppliers.");
             e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeResultSet(rs);
         }
     }
 
