@@ -208,11 +208,9 @@ public class Clothes {
         String query = "SELECT * FROM clothes WHERE id = ?";
 
         // Execute the query
-        ResultSet rs = DatabaseConnection.executePreparedQuery(query, id);
+        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, id)
+             ResultSet rs = stmt.executeQuery()) {
 
-        // Process the result set
-        try {
-            
             if (rs == null || !rs.next()) {
                 System.out.println("No ID found!");
                 return;
@@ -230,8 +228,6 @@ public class Clothes {
 
         } catch (SQLException e) {
             System.out.println("Error while searching for clothes");
-        } finally {
-            DatabaseConnection.closeResultSet(rs);
         }
     }
 
