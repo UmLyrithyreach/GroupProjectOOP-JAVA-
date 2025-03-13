@@ -14,7 +14,6 @@ public class Order {
     String paymentMethod;
 
 
-
     public Order(GeneralEmployee employee, ArrayList<Clothes> clothesList,ArrayList<Integer> quantity, LocalDate orderDate, String paymentMethod) {
         this.orderId = orderCounter++;
         this.employeeId = employee.getEmployeeID();

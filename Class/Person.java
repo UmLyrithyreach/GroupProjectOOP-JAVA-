@@ -58,25 +58,15 @@ public class Person {
 
     public String getAddress() { return this.address; }
     public void setAddress(String address) { this.address = address; }
+    
 
-    public static Person searchByName (ArrayList<? extends Person> list, String name) {
-        for (Person person: list) {
-            if (person.getName().equalsIgnoreCase(name)) {
-                return person;
-            }
-        }
-        return null;
-    }
-
-    // Override Method
-    @Override
-    public String toString() {
-        return ("\nName: " + this.name +
-                "\nAge: " + this.age +
-                "\nGender: " + this.gender +
-                "\nPhone Number: " + this.phoneNumber +
-                "\nEmail: " + this.email +
-                "\nAddress: " + this.address);
+    public static String toString(String name, int age, String gender, String phoneNumber, String address, String email) {
+        return ("\nName: " + name +
+                "\nAge: " + age +
+                "\nGender: " + gender +
+                "\nPhone Number: " + phoneNumber +
+                "\nEmail: " + email +
+                "\nAddress: " + address);
     }
 
 
