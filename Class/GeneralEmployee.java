@@ -1,7 +1,11 @@
 package Class;
 
+import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.sql.ResultSet;
 
 public class GeneralEmployee extends Person {
     public static ArrayList<GeneralEmployee> employeeList = new ArrayList<>();
@@ -19,13 +23,75 @@ public class GeneralEmployee extends Person {
         this.role = role;
     }
 
-    public static GeneralEmployee searchByID(int id) {
-        for (GeneralEmployee employee: employeeList) {
-            if (employee.id == id) {
-                return employee;
-            }
+    public static void searchEmployeeByID() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter employee ID: ");
+        int employeeID = Integer.parseInt(scanner.nextLine());
+
+        // String query to search for employee by ID
+        String query = "SELECT * FROM employees WHERE id = ?";
+
+        // Execute the query
+        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, employeeID);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            if (rs == null || !rs.next()) {
+                System.out.println("Employee with id '" + employeeID + "' not found!");
+                return;
+            } 
+
+            // Fetch data if found
+            String name = rs.getString("name");
+            String gender = rs.getString("gender");
+            int age = rs.getInt("age");
+            String phoneNumber = rs.getString("phoneNumber");
+            String email = rs.getString("email");
+            String address = rs.getString("address");
+            BigDecimal salary = rs.getBigDecimal("salary");
+            String startDate = rs.getString("startDate");
+            String role = rs.getString("role");
+            
+            System.out.println(toString(employeeID, name, age, gender, phoneNumber, email, address, salary, startDate, role));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return null;
+    }
+
+    public static void searchEmployeeByName() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter employee name: ");
+        String employeeName = scanner.nextLine();
+        
+        // String query to search for employees by name
+        String query = "SELECT * FROM employees WHERE name = ?";
+
+        // Execute the query
+        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, employeeName);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            if (rs == null || !rs.next()) {
+                System.out.println("Employee with id '" + employeeID + "' not found!");
+                return;
+            } 
+
+            // Fetch data if found
+            int id = rs.getInt("id");
+            String gender = rs.getString("gender");
+            int age = rs.getInt("age");
+            String phoneNumber = rs.getString("phoneNumber");
+            String email = rs.getString("email");
+            String address = rs.getString("address");
+            BigDecimal salary = rs.getBigDecimal("salary");
+            String startDate = rs.getString("startDate");
+            String role = rs.getString("role");
+            
+            System.out.println(toString(id, employeeName, age, gender, phoneNumber, email, address, salary, startDate, role));
+                
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     public static void addNewEmployee() {
@@ -83,15 +149,14 @@ public class GeneralEmployee extends Person {
     public void setStartDate(String newStartDate) { this.startDate = newStartDate; }
     
 
-    @Override
-    public String toString() {
+    public static String toString(int id, String name,int age, String gender, String phoneNumber, String email, String address, BigDecimal salary, String startDate, String role) {
         return("==============================\n" +
-                "ID: " + this.id +
+                "ID: " + id +
                 "\n==============================" +
-                super.toString() +
-                "\nSalary: " + this.salary +
-                "\nStart Date: " + this.startDate +
-                "\nRole: " + this.role +
+                Person.toString(name, age, gender, phoneNumber, address, email) +
+                "\nSalary: " + salary +
+                "\nStart Date: " + startDate +
+                "\nRole: " + role +
                 "\n=============================="
         );
     }

@@ -88,7 +88,7 @@ public class App {
                                     break;
                                 case 1:
                                     terminal.clearTerminal();
-                                    Manager.viewAllEmployees();
+                                    Manager.viewAllGeneralEmployees();
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
@@ -102,26 +102,12 @@ public class App {
                                     break;
                                 case 3:
                                     terminal.clearTerminal();
-                                    System.out.print("Enter employee name: ");
-                                    String employeeName = scan.nextLine();
-                                    GeneralEmployee foundEmployee = (GeneralEmployee) Person.searchByName(GeneralEmployee.employeeList, employeeName);
-                                    if (foundEmployee == null) {
-                                        System.out.println("Employee not found!");
-                                    } else {
-                                        System.out.println(foundEmployee);
-                                    }
+                                    GeneralEmployee.searchEmployeeByName();
                                     scan.nextLine();
                                     break;
                                 case 4:
                                     terminal.clearTerminal();
-                                    System.out.print("Enter employee ID: ");
-                                    int employeeID = Integer.parseInt(scan.nextLine());
-                                    GeneralEmployee foundEmployeeID = GeneralEmployee.searchByID(employeeID);
-                                    if (foundEmployeeID == null) {
-                                        System.out.println("Employee not found!");
-                                    } else {
-                                        System.out.println(foundEmployeeID);
-                                    }
+                                    GeneralEmployee.searchEmployeeByID();
                                     scan.nextLine();
                                     break;
                                 default:

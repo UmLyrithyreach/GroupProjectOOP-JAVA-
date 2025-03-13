@@ -2,8 +2,6 @@ package Class;
 
 import java.util.Scanner;
 
-import javax.xml.crypto.Data;
-
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -208,7 +206,7 @@ public class Clothes {
         String query = "SELECT * FROM clothes WHERE id = ?";
 
         // Execute the query
-        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, id)
+        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, id);
              ResultSet rs = stmt.executeQuery()) {
 
             if (rs == null || !rs.next()) {
@@ -216,6 +214,7 @@ public class Clothes {
                 return;
             }
 
+            // Fetch data
             String name = rs.getString("name");
             String size = rs.getString("size");
             BigDecimal price = rs.getBigDecimal("price");
@@ -229,14 +228,6 @@ public class Clothes {
         } catch (SQLException e) {
             System.out.println("Error while searching for clothes");
         }
-    }
-
-    public static int totalClothes() {
-        
-    }
-
-    public static int totalStock() {
-        
     }
 
     public static void removeClothesById() {

@@ -1,6 +1,9 @@
 package Class;
 
 import java.util.Scanner;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Manager extends Cashier {
 
@@ -149,11 +152,37 @@ public class Manager extends Cashier {
         }
     }
 
-    // View all employees (Admin Only)
-    public static void viewAllEmployees() {
-        for (GeneralEmployee employee : employeeList) {
-            System.out.println(employee.toString() + "\n");
+    public static void viewAllGeneralEmployees() {
+        // String query to display all employees
+        String query = "SELECT * FROM employees";
+
+        // Execute the query
+        try (ResultSet rs = DatabaseConnection.executeQuery(query)) {
+        
+            if (!rs.next()) {
+                System.out.println("No employees found!");
+                return;
+            }
+
+            do {
+                // Fetch data if found
+                int id = rs.getInt("id");
+                String gender = rs.getString("gender");
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                String phoneNumber = rs.getString("phoneNumber");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                BigDecimal salary = rs.getBigDecimal("salary");
+                String startDate = rs.getString("startDate");
+                String role = rs.getString("role");
+                
+                System.out.println(toString(id, name, age, gender, phoneNumber, email, address, salary, startDate, role));
+            } while (rs.next());
+
+        } catch (SQLException e) {
+            System.out.println("Error while displaying all employees");
+            e.printStackTrace();
         }
-        System.out.println("Total Employees: " + employeeList.size() + "\n\n==============================");
     }
 }
