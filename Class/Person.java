@@ -1,7 +1,5 @@
 package Class;
 
-import java.util.ArrayList;
-
 public class Person {
     protected String name;
     protected int age;
@@ -38,6 +36,15 @@ public class Person {
         this.age = 0;
         this.gender = "Unknown";
         this.email = "Unknown";
+    }
+
+    public Person () {
+        this.name = "Unknown";
+        this.phoneNumber = "Unknown";
+        this.age = 0;
+        this.gender = "Unknown";
+        this.email = "Unknown";
+        this.address = "Unknown";
     }
 
     // Getter and setter
