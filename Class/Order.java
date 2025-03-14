@@ -14,7 +14,7 @@ public class Order {
     String paymentMethod;
 
 
-    public Order(GeneralEmployee employee, ArrayList<Clothes> clothesList,ArrayList<Integer> quantity, LocalDate orderDate, String paymentMethod) {
+    public Order(Employee employee, ArrayList<Clothes> clothesList,ArrayList<Integer> quantity, LocalDate orderDate, String paymentMethod) {
         this.orderId = orderCounter++;
         this.employeeId = employee.getEmployeeID();
         this.employeeName = employee.getName();

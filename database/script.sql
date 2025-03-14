@@ -15,7 +15,10 @@ CREATE TABLE employees (
     address VARCHAR(255) NOT NULL,
     salary DECIMAL(7,2) NOT NULL,
     startDate DATE NOT NULL,
-    role VARCHAR(50) NOT NULL
+    role VARCHAR(50) NOT NULL,
+    password VARCHAR(100) DEFAULT NULL,
+    isManager TINYINT(1) DEFAULT 0,
+    username VARCHAR(100) DEFAULT NULL
 );
 
 CREATE TABLE clothes (

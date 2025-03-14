@@ -88,26 +88,24 @@ public class App {
                                     break;
                                 case 1:
                                     terminal.clearTerminal();
-                                    Manager.viewAllGeneralEmployees();
+                                    Manager.viewAllEmployees();
                                     System.out.println("\nPress <Enter> to continue...");
                                     scan.nextLine();
                                     break;
                                 case 2:
                                     terminal.clearTerminal();
-                                    System.out.print("========================================\nEnter Employee ID to Update: ");
-                                    int employeeId = terminal.getValidIntegerInput(scan);
-                                    Manager.updateEmployee(employeeId);
+                                    Manager.updateCashier();
                                     System.out.print("\n========================================");
                                     scan.nextLine();
                                     break;
                                 case 3:
                                     terminal.clearTerminal();
-                                    GeneralEmployee.searchEmployeeByName();
+                                    Employee.searchEmployeeByName();
                                     scan.nextLine();
                                     break;
                                 case 4:
                                     terminal.clearTerminal();
-                                    GeneralEmployee.searchEmployeeByID();
+                                    Employee.searchEmployeeByID();
                                     scan.nextLine();
                                     break;
                                 default:
