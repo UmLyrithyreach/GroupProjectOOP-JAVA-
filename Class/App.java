@@ -33,15 +33,15 @@ public class App {
 
         // .addClothes(new Clothes("T-Shirt", "Nike", "M", 50.00, 100, "Regular", 1));
 
-        new ClothingSupplier("Nike", "123 Nike St", "0123456789");
-        new ClothingSupplier("Levis", "456 Levis St", "0987654321");
-        new ClothingSupplier("H&M", "789 H&M St", "0876543210");
-        new ClothingSupplier("Uniqlo", "123 Uniqlo St", "0123456789");
-        new ClothingSupplier("Adidas", "456 Adidas St", "0987654321");
-        new ClothingSupplier("Zara", "789 Zara St", "0876543210");
-        new ClothingSupplier("Forever 21", "123 Forever 21 St", "0123456789");
-        new ClothingSupplier("Patagonia", "456 Patagonia St", "0987654321");
-        new ClothingSupplier("North Face", "789 North Face St", "0876543210");
+        // new ClothingSupplier("Nike", "123 Nike St", "0123456789");
+        // new ClothingSupplier("Levis", "456 Levis St", "0987654321");
+        // new ClothingSupplier("H&M", "789 H&M St", "0876543210");
+        // new ClothingSupplier("Uniqlo", "123 Uniqlo St", "0123456789");
+        // new ClothingSupplier("Adidas", "456 Adidas St", "0987654321");
+        // new ClothingSupplier("Zara", "789 Zara St", "0876543210");
+        // new ClothingSupplier("Forever 21", "123 Forever 21 St", "0123456789");
+        // new ClothingSupplier("Patagonia", "456 Patagonia St", "0987654321");
+        // new ClothingSupplier("North Face", "789 North Face St", "0876543210");
 
         //Handle Exception login null
 
