@@ -44,24 +44,30 @@ class SupplierGUI extends JFrame {
         panel.add(inputPanel, BorderLayout.NORTH);
         
         // Button Panel
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 3));
 
         JButton viewSuppliersBtn = new JButton("View All Suppliers");
         JButton addSupplierBtn = new JButton("Add Supplier");
         JButton searchSupplierBtn = new JButton("Search Supplier By Name");
+        JButton removeSupplierIdBtn = new JButton("Remove Supplier By ID");
         JButton removeSupplierBtn = new JButton("Remove Supplier");
+        JButton searchSupplierIdBtn = new JButton("Search Supplier By ID");
 
         buttonPanel.add(viewSuppliersBtn);
         buttonPanel.add(addSupplierBtn);
         buttonPanel.add(searchSupplierBtn);
         buttonPanel.add(removeSupplierBtn);
+        buttonPanel.add(searchSupplierIdBtn);
+        buttonPanel.add(removeSupplierIdBtn);
 
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
         viewSuppliersBtn.addActionListener(e -> viewAllSuppliers());
         addSupplierBtn.addActionListener(e -> addSupplier());
         searchSupplierBtn.addActionListener(e -> searchSupplierByName());
-        removeSupplierBtn.addActionListener(e -> removeSupplier());
+        searchSupplierIdBtn.addActionListener(e -> searchSupplierById());
+        removeSupplierBtn.addActionListener(e -> removeSupplierByName());
+        removeSupplierIdBtn.addActionListener(e -> removeSupplierById());
 
         add(panel);
     }
@@ -169,28 +175,31 @@ class SupplierGUI extends JFrame {
         
     }
 
-    private void removeSupplier() {
-        // String supplier = inputField.getText();
-        // if (!supplier.isEmpty()) {
-        //     displayArea.setText("Supplier '" + supplier + "' removed successfully!");
-        //     inputField.setText("");
-        // } else {
-        //     displayArea.setText("Enter supplier name to remove.");
-        // }
-        // String supplier = nameField.getText().trim();
-        // if (supplier.isEmpty()) {
-        //     displayArea.setText("Enter supplier name to remove.");
-        //     return;
-        // }
+    private void removeSupplierByName() {
+        String name = nameField.getText().trim();
+        if (name.isEmpty()) {
+            displayArea.setText("Enter supplier name to remove.");
+            nameField.setText("");
+            return;
+        }
 
-        // String query = "DELETE FROM suppliers WHERE name = ?";
-        // int rowsAffected = DatabaseConnection.executePreparedUpdate(query, supplier);
+        String query = "DELETE FROM suppliers WHERE name = ?";
 
-        // if (rowsAffected > 0) {
-        //     displayArea.setText("Supplier '" + supplier + "' removed successfully!");
-        //     nameField.setText("");
-        // } else {
-        //     displayArea.setText("Supplier not found or could not be removed.");
-        // }
+        int rowsAffected = DatabaseConnection.executePreparedUpdate(query, name);
+
+        if (rowsAffected > 0) {
+            displayArea.setText("Supplier '" + name + "' removed successfully!");
+            nameField.setText("");
+        } else {
+            displayArea.setText("Supplier not found or could not be removed.");
+        }
+    }
+
+    private void removeSupplierById() {
+        
+    }
+
+    private void searchSupplierById() {
+
     }
 }
