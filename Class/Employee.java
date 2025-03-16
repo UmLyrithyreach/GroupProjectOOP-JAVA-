@@ -87,7 +87,7 @@ public class Employee extends Person {
              ResultSet rs = stmt.executeQuery()) {
             
             if (rs == null || !rs.next()) {
-                System.out.println("Employee with id '" + employeeName + "' not found!");
+                System.out.println("Employee with name '" + employeeName + "' not found!");
                 return;
             } 
 
