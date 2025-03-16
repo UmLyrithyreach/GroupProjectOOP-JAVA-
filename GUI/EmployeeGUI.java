@@ -3,7 +3,6 @@ package GUI;
 import javax.swing.*;
 
 import Class.DatabaseConnection;
-import Class.Employee;
 
 import java.awt.*;
 import java.math.BigDecimal;
@@ -318,6 +317,7 @@ class EmployeeGUI extends JFrame {
     }
 
     private void updateEmployee() {
-        
+        UpdateEmployeeGUI updateEmployeeGUI = new UpdateEmployeeGUI();
+        updateEmployeeGUI.setVisible(true);
     }
 }
