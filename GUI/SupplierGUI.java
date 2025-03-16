@@ -29,6 +29,7 @@ class SupplierGUI extends JFrame {
         
         // Label and text field
         JPanel inputPanel = new JPanel(new GridLayout(4, 2));
+        
         inputPanel.add(new JLabel("Name:"));
         nameField = new JTextField();
         inputPanel.add(nameField);
