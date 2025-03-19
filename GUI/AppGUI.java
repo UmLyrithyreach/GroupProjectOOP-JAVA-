@@ -7,7 +7,10 @@ public class AppGUI extends JFrame {
 
     public AppGUI() {
         setTitle("Clothes Store Management");
-        setSize(400, 300);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screenSize.width, screenSize.height);
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -37,7 +40,7 @@ public class AppGUI extends JFrame {
 
     private void openEmployeeOperations() {
         EmployeeGUI employeeGUI = new EmployeeGUI();
-        employeeGUI.setVisible(true);
+        employeeGUI.setVisible(false);
     }
 
     private void openClothesOperations() {

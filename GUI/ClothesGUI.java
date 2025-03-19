@@ -16,7 +16,10 @@ class ClothesGUI extends JFrame {
 
     public ClothesGUI() {
         setTitle("Clothes Operations");
-        setSize(400, 300);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screenSize.width, screenSize.height);
+        
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
