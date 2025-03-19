@@ -15,7 +15,10 @@ class SupplierGUI extends JFrame {
 
     public SupplierGUI() {
         setTitle("Supplier Operations");
-        setSize(500, 400);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screenSize.width, screenSize.height);
+        
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
