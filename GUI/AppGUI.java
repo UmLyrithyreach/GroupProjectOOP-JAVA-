@@ -49,11 +49,4 @@ public class AppGUI extends JFrame {
         SupplierGUI supplierGUI = new SupplierGUI();
         supplierGUI.setVisible(true);
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            AppGUI app = new AppGUI();
-            app.setVisible(true);
-        });
-    }
 }

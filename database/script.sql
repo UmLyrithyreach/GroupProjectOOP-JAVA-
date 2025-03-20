@@ -30,6 +30,5 @@ CREATE TABLE clothes (
     stock INT NOT NULL DEFAULT 0,
     style VARCHAR(50),
     supplierId INT,
-
-    FOREIGN KEY (supplierId) REFERENCES suppliers (id);
+    FOREIGN KEY (supplierId) REFERENCES suppliers (id)
 );
