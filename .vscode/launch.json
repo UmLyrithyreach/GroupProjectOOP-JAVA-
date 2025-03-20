@@ -6,6 +6,13 @@
       "name": "LoginGUI",
       "request": "launch",
       "mainClass": "GUI.LoginGUI",
+      "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+    },
+    {
+      "type": "java",
+      "name": "LoginGUI",
+      "request": "launch",
+      "mainClass": "GUI.LoginGUI",
       "projectName": "GroupProjectOOP-JAVA-_629c4d4"
     },
     {
