@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "LoginGUI",
+      "request": "launch",
+      "mainClass": "GUI.LoginGUI",
+      "projectName": "GroupProjectOOP-JAVA-_629c4d4"
+    },
+    {
+      "type": "java",
+      "name": "AppGUI",
+      "request": "launch",
+      "mainClass": "GUI.AppGUI",
+      "projectName": "GroupProjectOOP-JAVA-_629c4d4"
+    },
+    {
+      "type": "java",
       "name": "AppGUI",
       "request": "launch",
       "mainClass": "GUI.AppGUI",

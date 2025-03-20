@@ -67,5 +67,6 @@
             "password": "1234",
             "connectionTimeout": 30
         }
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }
