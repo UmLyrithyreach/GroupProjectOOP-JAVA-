@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Class.DatabaseConnection;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -47,8 +49,9 @@ public class LoginGUI extends JFrame {
 
                 // Check if the user is a manager or staff
                 String query = "SELECT isManager FROM employees WHERE username = ? AND password = ?";
-                try {
-                    ResultSet rs = DatabaseConnection.executePreparedQuery(query, username, password);
+                try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, username, password);
+                     ResultSet rs = stmt.executeQuery()) {
+                    
                     if (rs != null && rs.next()) {
                         int isManager = rs.getInt("isManager");
                         if (isManager == 1) {
