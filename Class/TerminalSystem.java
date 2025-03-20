@@ -40,29 +40,12 @@ public class TerminalSystem implements Terminal {
             if (flag == 1) {
                 System.out.print("=> Select an option: ");
             }
-            String input = scan.nextLine();
             try {
+                String input = scan.nextLine(); // Read input
                 return Integer.parseInt(input); // Try parsing input
             } catch (NumberFormatException e) {
                 flag = 1;
-
                 System.out.println("\n====================================\nInvalid input! Please enter a number.\n====================================");
-            }
-        }
-    }
-
-    @Override
-    public String exitWithoutsteps(Scanner scan) {
-        while (true) {
-            try {
-                System.out.print("");
-                String input = scan.nextLine().trim(); // Trim to remove leading/trailing spaces
-
-                return input;
-            } catch (NoSuchElementException e) {
-                // Handle case when no input is available or stream is closed
-                System.out.println("\n====================================\nNo input provided! Exiting\n====================================");
-                return null; // Or some other handling, such as returning a default value
             }
         }
     }
