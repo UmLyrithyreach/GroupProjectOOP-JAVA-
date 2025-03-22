@@ -1,15 +1,14 @@
 package GUI;
 
-import javax.swing.*;
-
 import Class.DatabaseConnection;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.*;
 
 public class LoginGUI extends JFrame {
     private JTextField usernameField;

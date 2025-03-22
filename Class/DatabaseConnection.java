@@ -4,9 +4,10 @@ import java.sql.*;
 
 public class DatabaseConnection {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/clothing_store";
+    private static final String URL = "jdbc:mysql://localhost:3306/javadb";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "123abc";
+
+    private static final String PASSWORD = "rootAdmin123";
 
     // Establish a new connection for each query execution
     static Connection getConnection() throws SQLException {
