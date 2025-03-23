@@ -9,53 +9,57 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-class SupplierGUI extends JFrame {
+public class SupplierGUI extends JFrame {
     private JTextArea displayArea;
     private JTextField nameField, addressField, contactField;
 
     public SupplierGUI() {
         setTitle("Supplier Operations");
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width, screenSize.height);
-        
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        // Main panel with card layout
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(240, 240, 240));
 
+        // Display Area
         displayArea = new JTextArea();
         displayArea.setEditable(false);
-        panel.add(new JScrollPane(displayArea), BorderLayout.CENTER);
+        displayArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        JScrollPane scrollPane = new JScrollPane(displayArea);
+        panel.add(scrollPane, BorderLayout.CENTER);
 
-        
-        // Label and text field
-        JPanel inputPanel = new JPanel(new GridLayout(4, 2));
-        
-        inputPanel.add(new JLabel("Name:"));
-        nameField = new JTextField();
+        // Input Panel
+        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        inputPanel.setBackground(new Color(240, 240, 240));
+
+        inputPanel.add(createStyledLabel("Name:"));
+        nameField = createStyledTextField();
         inputPanel.add(nameField);
 
-        inputPanel.add(new JLabel("Address:"));
-        addressField = new JTextField();
+        inputPanel.add(createStyledLabel("Address:"));
+        addressField = createStyledTextField();
         inputPanel.add(addressField);
 
-        inputPanel.add(new JLabel("Contact:"));
-        contactField = new JTextField();
+        inputPanel.add(createStyledLabel("Contact:"));
+        contactField = createStyledTextField();
         inputPanel.add(contactField);
-        
-        panel.add(inputPanel, BorderLayout.NORTH);
-        
-        // Button Panel
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 3));
 
-        JButton viewSuppliersBtn = new JButton("View All Suppliers");
-        JButton addSupplierBtn = new JButton("Add Supplier");
-        JButton searchSupplierBtn = new JButton("Search Supplier By Name");
-        JButton removeSupplierIdBtn = new JButton("Remove Supplier By ID");
-        JButton removeSupplierBtn = new JButton("Remove Supplier");
-        JButton searchSupplierIdBtn = new JButton("Search Supplier By ID");
+        panel.add(inputPanel, BorderLayout.NORTH);
+
+        // Button Panel
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 3, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        buttonPanel.setBackground(new Color(240, 240, 240));
+
+        JButton viewSuppliersBtn = createRoundedButton("View All Suppliers");
+        JButton addSupplierBtn = createRoundedButton("Add Supplier");
+        JButton searchSupplierBtn = createRoundedButton("Search By Name");
+        JButton removeSupplierBtn = createRoundedButton("Remove By Name");
+        JButton searchSupplierIdBtn = createRoundedButton("Search By ID");
+        JButton removeSupplierIdBtn = createRoundedButton("Remove By ID");
 
         buttonPanel.add(viewSuppliersBtn);
         buttonPanel.add(addSupplierBtn);
@@ -69,11 +73,51 @@ class SupplierGUI extends JFrame {
         viewSuppliersBtn.addActionListener(e -> viewAllSuppliers());
         addSupplierBtn.addActionListener(e -> addSupplier());
         searchSupplierBtn.addActionListener(e -> searchSupplierByName());
-        searchSupplierIdBtn.addActionListener(e -> searchSupplierById());
         removeSupplierBtn.addActionListener(e -> removeSupplierByName());
+        searchSupplierIdBtn.addActionListener(e -> searchSupplierById());
         removeSupplierIdBtn.addActionListener(e -> removeSupplierById());
 
         add(panel);
+    }
+
+    private JLabel createStyledLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Arial", Font.BOLD, 14));
+        label.setForeground(new Color(0, 123, 255));
+        return label;
+    }
+
+    private JTextField createStyledTextField() {
+        JTextField textField = new JTextField();
+        textField.setFont(new Font("Arial", Font.PLAIN, 14));
+        textField.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0, 123, 255), 1),
+            BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        return textField;
+    }
+
+    private JButton createRoundedButton(String text) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(new Color(0, 123, 255));
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+                g2.setColor(Color.WHITE);
+                g2.setFont(new Font("Arial", Font.BOLD, 14));
+                FontMetrics fm = g2.getFontMetrics();
+                int x = (getWidth() - fm.stringWidth(getText())) / 2;
+                int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
+                g2.drawString(getText(), x, y);
+                g2.dispose();
+            }
+        };
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setPreferredSize(new Dimension(150, 40));
+        return button;
     }
 
     private void viewAllSuppliers() {
