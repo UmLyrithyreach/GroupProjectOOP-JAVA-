@@ -10,72 +10,77 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-class ClothesGUI extends JFrame {
+public class ClothesGUI extends JFrame {
     private JTextArea displayArea;
     private JTextField idField, nameField, brandField, sizeField, styleField, priceField, stockField, supplierIdField;
 
     public ClothesGUI() {
         setTitle("Clothes Operations");
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width, screenSize.height);
-        
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
 
+        // Main panel with card layout
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(240, 240, 240));
+
+        // Display Area
         displayArea = new JTextArea();
         displayArea.setEditable(false);
-        panel.add(new JScrollPane(displayArea), BorderLayout.CENTER);
+        displayArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        JScrollPane scrollPane = new JScrollPane(displayArea);
+        panel.add(scrollPane, BorderLayout.CENTER);
 
-        // Label and Text Field
-        JPanel inputPanel = new JPanel(new GridLayout(8, 2, 5, 5));
+        // Input Panel
+        JPanel inputPanel = new JPanel(new GridLayout(8, 2, 10, 10));
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        inputPanel.setBackground(new Color(240, 240, 240));
 
-        inputPanel.add(new JLabel("ID:"));
-        idField = new JTextField();
+        inputPanel.add(createStyledLabel("ID:"));
+        idField = createStyledTextField();
         inputPanel.add(idField);
 
-        inputPanel.add(new JLabel("Name:"));
-        nameField = new JTextField();
+        inputPanel.add(createStyledLabel("Name:"));
+        nameField = createStyledTextField();
         inputPanel.add(nameField);
 
-        inputPanel.add(new JLabel("Brand:"));
-        brandField = new JTextField();
+        inputPanel.add(createStyledLabel("Brand:"));
+        brandField = createStyledTextField();
         inputPanel.add(brandField);
 
-        inputPanel.add(new JLabel("Size:"));
-        sizeField = new JTextField();
+        inputPanel.add(createStyledLabel("Size:"));
+        sizeField = createStyledTextField();
         inputPanel.add(sizeField);
 
-        inputPanel.add(new JLabel("Style:"));
-        styleField = new JTextField();
+        inputPanel.add(createStyledLabel("Style:"));
+        styleField = createStyledTextField();
         inputPanel.add(styleField);
 
-        inputPanel.add(new JLabel("Price:"));
-        priceField = new JTextField();
+        inputPanel.add(createStyledLabel("Price:"));
+        priceField = createStyledTextField();
         inputPanel.add(priceField);
 
-        inputPanel.add(new JLabel("Stock:"));
-        stockField = new JTextField();
+        inputPanel.add(createStyledLabel("Stock:"));
+        stockField = createStyledTextField();
         inputPanel.add(stockField);
 
-        inputPanel.add(new JLabel("Supplier ID:"));
-        supplierIdField = new JTextField();
+        inputPanel.add(createStyledLabel("Supplier ID:"));
+        supplierIdField = createStyledTextField();
         inputPanel.add(supplierIdField);
 
         panel.add(inputPanel, BorderLayout.NORTH);
 
         // Button Panel
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 3));
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 3, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        buttonPanel.setBackground(new Color(240, 240, 240));
 
-        JButton addClothesBtn = new JButton("Add New Clothes");
-        JButton displayClothesBtn = new JButton("Display Clothes");
-        JButton searchByName = new JButton("Search Clothes By Name");
-        JButton searchByBrand = new JButton("Search Clothes By Brand");
-        JButton searchById = new JButton("Search Clothes By ID");
-        JButton removeById = new JButton("Remove Clothes By ID");
+        JButton addClothesBtn = createRoundedButton("Add New Clothes");
+        JButton displayClothesBtn = createRoundedButton("Display Clothes");
+        JButton searchByName = createRoundedButton("Search By Name");
+        JButton searchByBrand = createRoundedButton("Search By Brand");
+        JButton searchById = createRoundedButton("Search By ID");
+        JButton removeById = createRoundedButton("Remove By ID");
 
         buttonPanel.add(addClothesBtn);
         buttonPanel.add(displayClothesBtn);
@@ -94,6 +99,46 @@ class ClothesGUI extends JFrame {
         removeById.addActionListener(e -> removeClothesById());
 
         add(panel);
+    }
+
+    private JLabel createStyledLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Arial", Font.BOLD, 14));
+        label.setForeground(new Color(0, 123, 255));
+        return label;
+    }
+
+    private JTextField createStyledTextField() {
+        JTextField textField = new JTextField();
+        textField.setFont(new Font("Arial", Font.PLAIN, 14));
+        textField.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0, 123, 255), 1),
+            BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        return textField;
+    }
+
+    private JButton createRoundedButton(String text) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(new Color(0, 123, 255));
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+                g2.setColor(Color.WHITE);
+                g2.setFont(new Font("Arial", Font.BOLD, 14));
+                FontMetrics fm = g2.getFontMetrics();
+                int x = (getWidth() - fm.stringWidth(getText())) / 2;
+                int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
+                g2.drawString(getText(), x, y);
+                g2.dispose();
+            }
+        };
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setPreferredSize(new Dimension(150, 40));
+        return button;
     }
 
     private void addClothes() {
