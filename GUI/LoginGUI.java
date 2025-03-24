@@ -1,13 +1,13 @@
 package GUI;
 
 import Class.DatabaseConnection;
+import GUI.Staff.StaffGUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.swing.*;
 
 public class LoginGUI extends JFrame {
@@ -104,6 +104,9 @@ public class LoginGUI extends JFrame {
                         } else {
                             // Open Staff GUI (you can create a separate GUI for staff if needed)
                             JOptionPane.showMessageDialog(LoginGUI.this, "Welcome Staff!", "Login Success", JOptionPane.INFORMATION_MESSAGE);
+                            StaffGUI staff = new StaffGUI();
+                            staff.setVisible(true);
+                            dispose();
                         }
                     } else {
                         // Show error message for invalid username/password
