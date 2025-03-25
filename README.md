@@ -36,3 +36,16 @@ Someth, Huyty, Reach, ChhunHour
 
 # Database information
 Before you start the app, You have to create a database and its tables, you can find the database infomations in the database directory
+
+# To change database connection
+we need a lib or file .jar (java connector)
+``change this base on your own database that you use``
+public class DatabaseConnection {
+    private static final String URL = "jdbc:mariadb://localhost:3306/clothing_store";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "1234";
+}
+
+change the 
+``"java.project.referencedLibraries": ["lib/mariadb-java-client-3.5.2.jar"],``
+in setting.json
