@@ -1,34 +1,32 @@
 package GUI;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import Class.DatabaseConnection;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 
-class EmployeeGUI extends JFrame {
+class EmployeeGUI {
+    private JFrame frame;
     private JTextArea displayArea;
     private JTextField nameField, ageField, genderField, phoneField, emailField, addressField,
                        salaryField, startDateField, roleField;
 
     public EmployeeGUI() {
-        JFrame frame = new JFrame("Employee's Operations");
-
+        frame = new JFrame("Employee's Operations");
+        
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(screenSize.width, screenSize.height);
-
+        
         frame.setLocationRelativeTo(null);
         frame.setFont(new Font("Poppins", Font.PLAIN, 20));
 
@@ -162,6 +160,10 @@ class EmployeeGUI extends JFrame {
         frame.add(bottomPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
+    }
+
+    public void setVisible(boolean visible) {
+        frame.setVisible(visible);
     }
 
     private void updateName(JTable table, DefaultTableModel model) {

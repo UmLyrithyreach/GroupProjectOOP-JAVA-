@@ -1,7 +1,7 @@
 package GUI;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class AppGUI extends JFrame {
 
