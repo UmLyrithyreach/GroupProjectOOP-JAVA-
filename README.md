@@ -41,10 +41,11 @@ Before you start the app, You have to create a database and its tables, you can 
 we need a lib or file .jar (java connector)
 ``change this base on your own database that you use``
 public class DatabaseConnection {
+
     private static final String URL = "jdbc:mariadb://localhost:3306/clothing_store";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1234";
-}
+
 
 change the 
 ``"java.project.referencedLibraries": ["lib/mariadb-java-client-3.5.2.jar"],``

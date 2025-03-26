@@ -92,7 +92,7 @@ public class LoginGUI extends JFrame {
                 // Check if the user is a manager or staff
                 String query = "SELECT isManager FROM employees WHERE username = ? AND password = ?";
                 try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, username, password);
-                     ResultSet rs = stmt.executeQuery()) {
+                    ResultSet rs = stmt.executeQuery()) {
                     
                     if (rs != null && rs.next()) {
                         int isManager = rs.getInt("isManager");
@@ -102,9 +102,9 @@ public class LoginGUI extends JFrame {
                             app.setVisible(true);
                             dispose(); // Close the login window
                         } else {
-                            // Open Staff GUI (you can create a separate GUI for staff if needed)
+                            // Open Staff GUI and pass the username
                             JOptionPane.showMessageDialog(LoginGUI.this, "Welcome Staff!", "Login Success", JOptionPane.INFORMATION_MESSAGE);
-                            StaffGUI staff = new StaffGUI();
+                            StaffGUI staff = new StaffGUI(username); // Pass the username
                             staff.setVisible(true);
                             dispose();
                         }
