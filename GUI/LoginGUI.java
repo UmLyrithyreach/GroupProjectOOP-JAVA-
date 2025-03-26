@@ -84,8 +84,14 @@ public class LoginGUI extends JFrame {
                 String username = usernameField.getText().trim();
                 String password = new String(passwordField.getPassword()).trim();
 
-                if (username.isEmpty() || password.isEmpty()) {
+                if (username.isEmpty() && password.isEmpty()) {
                     JOptionPane.showMessageDialog(LoginGUI.this, "Username and password are required!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }else if(username.isEmpty()){
+                    JOptionPane.showMessageDialog(LoginGUI.this, "Username is required!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }else if(password.isEmpty()){
+                    JOptionPane.showMessageDialog(LoginGUI.this, "Password is required!", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
