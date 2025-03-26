@@ -1,6 +1,10 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import Class.DatabaseConnection;
 
@@ -10,74 +14,98 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SupplierGUI extends JFrame {
-    private JTextArea displayArea;
+    private JFrame frame;
     private JTextField nameField, addressField, contactField;
 
     public SupplierGUI() {
-        setTitle("Supplier Operations");
-        setSize(800, 600);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+        frame = new JFrame("Supplier Operations");
 
-        // Main panel with card layout
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(240, 240, 240));
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setSize(screenSize.width, screenSize.height);
+        
+        frame.setLocationRelativeTo(null);
+        frame.setFont(new Font("Poppins", Font.PLAIN, 20));
 
-        // Display Area
-        displayArea = new JTextArea();
-        displayArea.setEditable(false);
-        displayArea.setFont(new Font("Arial", Font.PLAIN, 14));
-        JScrollPane scrollPane = new JScrollPane(displayArea);
-        panel.add(scrollPane, BorderLayout.CENTER);
+        String[] column = {"id", "name", "address", "contact"};
+        DefaultTableModel model = new DefaultTableModel(column, 0);
+        JTable table = new JTable(model);
 
-        // Input Panel
-        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        inputPanel.setBackground(new Color(240, 240, 240));
+        //Set Table Row's height
+        table.setRowHeight(30);
 
-        inputPanel.add(createStyledLabel("Name:"));
-        nameField = createStyledTextField();
-        inputPanel.add(nameField);
+        //Set Table Font
+        table.getColumnModel().getColumn(0).setPreferredWidth(20);
+        table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getColumn(2).setPreferredWidth(200);
+        table.getColumnModel().getColumn(3).setPreferredWidth(150);
 
-        inputPanel.add(createStyledLabel("Address:"));
-        addressField = createStyledTextField();
-        inputPanel.add(addressField);
+        String query = "SELECT id, name, address, contact FROM suppliers";
 
-        inputPanel.add(createStyledLabel("Contact:"));
-        contactField = createStyledTextField();
-        inputPanel.add(contactField);
+        // Execute the query
+        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query);
+             ResultSet rs = stmt.executeQuery()) {
 
-        panel.add(inputPanel, BorderLayout.NORTH);
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No suppliers found.");
+                return;
+            }
 
-        // Button Panel
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 3, 10, 10));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        buttonPanel.setBackground(new Color(240, 240, 240));
+            // Fetch data from the result set
+            do {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String address = rs.getString("address");
+                String contact = rs.getString("contact");
 
-        JButton viewSuppliersBtn = createRoundedButton("View All Suppliers");
+                model.addRow(new Object[]{id, name, address, contact});
+            } while (rs.next());
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error while displaying suppliers.");
+            e.printStackTrace();
+        }
+
+        JLabel exit = new JLabel("Home");
+        exit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        exit.setFont(new Font("Poppins", Font.PLAIN, 18));
+        exit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+            }
+        });
+        JPanel topPanel = new JPanel();
+        topPanel.add(exit);
+        frame.add(topPanel, BorderLayout.NORTH);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel();
+
+        JButton updateNameBtn = createRoundedButton("Update Name");
+        updateNameBtn.addActionListener(e -> updateName(table, model));
+        bottomPanel.add(updateNameBtn);
+
+        JButton updateAddressBtn = createRoundedButton("Update Address");
+        updateAddressBtn.addActionListener(e -> updateAddress(table, model));
+        bottomPanel.add(updateAddressBtn);
+
+        JButton updateContactBtn = createRoundedButton("Update Contact");
+        updateContactBtn.addActionListener(e -> updateContact(table, model));
+        bottomPanel.add(updateContactBtn);
+
         JButton addSupplierBtn = createRoundedButton("Add Supplier");
-        JButton searchSupplierBtn = createRoundedButton("Search By Name");
-        JButton removeSupplierBtn = createRoundedButton("Remove By Name");
-        JButton searchSupplierIdBtn = createRoundedButton("Search By ID");
-        JButton removeSupplierIdBtn = createRoundedButton("Remove By ID");
+        addSupplierBtn.addActionListener(e -> addNewSupplier(table, model));
+        bottomPanel.add(addSupplierBtn);
 
-        buttonPanel.add(viewSuppliersBtn);
-        buttonPanel.add(addSupplierBtn);
-        buttonPanel.add(searchSupplierBtn);
-        buttonPanel.add(removeSupplierBtn);
-        buttonPanel.add(searchSupplierIdBtn);
-        buttonPanel.add(removeSupplierIdBtn);
+        JButton removeSupplierBtn = createRoundedButton("Remove Supplier");
+        removeSupplierBtn.addActionListener(e -> removeSupplier(table, model));
+        bottomPanel.add(removeSupplierBtn);
 
-        panel.add(buttonPanel, BorderLayout.SOUTH);
+        frame.add(bottomPanel, BorderLayout.SOUTH);
 
-        viewSuppliersBtn.addActionListener(e -> viewAllSuppliers());
-        addSupplierBtn.addActionListener(e -> addSupplier());
-        searchSupplierBtn.addActionListener(e -> searchSupplierByName());
-        removeSupplierBtn.addActionListener(e -> removeSupplierByName());
-        searchSupplierIdBtn.addActionListener(e -> searchSupplierById());
-        removeSupplierIdBtn.addActionListener(e -> removeSupplierById());
-
-        add(panel);
+        frame.setVisible(true);
     }
 
     private JLabel createStyledLabel(String text) {
@@ -120,48 +148,99 @@ public class SupplierGUI extends JFrame {
         return button;
     }
 
-    private void viewAllSuppliers() {
-        // String query to get all suppliers from the database
-        String query = "SELECT * FROM suppliers";
+    private void updateString(JTable table, DefaultTableModel model, String columnName, int columnNumber) {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            int id = (int) model.getValueAt(selectedRow, 0);
+            String newAddress = JOptionPane.showInputDialog("Enter new " + columnName + ": ");
+            if (newAddress != null && !newAddress.isEmpty()) {
+                String query = "UPDATE suppliers SET " + columnName + " = ? WHERE id = ?";
 
-        // Process the result set
-        try (ResultSet rs = DatabaseConnection.executeQuery(query)) {
-            if (!rs.next()) {
-                System.out.println("No suppliers found.");
-                return;
+                int rowsAffected = DatabaseConnection.executePreparedUpdate(query, newAddress, id);
+                if (rowsAffected > 0) {
+                    model.setValueAt(newAddress, selectedRow, columnNumber);
+                    JOptionPane.showMessageDialog(null,  columnName + " updated successfully!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error updating new " + columnName + "!");
+                }
             }
-
-            StringBuilder result = new StringBuilder();
-
-            do {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String address = rs.getString("address");
-                String contact = rs.getString("contact");
-
-                result.append("ID: ").append(id)
-                      .append("\nName: ").append(name)
-                      .append("\nAddress: ").append(address)
-                      .append("\nContact: ").append(contact)
-                      .append("\n\n");
-
-            } while (rs.next());
-
-            displayArea.setText(result.toString());
-
-        } catch (SQLException e) {
-            System.out.println("Error while displaying suppliers.");
-            e.printStackTrace();
         }
     }
 
-    private void addSupplier() {
+    private void updateName(JTable table, DefaultTableModel model) {
+        String columnName = "name";
+        int columnNumber = 1;
+        updateString(table, model, columnName, columnNumber);
+    }
+
+    private void updateAddress(JTable table, DefaultTableModel model) {
+        String columnName = "address";
+        int columnNumber = 2;
+        updateString(table, model, columnName, columnNumber);
+    }
+
+    private void updateContact(JTable table, DefaultTableModel model) {
+        String columnName = "contact";
+        int columnNumber = 3;
+        updateString(table, model, columnName, columnNumber);
+    }
+
+    private void addNewSupplier(JTable table, DefaultTableModel model) {
+        JFrame frame = new JFrame("Add New Supplier");
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setSize(screenSize.width, screenSize.height);
+        frame.setLocationRelativeTo(null);
+
+        frame.setFont(new Font("Poppins", Font.PLAIN, 20));
+
+        JPanel inputPanel = new JPanel(new GridLayout(3, 2));
+
+        inputPanel.add(createStyledLabel("Name:"));
+        nameField = createStyledTextField();
+        inputPanel.add(nameField);
+
+        inputPanel.add(createStyledLabel("Address:"));
+        addressField = createStyledTextField();
+        inputPanel.add(addressField);
+
+        inputPanel.add(createStyledLabel("Contact:"));
+        contactField = createStyledTextField();
+        inputPanel.add(contactField);
+
+        frame.add(inputPanel, BorderLayout.CENTER);
+
+        JPanel centerPanel = new JPanel();
+
+        JButton addSupplierBtn = createRoundedButton("Add Supplier");
+        addSupplierBtn.addActionListener(e -> addSupplier(table, model));
+        centerPanel.add(addSupplierBtn);
+
+        frame.add(centerPanel, BorderLayout.SOUTH);
+
+        JLabel exit = new JLabel("Back");
+        exit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        exit.setFont(new Font("Poppins", Font.PLAIN, 18));
+        exit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+            }
+        });
+        JPanel topPanel = new JPanel();
+        topPanel.add(exit);
+        frame.add(topPanel, BorderLayout.NORTH);
+
+        frame.setVisible(true);
+    }
+
+    private void addSupplier(JTable table, DefaultTableModel model) {
         String name = nameField.getText().trim();
         String address = addressField.getText().trim();
         String contact = contactField.getText().trim();
 
         if (name.isEmpty() || address.isEmpty() || contact.isEmpty()) {
-            displayArea.setText("All fields must be filled.");
+            JOptionPane.showMessageDialog(null, "All fields must be filled.");
             return;
         }
 
@@ -170,84 +249,42 @@ public class SupplierGUI extends JFrame {
 
         // Execute the query using PreparedStatement with the user input as parameters
         int rowsAffected = DatabaseConnection.executePreparedUpdate(query, name, address, contact);
-
         if (rowsAffected > 0) {
-            displayArea.setText("Supplier added successfully.");
-            nameField.setText("");
-            addressField.setText("");
-            contactField.setText("");
+            try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery("SELECT id FROM suppliers WHERE name = ? AND address = ? AND contact = ?", name, address, contact);
+                 ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int id = rs.getInt("id");
+                    model.addRow(new Object[]{id, name, address, contact});
+                    JOptionPane.showMessageDialog(null, "Supplier added successfully.");
+                    nameField.setText("");
+                    addressField.setText("");
+                    contactField.setText("");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } else {
-            displayArea.setText("Failed to add supplier. Please try again");
+            JOptionPane.showMessageDialog(null, "Failed to add supplier. Please try again");
         }
     }
 
-    private void searchSupplierByName() {
-        String supplier = nameField.getText().trim();
-        if (supplier.isEmpty()) {
-            displayArea.setText("Searching for supplier: " + supplier);
-            nameField.setText("");
-            return;
-        }
-
-        // String query to get the supplier name like
-        String query = "SELECT * FROM suppliers WHERE name LIKE ?";
-
-        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, "%" + supplier + "%");
-             ResultSet rs = stmt.executeQuery()) {
-            
-            if (!rs.next() || rs == null) {
-                displayArea.setText("Supplier not found.");
+    private void removeSupplier(JTable table, DefaultTableModel model) {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            int id = (int) model.getValueAt(selectedRow, 0);
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this supplier?", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (confirm != JOptionPane.YES_OPTION) {
                 return;
             }
+            String query = "DELETE FROM suppliers WHERE id = ?";
 
-            StringBuilder result = new StringBuilder();
-            do {
-                // Fetch Data
-                int id = rs.getInt("id");
-                String contact = rs.getString("contact");
-                String address = rs.getString("address");
-
-                result.append("ID: ").append(id)
-                      .append("Contact: ").append(contact)
-                      .append("Address: ").append(address)
-                      .append("\n\n");
-
-            } while (rs.next());
-            // Print the supplier details
-            displayArea.setText(result.toString());
-
-        } catch (SQLException e) {
-            System.out.println("Error while searching for supplier");
-            e.printStackTrace();
+            int rowsAffected = DatabaseConnection.executePreparedUpdate(query, id);
+            if (rowsAffected > 0) {
+                model.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(null, "Supplier removed successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error removing supplier!");
+            }
         }
-        
-    }
-
-    private void removeSupplierByName() {
-        String name = nameField.getText().trim();
-        if (name.isEmpty()) {
-            displayArea.setText("Enter supplier name to remove.");
-            nameField.setText("");
-            return;
-        }
-
-        String query = "DELETE FROM suppliers WHERE name = ?";
-
-        int rowsAffected = DatabaseConnection.executePreparedUpdate(query, name);
-
-        if (rowsAffected > 0) {
-            displayArea.setText("Supplier '" + name + "' removed successfully!");
-            nameField.setText("");
-        } else {
-            displayArea.setText("Supplier not found or could not be removed.");
-        }
-    }
-
-    private void removeSupplierById() {
-        
-    }
-
-    private void searchSupplierById() {
-
     }
 }
