@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.JTextComponent;
 
 
 class EmployeeGUI {
@@ -20,6 +21,7 @@ class EmployeeGUI {
     private JTextArea displayArea;
     private JTextField nameField, ageField, genderField, phoneField, emailField, addressField,
                        salaryField, startDateField, roleField;
+    private JTextComponent idField;
 
     public EmployeeGUI() {
         frame = new JFrame("Employee's Operations");
@@ -30,7 +32,7 @@ class EmployeeGUI {
         frame.setLocationRelativeTo(null);
         frame.setFont(new Font("Poppins", Font.PLAIN, 20));
 
-        String [] column = {"id", "name", "age", "gender", "phoneNumber", "email", "address", "salary", "startDate", "role", "password", "isManager", "username"};
+        String[] column = {"id", "name", "age", "gender", "phoneNumber", "email", "address", "salary", "startDate", "role", "password", "isManager", "username"};
         DefaultTableModel model = new DefaultTableModel(column, 0);
         JTable table = new JTable(model);
         // Set Table Row's height
@@ -303,123 +305,9 @@ class EmployeeGUI {
         }
     }
 
-    private void searchEmployeeByID() {
-        String id = idField.getText().trim();
-
-        if (id.isEmpty()) {
-            displayArea.setText("ID is required");
-            return;
-        }
-
-        // String query to search for employee by ID
-        String query = "SELECT * FROM employees WHERE id = ?";
-
-        // Execute the query
-        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, id);
-             ResultSet rs = stmt.executeQuery()) {
-            
-            if (rs == null || !rs.next()) {
-                System.out.println("Employee with id '" + id + "' not found!");
-                return;
-            } 
-
-            // Fetch data if found
-            StringBuilder result = new StringBuilder();
-
-            String name = rs.getString("name");
-            String gender = rs.getString("gender");
-            int age = rs.getInt("age");
-            String phoneNumber = rs.getString("phoneNumber");
-            String email = rs.getString("email");
-            String address = rs.getString("address");
-            BigDecimal salary = rs.getBigDecimal("salary");
-            String startDate = rs.getString("startDate");
-            String role = rs.getString("role");
-            String username = rs.getString("username");
-            String password = rs.getString("password");
-            int isManager = rs.getInt("id");
-
-            // Build result to display
-            result.append("ID: ").append(id)
-            .append("Name: ").append(name)
-            .append("Age: ").append(age)
-            .append("Gender: ").append(gender)
-            .append("Phone Number: ").append(phoneNumber)
-            .append("Email: ").append(email)
-            .append("Address: ").append(address)
-            .append("Salary: ").append(salary)
-            .append("Start Date: ").append(startDate)
-            .append("Role: ").append(role)
-            .append("Username: ").append(username)
-            .append("Password: ").append(password)
-            .append("Manager Status: ").append((isManager == 1)  ? "True" : "False" );
-            
-            displayArea.setText(result.toString());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void searchEmployeeByName() {
-        String name = nameField.getText().trim();
-
-        // String query to search for employees by name
-        String query = "SELECT * FROM employees WHERE name LIKE ?";
-
-        // Execute the query
-        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query, "%" + name + "%");
-             ResultSet rs = stmt.executeQuery()) {
-            
-            if (rs == null || !rs.next()) {
-                displayArea.setText("Employee with '" + name + "' not found!");
-                return;
-            } 
-
-            StringBuilder result = new StringBuilder();
-
-            do {
-
-                // Fetch data if found
-                int id = rs.getInt("id");
-                String gender = rs.getString("gender");
-                int age = rs.getInt("age");
-                String phoneNumber = rs.getString("phoneNumber");
-                String email = rs.getString("email");
-                String address = rs.getString("address");
-                BigDecimal salary = rs.getBigDecimal("salary");
-                String startDate = rs.getString("startDate");
-                String role = rs.getString("role");
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                int isManager = rs.getInt("id");
-
-                // Build result to display
-                result.append("ID: ").append(id)
-                .append("Name: ").append(name)
-                .append("Age: ").append(age)
-                .append("Gender: ").append(gender)
-                .append("Phone Number: ").append(phoneNumber)
-                .append("Email: ").append(email)
-                .append("Address: ").append(address)
-                .append("Salary: ").append(salary)
-                .append("Start Date: ").append(startDate)
-                .append("Role: ").append(role)
-                .append("Username: ").append(username)
-                .append("Password: ").append(password)
-                .append("Manager Status: ").append((isManager == 1)  ? "True" : "False" );
-                
-            } while(rs.next());
-
-            displayArea.setText(result.toString());
-                
-        } catch (SQLException e) {
-            displayArea.setText("Error: " + e.getMessage());
-        }
-    }
-
     private void addNewEmployee(JTable table, DefaultTableModel model) {
 
-        JFrame frame = new JFrame("Employee Operations");
+        JFrame frame = new JFrame("Add New Employee");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(screenSize.width, screenSize.height);
@@ -519,18 +407,28 @@ class EmployeeGUI {
         // Execute the query using PreparedStatement with the user input as parameters
         int rowsAffected = DatabaseConnection.executePreparedUpdate(query, name, age, gender, phone, email, address, salary, sqlDate, role);
         if (rowsAffected > 0) {
-            model.addRow(new Object[]{4, name, age, gender, phone, email, address, salary, date, role, "", 0, ""});
-            JOptionPane.showMessageDialog(null, "Employee added successfully.");
-            nameField.setText("");
-            ageField.setText("");
-            genderField.setText("");
-            phoneField.setText("");
-            emailField.setText("");
-            addressField.setText("");
-            salaryField.setText("");
-            startDateField.setText("");
-            roleField.setText("");
-        } else {
+            try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery("SELECT id FROM employees WHERE name = ? AND age = ? AND gender = ? AND phoneNumber = ? AND email = ? AND address = ? AND salary = ? AND startDate = ? AND role = ?", name, age, gender, phone, email, address, salary, sqlDate, role);
+                 ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int id = rs.getInt("id");
+                    model.addRow(new Object[]{ id, name, age, gender, phone, email, address, salary, date, role, "", 0, ""});
+                    JOptionPane.showMessageDialog(null, "Employee added successfully.");
+                    nameField.setText("");
+                    ageField.setText("");
+                    genderField.setText("");
+                    phoneField.setText("");
+                    emailField.setText("");
+                    addressField.setText("");
+                    salaryField.setText("");
+                    startDateField.setText("");
+                    roleField.setText("");
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Failed to add employee.");
+                e.printStackTrace();
+            }
+        }
+        else {
             JOptionPane.showMessageDialog(null, "Failed to add employee.");
         }
     }
