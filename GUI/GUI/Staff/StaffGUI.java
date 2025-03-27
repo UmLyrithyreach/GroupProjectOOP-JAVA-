@@ -1,6 +1,5 @@
 package GUI.Staff;
 
-import GUI.LoginGUI;
 import java.awt.*;
 import javax.swing.*;
 
@@ -70,8 +69,6 @@ public class StaffGUI extends JFrame {
             walkInPurchaseGUI.setVisible(true);
         });
         stockCheckBtn.addActionListener(e -> openStockCheck());
-        searchItemBtn.addActionListener(e -> openItemSearch());
-        returnItemBtn.addActionListener(e -> openReturns());
         logoutBtn.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(
                 this,
@@ -114,32 +111,20 @@ public class StaffGUI extends JFrame {
     }
 
     private void openStockCheck() {
-        // For checking item availability
-        // Should include:
-        // - Size availability
-        // - Color options
-        // - Location in store
-        // - Quantity in stock
+        try {
+            // Create a new CheckStock instance to show the stock check window
+            CheckStock stockChecker = new CheckStock();
+            
+            // You could also use the static method if you modified the CheckStock class to include it
+            // CheckStock.openStockCheckWindow();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, 
+                "Error opening stock check window: " + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }
-
-    private void openItemSearch() {
-        // For finding specific items
-        // Should include:
-        // - Search by category
-        // - Search by size
-        // - Search by color
-        // - Search by brand
-    }
-
-    private void openReturns() {
-        // For processing customer returns
-        // Should include:
-        // - Return reason
-        // - Item condition check
-        // - Refund processing
-        // - Stock update
-    }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new StaffGUI("someth168").setVisible(true));
     }
