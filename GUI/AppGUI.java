@@ -52,8 +52,21 @@ public class AppGUI extends JFrame {
         employeeBtn.addActionListener(e -> openEmployeeOperations());
         clothesBtn.addActionListener(e -> openClothesOperations());
         supplierBtn.addActionListener(e -> openSupplierOperations());
-        logoutBtn.addActionListener(e -> System.exit(0));
-
+        logoutBtn.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to logout?",
+                "Confirm Logout",
+                JOptionPane.YES_NO_OPTION
+            );
+            
+            if (confirm == JOptionPane.YES_OPTION) {
+                LoginGUI loginScreen = new LoginGUI();
+                loginScreen.setVisible(true);
+                this.dispose();
+            }
+        });
+        
         add(panel);
     }
 

@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.JTextComponent;
 
 
 class EmployeeGUI {
@@ -20,6 +21,7 @@ class EmployeeGUI {
     private JTextArea displayArea;
     private JTextField nameField, ageField, genderField, phoneField, emailField, addressField,
                        salaryField, startDateField, roleField;
+    private JTextComponent idField;
 
     public EmployeeGUI() {
         frame = new JFrame("Employee's Operations");
