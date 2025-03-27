@@ -73,6 +73,7 @@ public class AppGUI extends JFrame {
                 loginScreen.setVisible(true);
                 this.dispose();
             }
+        });
         add(panel);
     }
 

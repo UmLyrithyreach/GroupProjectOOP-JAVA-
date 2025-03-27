@@ -1,71 +1,43 @@
 package GUI;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
+import Class.DatabaseConnection;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import Class.DatabaseConnection;
-
-import java.awt.*;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class ClothesGUI extends JFrame {
     private JFrame frame;
-    private JTextArea displayArea;
-    private JTextField nameField, brandField, sizeField, styleField, priceField, stockField, supplierIdField;
+    private JTextField nameField, brandField, sizeField, styleField, priceField, supplierIdField;
 
     public ClothesGUI() {
-        frame = new JFrame("Clothes Operations");
+        frame = new JFrame("Clothes Management");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(screenSize.width, screenSize.height);
 
         frame.setLocationRelativeTo(null);
         frame.setFont(new Font("Poppins", Font.PLAIN, 20));
 
-        String[] column = { "id", "name", "brand", "size", "price", "stock", "style", "suppliersId" };
+        String[] column = { "ID", "Name", "Brand", "Size", "Price", "Style", "Supplier ID" };
         DefaultTableModel model = new DefaultTableModel(column, 0);
         JTable table = new JTable(model);
         // Set Table Row's height
         table.setRowHeight(30);
         // Set width of each columns
         table.getColumnModel().getColumn(0).setPreferredWidth(20);
-        table.getColumnModel().getColumn(1).setPreferredWidth(70);
-        table.getColumnModel().getColumn(2).setPreferredWidth(50);
-        table.getColumnModel().getColumn(3).setPreferredWidth(20);
-        table.getColumnModel().getColumn(4).setPreferredWidth(100);
-        table.getColumnModel().getColumn(5).setPreferredWidth(50);
-        table.getColumnModel().getColumn(6).setPreferredWidth(100);
-        table.getColumnModel().getColumn(7).setPreferredWidth(20);
+        table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getColumn(2).setPreferredWidth(70);
+        table.getColumnModel().getColumn(3).setPreferredWidth(30);
+        table.getColumnModel().getColumn(4).setPreferredWidth(50);
+        table.getColumnModel().getColumn(5).setPreferredWidth(100);
+        table.getColumnModel().getColumn(6).setPreferredWidth(50);
 
-        String query = "SELECT id, name, brand, size, price, stock, style, supplierId FROM clothes";
-        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query);
-                ResultSet rs = stmt.executeQuery()) {
-
-            if (!rs.next()) {
-                displayArea.setText("No clothes found!");
-                return;
-            }
-
-            do {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String brand = rs.getString("brand");
-                String size = rs.getString("size");
-                BigDecimal price = rs.getBigDecimal("price");
-                int stock = rs.getInt("stock");
-                String style = rs.getString("style");
-                int supplierId = rs.getInt("supplierId");
-
-                model.addRow(new Object[] { id, name, brand, size, price, stock, style, supplierId });
-            } while (rs.next());
-        } catch (SQLException e) {
-            displayArea.setText("Error while displaying clothes.");
-            e.printStackTrace();
-        }
+        loadClothesData(model);
 
         JLabel exit = new JLabel("Home");
         exit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -83,147 +55,302 @@ public class ClothesGUI extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new GridLayout(2, 3));
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JButton addClothesBtn = createRoundedButton("Add New Clothes");
-        addClothesBtn.addActionListener(e -> addClothes(table, model));
-        bottomPanel.add(addClothesBtn);
+        JButton addButton = createRoundedButton("Add New Clothes");
+        addButton.addActionListener(e -> showAddClothesDialog(model));
+        buttonPanel.add(addButton);
 
-        JButton updateNameBtn = createRoundedButton("Update Name");
-        updateNameBtn.addActionListener(e -> updateName(table, model));
-        bottomPanel.add(updateNameBtn);
+        JButton editButton = createRoundedButton("Edit Selected");
+        editButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                showEditClothesDialog(model, selectedRow);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Please select a clothes item to edit.");
+            }
+        });
+        buttonPanel.add(editButton);
 
-        JButton updateBrandBtn = createRoundedButton("Update Brand");
-        updateBrandBtn.addActionListener(e -> updateBrand(table, model));
-        bottomPanel.add(updateBrandBtn);
+        JButton deleteButton = createRoundedButton("Delete Selected");
+        deleteButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                deleteClothes(model, selectedRow);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Please select a clothes item to delete.");
+            }
+        });
+        buttonPanel.add(deleteButton);
 
-        JButton updateSizeBtn = createRoundedButton("Update Size");
-        updateSizeBtn.addActionListener(e -> updateSize(table, model));
-        bottomPanel.add(updateSizeBtn);
+        JButton refreshButton = createRoundedButton("Refresh Data");
+        refreshButton.addActionListener(e -> {
+            model.setRowCount(0);
+            loadClothesData(model);
+        });
+        buttonPanel.add(refreshButton);
 
-        JButton updateStyleBtn = createRoundedButton("Update Style");
-        updateStyleBtn.addActionListener(e -> updateStyle(table, model));
-        bottomPanel.add(updateStyleBtn);
-
-        JButton updateSupplierIdBtn = createRoundedButton("Update Supplier ID");
-        updateSupplierIdBtn.addActionListener(e -> updateSupplierId(table, model));
-        bottomPanel.add(updateSupplierIdBtn);
-
-        JButton updateStockBtn = createRoundedButton("Update Stock");
-        updateStockBtn.addActionListener(e -> updateStock(table, model));
-        bottomPanel.add(updateStockBtn);
-
-        JButton updatePriceBtn = createRoundedButton("Update Price");
-        updatePriceBtn.addActionListener(e -> updatePrice(table, model));
-        bottomPanel.add(updatePriceBtn);
-
-        JButton removeClothesBtn = createRoundedButton("Remove Clothes");
-        removeClothesBtn.addActionListener(e -> removeClothes(table, model));
-        bottomPanel.add(removeClothesBtn);
-
-        frame.add(bottomPanel, BorderLayout.SOUTH);
-
+        frame.add(buttonPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
     }
 
-    private void updateString(JTable table, DefaultTableModel model, String columnName, int columnNumber) {
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow != -1) {
-            int id = (int) model.getValueAt(selectedRow, 0);
-            String newAddress = JOptionPane.showInputDialog("Enter new " + columnName + ": ");
-            if (newAddress != null && !newAddress.isEmpty()) {
-                String query = "UPDATE clothes SET " + columnName + " = ? WHERE id = ?";
+    private void loadClothesData(DefaultTableModel model) {
+        String query = "SELECT id, name, brand, size, price, style, supplierId FROM clothes";
+        try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(query);
+             ResultSet rs = stmt.executeQuery()) {
 
-                int rowsAffected = DatabaseConnection.executePreparedUpdate(query, newAddress, id);
-                if (rowsAffected > 0) {
-                    model.setValueAt(newAddress, selectedRow, columnNumber);
-                    JOptionPane.showMessageDialog(null, columnName + " updated successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error updating new " + columnName + "!");
-                }
+            boolean hasData = rs.next();
+            if (!hasData) {
+                JOptionPane.showMessageDialog(frame, "No clothes found in database. You can add new items.");
+            } else {
+                do {
+                    int id = rs.getInt("id");
+                    String name = rs.getString("name");
+                    String brand = rs.getString("brand");
+                    String size = rs.getString("size");
+                    BigDecimal price = rs.getBigDecimal("price");
+                    String style = rs.getString("style");
+                    int supplierId = rs.getInt("supplierId");
+
+                    model.addRow(new Object[] { id, name, brand, size, price, style, supplierId });
+                } while (rs.next());
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(frame, "Error loading clothes data: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    private void updateName(JTable table, DefaultTableModel model) {
-        String columnName = "name";
-        int columnNumber = 1;
-        updateString(table, model, columnName, columnNumber);
-    }
+    private void showAddClothesDialog(DefaultTableModel model) {
+        JDialog dialog = new JDialog(frame, "Add New Clothes", true);
+        dialog.setSize(400, 350);
+        dialog.setLocationRelativeTo(frame);
+        dialog.setLayout(new BorderLayout());
 
-    private void updateBrand(JTable table, DefaultTableModel model) {
-        String columnName = "brand";
-        int columnNumber = 2;
-        updateString(table, model, columnName, columnNumber);
-    }
+        JPanel formPanel = new JPanel(new GridLayout(6, 2, 5, 10));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-    private void updateSize(JTable table, DefaultTableModel model) {
-        String columnName = "size";
-        int columnNumber = 3;
-        updateString(table, model, columnName, columnNumber);
-    }
+        formPanel.add(createStyledLabel("Name:"));
+        nameField = createStyledTextField();
+        formPanel.add(nameField);
 
-    private void updateStyle(JTable table, DefaultTableModel model) {
-        String columnName = "style";
-        int columnNumber = 4;
-        updateString(table, model, columnName, columnNumber);
-    }
+        formPanel.add(createStyledLabel("Brand:"));
+        brandField = createStyledTextField();
+        formPanel.add(brandField);
 
-    private void updateSupplierId(JTable table, DefaultTableModel model) {
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow != -1) {
-            int id = (int) model.getValueAt(selectedRow, 0);
-            String newSupplierId = JOptionPane.showInputDialog("Enter new Supplier ID: ");
-            if (newSupplierId != null && !newSupplierId.isEmpty()) {
-                String query = "UPDATE clothes SET supplierId = ? WHERE id = ?";
-                int supplierId = Integer.parseInt(newSupplierId);
-                int rowsAffected = DatabaseConnection.executePreparedUpdate(query, supplierId, id);
-                if (rowsAffected > 0) {
-                    model.setValueAt(newSupplierId, selectedRow, 7);
-                    JOptionPane.showMessageDialog(null, "Supplier ID updated successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error updating new Supplier ID!");
-                }
+        formPanel.add(createStyledLabel("Size:"));
+        sizeField = createStyledTextField();
+        formPanel.add(sizeField);
+
+        formPanel.add(createStyledLabel("Style:"));
+        styleField = createStyledTextField();
+        formPanel.add(styleField);
+
+        formPanel.add(createStyledLabel("Price:"));
+        priceField = createStyledTextField();
+        formPanel.add(priceField);
+
+        formPanel.add(createStyledLabel("Supplier ID:"));
+        supplierIdField = createStyledTextField();
+        formPanel.add(supplierIdField);
+
+        dialog.add(formPanel, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton saveButton = createRoundedButton("Save");
+        saveButton.addActionListener(e -> {
+            if (addClothesToDatabase(model)) {
+                dialog.dispose();
             }
+        });
+        buttonPanel.add(saveButton);
+
+        JButton cancelButton = createRoundedButton("Cancel");
+        cancelButton.addActionListener(e -> dialog.dispose());
+        buttonPanel.add(cancelButton);
+
+        dialog.add(buttonPanel, BorderLayout.SOUTH);
+        dialog.setVisible(true);
+    }
+
+    private boolean addClothesToDatabase(DefaultTableModel model) {
+        String name = nameField.getText().trim();
+        String brand = brandField.getText().trim();
+        String size = sizeField.getText().trim();
+        String style = styleField.getText().trim();
+        String priceStr = priceField.getText().trim();
+        String supplierIdStr = supplierIdField.getText().trim();
+
+        // Validate input
+        if (name.isEmpty() || brand.isEmpty() || size.isEmpty() || style.isEmpty() ||
+                priceStr.isEmpty() || supplierIdStr.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "All fields are required.");
+            return false;
+        }
+
+        // Validate numeric fields
+        double price;
+        int supplierId;
+        try {
+            price = Double.parseDouble(priceStr);
+            supplierId = Integer.parseInt(supplierIdStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame, "Price and Supplier ID must be valid numbers.");
+            return false;
+        }
+
+        // Insert into database
+        String query = "INSERT INTO clothes (name, brand, size, style, price, supplierId) VALUES (?, ?, ?, ?, ?, ?)";
+        int rowsAffected = DatabaseConnection.executePreparedUpdate(query, name, brand, size, style, price, supplierId);
+
+        if (rowsAffected > 0) {
+            // Get the newly inserted ID
+            try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery(
+                    "SELECT id FROM clothes WHERE name = ? AND brand = ? AND size = ? ORDER BY id DESC LIMIT 1",
+                    name, brand, size);
+                 ResultSet rs = stmt.executeQuery()) {
+                
+                if (rs.next()) {
+                    int id = rs.getInt("id");
+                    model.addRow(new Object[] { id, name, brand, size, price, style, supplierId });
+                    JOptionPane.showMessageDialog(frame, "Clothes added successfully!");
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        JOptionPane.showMessageDialog(frame, "Failed to add clothes to database.");
+        return false;
+    }
+
+    private void showEditClothesDialog(DefaultTableModel model, int selectedRow) {
+        JDialog dialog = new JDialog(frame, "Edit Clothes", true);
+        dialog.setSize(400, 350);
+        dialog.setLocationRelativeTo(frame);
+        dialog.setLayout(new BorderLayout());
+
+        int clothesId = (int) model.getValueAt(selectedRow, 0);
+        
+        JPanel formPanel = new JPanel(new GridLayout(6, 2, 5, 10));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        formPanel.add(createStyledLabel("Name:"));
+        nameField = createStyledTextField();
+        nameField.setText(model.getValueAt(selectedRow, 1).toString());
+        formPanel.add(nameField);
+
+        formPanel.add(createStyledLabel("Brand:"));
+        brandField = createStyledTextField();
+        brandField.setText(model.getValueAt(selectedRow, 2).toString());
+        formPanel.add(brandField);
+
+        formPanel.add(createStyledLabel("Size:"));
+        sizeField = createStyledTextField();
+        sizeField.setText(model.getValueAt(selectedRow, 3).toString());
+        formPanel.add(sizeField);
+
+        formPanel.add(createStyledLabel("Style:"));
+        styleField = createStyledTextField();
+        styleField.setText(model.getValueAt(selectedRow, 5).toString());
+        formPanel.add(styleField);
+
+        formPanel.add(createStyledLabel("Price:"));
+        priceField = createStyledTextField();
+        priceField.setText(model.getValueAt(selectedRow, 4).toString());
+        formPanel.add(priceField);
+
+        formPanel.add(createStyledLabel("Supplier ID:"));
+        supplierIdField = createStyledTextField();
+        supplierIdField.setText(model.getValueAt(selectedRow, 6).toString());
+        formPanel.add(supplierIdField);
+
+        dialog.add(formPanel, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton saveButton = createRoundedButton("Update");
+        saveButton.addActionListener(e -> {
+            if (updateClothesInDatabase(model, selectedRow, clothesId)) {
+                dialog.dispose();
+            }
+        });
+        buttonPanel.add(saveButton);
+
+        JButton cancelButton = createRoundedButton("Cancel");
+        cancelButton.addActionListener(e -> dialog.dispose());
+        buttonPanel.add(cancelButton);
+
+        dialog.add(buttonPanel, BorderLayout.SOUTH);
+        dialog.setVisible(true);
+    }
+
+    private boolean updateClothesInDatabase(DefaultTableModel model, int selectedRow, int clothesId) {
+        String name = nameField.getText().trim();
+        String brand = brandField.getText().trim();
+        String size = sizeField.getText().trim();
+        String style = styleField.getText().trim();
+        String priceStr = priceField.getText().trim();
+        String supplierIdStr = supplierIdField.getText().trim();
+
+        // Validate input
+        if (name.isEmpty() || brand.isEmpty() || size.isEmpty() || style.isEmpty() ||
+                priceStr.isEmpty() || supplierIdStr.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "All fields are required.");
+            return false;
+        }
+
+        // Validate numeric fields
+        double price;
+        int supplierId;
+        try {
+            price = Double.parseDouble(priceStr);
+            supplierId = Integer.parseInt(supplierIdStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame, "Price and Supplier ID must be valid numbers.");
+            return false;
+        }
+
+        // Update database
+        String query = "UPDATE clothes SET name = ?, brand = ?, size = ?, style = ?, price = ?, supplierId = ? WHERE id = ?";
+        int rowsAffected = DatabaseConnection.executePreparedUpdate(
+                query, name, brand, size, style, price, supplierId, clothesId);
+
+        if (rowsAffected > 0) {
+            // Update the table model
+            model.setValueAt(name, selectedRow, 1);
+            model.setValueAt(brand, selectedRow, 2);
+            model.setValueAt(size, selectedRow, 3);
+            model.setValueAt(price, selectedRow, 4);
+            model.setValueAt(style, selectedRow, 5);
+            model.setValueAt(supplierId, selectedRow, 6);
+            
+            JOptionPane.showMessageDialog(frame, "Clothes updated successfully!");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(frame, "Failed to update clothes.");
+            return false;
         }
     }
 
-    private void updateStock(JTable table, DefaultTableModel model) {
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow != -1) {
-            int id = (int) model.getValueAt(selectedRow, 0);
-            String newStock = JOptionPane.showInputDialog("Enter new Stock: ");
-            if (newStock != null && !newStock.isEmpty()) {
-                String query = "UPDATE clothes SET stock = ? WHERE id = ?";
-                int stock = Integer.parseInt(newStock);
-                int rowsAffected = DatabaseConnection.executePreparedUpdate(query, stock, id);
-                if (rowsAffected > 0) {
-                    model.setValueAt(newStock, selectedRow, 5);
-                    JOptionPane.showMessageDialog(null, "Stock updated successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error updating new Stock!");
-                }
-            }
-        }
-    }
-
-    private void updatePrice(JTable table, DefaultTableModel model) {
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow != -1) {
-            int id = (int) model.getValueAt(selectedRow, 0);
-            String newPrice = JOptionPane.showInputDialog("Enter new Price: ");
-            if (newPrice != null && !newPrice.isEmpty()) {
-                String query = "UPDATE clothes SET price = ? WHERE id = ?";
-                Double price = Double.parseDouble(newPrice);
-
-                int rowsAffected = DatabaseConnection.executePreparedUpdate(query, price, id);
-                if (rowsAffected > 0) {
-                    model.setValueAt(price, selectedRow, 4);
-                    JOptionPane.showMessageDialog(null, "Price updated successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error updating new Price!");
-                }
+    private void deleteClothes(DefaultTableModel model, int selectedRow) {
+        int clothesId = (int) model.getValueAt(selectedRow, 0);
+        int confirm = JOptionPane.showConfirmDialog(
+                frame, 
+                "Are you sure you want to delete this clothes item?", 
+                "Confirm Deletion", 
+                JOptionPane.YES_NO_OPTION);
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            String query = "DELETE FROM clothes WHERE id = ?";
+            int rowsAffected = DatabaseConnection.executePreparedUpdate(query, clothesId);
+            
+            if (rowsAffected > 0) {
+                model.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(frame, "Clothes deleted successfully!");
+            } else {
+                JOptionPane.showMessageDialog(frame, "Failed to delete clothes.");
             }
         }
     }
@@ -265,136 +392,5 @@ public class ClothesGUI extends JFrame {
         button.setBorderPainted(false);
         button.setPreferredSize(new Dimension(150, 40));
         return button;
-    }
-
-    private void addClothes(JTable table, DefaultTableModel model) {
-
-        JFrame frame = new JFrame("Add New Clothes");
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setSize(screenSize.width, screenSize.height);
-        frame.setLocationRelativeTo(null);
-
-        frame.setFont(new Font("Poppins", Font.PLAIN, 20));
-
-        JPanel inputPanel = new JPanel(new GridLayout(7, 2));
-
-        inputPanel.add(createStyledLabel("Name:"));
-        nameField = createStyledTextField();
-        inputPanel.add(nameField);
-
-        inputPanel.add(createStyledLabel("Brand:"));
-        brandField = createStyledTextField();
-        inputPanel.add(brandField);
-
-        inputPanel.add(createStyledLabel("Size:"));
-        sizeField = createStyledTextField();
-        inputPanel.add(sizeField);
-
-        inputPanel.add(createStyledLabel("Style:"));
-        styleField = createStyledTextField();
-        inputPanel.add(styleField);
-
-        inputPanel.add(createStyledLabel("Price:"));
-        priceField = createStyledTextField();
-        inputPanel.add(priceField);
-
-        inputPanel.add(createStyledLabel("Stock:"));
-        stockField = createStyledTextField();
-        inputPanel.add(stockField);
-
-        inputPanel.add(createStyledLabel("Supplier ID:"));
-        supplierIdField = createStyledTextField();
-        inputPanel.add(supplierIdField);
-
-        frame.add(inputPanel, BorderLayout.CENTER);
-
-        JPanel centerPanel = new JPanel();
-        JButton addClothesBtn = createRoundedButton("Add New Clothes");
-        addClothesBtn.addActionListener(e -> addNewClothes(table, model));
-        centerPanel.add(addClothesBtn);
-
-        frame.add(centerPanel, BorderLayout.SOUTH);
-
-        JLabel exit = new JLabel("Back");
-
-        exit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        exit.setFont(new Font("Poppins", Font.PLAIN, 18));
-        exit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                frame.dispose();
-            }
-        });
-        JPanel topPanel = new JPanel();
-        topPanel.add(exit);
-        frame.add(topPanel, BorderLayout.NORTH);
-
-        frame.setVisible(true);
-    }
-
-    private void addNewClothes(JTable table, DefaultTableModel model) {
-        String name = nameField.getText().trim();
-        String brand = brandField.getText().trim();
-        String size = sizeField.getText().trim();
-        String style = styleField.getText().trim();
-        String price = priceField.getText().trim();
-        String stock = stockField.getText().trim();
-        String supplier = supplierIdField.getText().trim();
-
-        if (name.isEmpty() || brand.isEmpty() || size.isEmpty() || style.isEmpty() ||
-                price.isEmpty() || stock.isEmpty() || supplier.isEmpty()) {
-
-            JOptionPane.showMessageDialog(null, "All fields must be filled except ID field.");
-            return;
-        }
-
-        // String query to insert the clothes into the database
-        String query = "INSERT INTO clothes (name, brand, size, price, stock, style, supplierId) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        // Execute the query using PreparedStatement with the user input as parameters
-        int rowsAffected = DatabaseConnection.executePreparedUpdate(query, name, brand, size, price, stock, style, supplier);
-
-        if (rowsAffected > 0) {
-            try (PreparedStatement stmt = DatabaseConnection.executePreparedQuery("SELECT id FROM clothes WHERE name = ? AND brand = ? AND size = ? AND price = ? AND stock = ? AND style = ? AND supplierId = ?", name, brand, size, price, stock, style, supplier);
-                 ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    int id = rs.getInt("id");
-                    model.addRow(new Object[] { id, name, brand, size, price, stock, style, supplier });
-                    JOptionPane.showMessageDialog(null, "Clothes added successfully.");
-                    nameField.setText("");
-                    brandField.setText("");
-                    sizeField.setText("");
-                    styleField.setText("");
-                    priceField.setText("");
-                    stockField.setText("");
-                    supplierIdField.setText("");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Failed to add clothes.");
-        }
-    }
-
-    private void removeClothes(JTable table, DefaultTableModel model) {
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow != -1) {
-            int id = (int) model.getValueAt(selectedRow, 0);
-            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this clothes?");
-            if (confirm == JOptionPane.YES_NO_OPTION) {
-                String query = "DELETE FROM clothes WHERE id = ?";
-                int rowsAffected = DatabaseConnection.executePreparedUpdate(query, id);
-                if (rowsAffected > 0) {
-                    model.removeRow(selectedRow);
-                    JOptionPane.showMessageDialog(null, "Clothes deleted successfully!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Failed to delete clothes.");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a row to delete.");
-        }
     }
 }
