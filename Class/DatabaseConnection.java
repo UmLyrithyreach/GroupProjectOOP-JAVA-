@@ -7,7 +7,6 @@ public class DatabaseConnection {
     private static final String URL = "jdbc:mariadb://localhost:3306/clothing_store";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1234";
-    
     // Establish a new connection for each query execution
     static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
