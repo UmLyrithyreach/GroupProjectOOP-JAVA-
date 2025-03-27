@@ -34,7 +34,7 @@ public class StaffGUI extends JFrame {
         // Buttons for store clerk operations
         JButton purchaseBtn = createRoundedButton("Walk-in Purchase", new Color(0, 123, 255));
         JButton stockCheckBtn = createRoundedButton("Check Stock", new Color(0, 123, 255));
-        JButton searchItemBtn = createRoundedButton("Search Item", new Color(0, 123, 255));
+        // JButton searchItemBtn = createRoundedButton("Search Item", new Color(0, 123, 255));
         // JButton returnItemBtn = createRoundedButton("Generate Invoices", new Color(0, 123, 255));
         JButton logoutBtn = createRoundedButton("Logout", Color.RED);
 
@@ -48,9 +48,9 @@ public class StaffGUI extends JFrame {
         gbc.gridy = 1;
         panel.add(stockCheckBtn, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        panel.add(searchItemBtn, gbc);
+        // gbc.gridx = 0;
+        // gbc.gridy = 2;
+        // panel.add(searchItemBtn, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
@@ -70,7 +70,7 @@ public class StaffGUI extends JFrame {
             walkInPurchaseGUI.setVisible(true);
         });
         stockCheckBtn.addActionListener(e -> openStockCheck());
-        searchItemBtn.addActionListener(e -> openItemSearch());
+        // searchItemBtn.addActionListener(e -> openItemSearch());
         // returnItemBtn.addActionListener(e -> openReturns());
         logoutBtn.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(
@@ -114,12 +114,19 @@ public class StaffGUI extends JFrame {
     }
 
     private void openStockCheck() {
-        // For checking item availability
-        // Should include:
-        // - Size availability
-        // - Color options
-        // - Location in store
-        // - Quantity in stock
+        try {
+            // Create a new CheckStock instance to show the stock check window
+            CheckStock stockChecker = new CheckStock();
+            
+            // You could also use the static method if you modified the CheckStock class to include it
+            // CheckStock.openStockCheckWindow();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, 
+                "Error opening stock check window: " + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }
 
     private void openItemSearch() {

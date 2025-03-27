@@ -133,6 +133,7 @@ public class LoginGUI extends JFrame {
     }
 
     public static void main(String[] args) {
+        System.out.println("Testing");
         SwingUtilities.invokeLater(() -> {
             LoginGUI login = new LoginGUI();
             login.setVisible(true);
