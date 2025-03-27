@@ -5,10 +5,14 @@ import java.awt.*;
 import javax.swing.*;
 
 public class StaffGUI extends JFrame {
+    private String employeeName; // Field to store the employee name
 
-    public StaffGUI() {
+    // Updated constructor to accept employeeName
+    public StaffGUI(String employeeName) {
+        this.employeeName = employeeName; // Store the employee name
+
         setTitle("Store Clerk Interface");
-        setSize(800, 600);
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -28,17 +32,17 @@ public class StaffGUI extends JFrame {
         panel.add(title, gbc);
 
         // Buttons for store clerk operations
-        JButton checkoutBtn = createRoundedButton("Checkout");
-        JButton stockCheckBtn = createRoundedButton("Check Stock");
-        JButton searchItemBtn = createRoundedButton("Search Item");
-        JButton returnItemBtn = createRoundedButton("Process Returns");
-        JButton logoutBtn = createRoundedButton("Logout");
+        JButton purchaseBtn = createRoundedButton("Walk-in Purchase", new Color(0, 123, 255));
+        JButton stockCheckBtn = createRoundedButton("Check Stock", new Color(0, 123, 255));
+        JButton searchItemBtn = createRoundedButton("Search Item", new Color(0, 123, 255));
+        JButton returnItemBtn = createRoundedButton("Generate Invoices", new Color(0, 123, 255));
+        JButton logoutBtn = createRoundedButton("Logout", Color.RED);
 
         // Layout buttons
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        panel.add(checkoutBtn, gbc);
+        panel.add(purchaseBtn, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -52,13 +56,19 @@ public class StaffGUI extends JFrame {
         gbc.gridy = 2;
         panel.add(returnItemBtn, gbc);
 
-        gbc.gridx = 0;
+        // Move logout button to the bottom right
+        gbc.gridx = 1;
         gbc.gridy = 3;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.SOUTHEAST; // Align bottom-right
+        gbc.weighty = 1; // Push it to the bottom
         panel.add(logoutBtn, gbc);
 
         // Button actions
-        checkoutBtn.addActionListener(e -> openCheckout());
+        purchaseBtn.addActionListener(e -> {
+            WalkInPurchaseGUI walkInPurchaseGUI = new WalkInPurchaseGUI(employeeName); // Pass the employee name
+            walkInPurchaseGUI.setVisible(true);
+        });
         stockCheckBtn.addActionListener(e -> openStockCheck());
         searchItemBtn.addActionListener(e -> openItemSearch());
         returnItemBtn.addActionListener(e -> openReturns());
@@ -80,13 +90,13 @@ public class StaffGUI extends JFrame {
         add(panel);
     }
 
-    private JButton createRoundedButton(String text) {
+    private JButton createRoundedButton(String text, Color color) {
         JButton button = new JButton(text) {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(new Color(0, 123, 255));
+                g2.setColor(color);
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
                 g2.setColor(Color.WHITE);
                 g2.setFont(new Font("Arial", Font.BOLD, 16));
@@ -101,16 +111,6 @@ public class StaffGUI extends JFrame {
         button.setBorderPainted(false);
         button.setPreferredSize(new Dimension(200, 60));
         return button;
-    }
-
-    private void openCheckout() {
-        // For processing customer purchases
-        // Should include:
-        // - Item scanning/selection
-        // - Quantity selection
-        // - Price calculation
-        // - Payment processing
-        // - Receipt generation
     }
 
     private void openStockCheck() {
@@ -138,5 +138,9 @@ public class StaffGUI extends JFrame {
         // - Item condition check
         // - Refund processing
         // - Stock update
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new StaffGUI("someth168").setVisible(true));
     }
 }
