@@ -1,4 +1,4 @@
-package Staff;
+package GUI.Staff;
 public class CartItem {
     private String productName;
     private double price;

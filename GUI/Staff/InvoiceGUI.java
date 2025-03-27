@@ -1,10 +1,10 @@
-package Staff;
+package GUI.Staff;
 
+import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
-import javax.swing.*;
 
 public class InvoiceGUI extends JFrame {
     private List<String> cartItems;
