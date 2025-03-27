@@ -29,8 +29,7 @@ CREATE TABLE clothes (
     price DECIMAL(7,2) NOT NULL,
     stock INT NOT NULL DEFAULT 0,
     style VARCHAR(50),
-    supplierId INT,
-    FOREIGN KEY (supplierId) REFERENCES suppliers (id)
+    supplierId INT
 );
 
 insert into employees (name, age ,gender, phoneNumber, email, address, salary, startDate, role, password, isManager, username)

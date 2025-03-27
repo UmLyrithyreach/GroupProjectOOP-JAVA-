@@ -1,136 +1,127 @@
 {
-    "version": "0.2.0",
-    "configurations": [
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "LoginGUI",
+      "request": "launch",
+      "mainClass": "GUI.LoginGUI",
+      "projectName": "Project_efabec02"
+    },
+    {
+      "type": "java",
+      "name": "LoginGUI",
+      "request": "launch",
+      "mainClass": "GUI.LoginGUI",
+      "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+    },
+    {
+      "type": "java",
+      "name": "LoginGUI",
+      "request": "launch",
+      "mainClass": "GUI.LoginGUI",
+      "projectName": "GroupProjectOOP-JAVA-_629c4d4"
+    },
+    {
+      "type": "java",
+      "name": "AppGUI",
+      "request": "launch",
+      "mainClass": "GUI.AppGUI",
+      "projectName": "GroupProjectOOP-JAVA-_629c4d4"
+    },
+    {
+      "type": "java",
+      "name": "AppGUI",
+      "request": "launch",
+      "mainClass": "GUI.AppGUI",
+      "projectName": "GroupProjectOOP-JAVA-_417e2d0a"
+    },
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "Class.App",
+      "projectName": "GroupProjectOOP-JAVA-_417e2d0a"
+    },
+    {
+      "type": "java",
+      "name": "Customer",
+      "request": "launch",
+      "mainClass": "Class.Customer",
+      "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+    },
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "Class.App",
+      "projectName": "GroupProjectOOP-JAVA-_7db7624b"
+    },
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "Class.App",
+      "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+    },
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "Class.App",
+      "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+    },
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "Class.App",
+      "projectName": "GroupProjectOOP-JAVA-_d6625c92"
+    },
+    {
+      "type": "java",
+      "name": "Membership",
+      "request": "launch",
+      "mainClass": "Class.Membership",
+      "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+    },
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "Class.App",
+      "projectName": "GroupProjectOOP-JAVA-_517f277d"
+    },
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "Class.App",
+      "projectName": "GroupProjectOOP-JAVA-_629c4d4"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": ".",
+      "program": "build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
         {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "Class.App",
-            "projectName": "GroupProjectOOP-JAVA-_5256e449"
-        },
-        {
-            "type": "java",
-            "name": "LoginGUI",
-            "request": "launch",
-            "mainClass": "GUI.LoginGUI",
-            "projectName": "GroupProjectOOP-JAVA-_5256e449"
-        },
-        {
-            "type": "java",
-            "name": "LoginGUI",
-            "request": "launch",
-            "mainClass": "GUI.LoginGUI",
-            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
-        },
-        {
-            "type": "java",
-            "name": "LoginGUI",
-            "request": "launch",
-            "mainClass": "GUI.LoginGUI",
-            "projectName": "GroupProjectOOP-JAVA-_629c4d4"
-        },
-        {
-            "type": "java",
-            "name": "AppGUI",
-            "request": "launch",
-            "mainClass": "GUI.AppGUI",
-            "projectName": "GroupProjectOOP-JAVA-_629c4d4"
-        },
-        {
-            "type": "java",
-            "name": "AppGUI",
-            "request": "launch",
-            "mainClass": "GUI.AppGUI",
-            "projectName": "GroupProjectOOP-JAVA-_417e2d0a"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "Class.App",
-            "projectName": "GroupProjectOOP-JAVA-_417e2d0a"
-        },
-        {
-            "type": "java",
-            "name": "Customer",
-            "request": "launch",
-            "mainClass": "Class.Customer",
-            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "Class.App",
-            "projectName": "GroupProjectOOP-JAVA-_7db7624b"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "Class.App",
-            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "Class.App",
-            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "Class.App",
-            "projectName": "GroupProjectOOP-JAVA-_d6625c92"
-        },
-        {
-            "type": "java",
-            "name": "Membership",
-            "request": "launch",
-            "mainClass": "Class.Membership",
-            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "Class.App",
-            "projectName": "GroupProjectOOP-JAVA-_517f277d"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "Class.App",
-            "projectName": "GroupProjectOOP-JAVA-_629c4d4"
-        },
-        {
-            "type": "java",
-            "name": "Main",
-            "request": "launch",
-            "mainClass": "Main",
-            "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
-        },
-        {
-            "name": "C/C++ Runner: Debug Session",
-            "type": "cppdbg",
-            "request": "launch",
-            "args": [],
-            "stopAtEntry": false,
-            "externalConsole": true,
-            "cwd": ".",
-            "program": "build/Debug/outDebug",
-            "MIMode": "gdb",
-            "miDebuggerPath": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
         }
     ]
 }
