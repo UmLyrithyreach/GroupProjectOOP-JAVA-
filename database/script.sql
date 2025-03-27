@@ -29,10 +29,9 @@ CREATE TABLE clothes (
     price DECIMAL(7,2) NOT NULL,
     stock INT NOT NULL DEFAULT 0,
     style VARCHAR(50),
-    supplierId INT,
-    FOREIGN KEY (supplierId) REFERENCES suppliers (id)
+    supplierId INT
 );
 
 insert into employees (name, age ,gender, phoneNumber, email, address, salary, startDate, role, password, isManager, username)
 value 
-('Reach', 19 ,'Male', '095926780', 'umlyrithyreach@gmail.com' , 'Phnom Penh' , 1000 , 2024-02-01 , 'Software Engineer', 'Paymoney1' , 1 , 'Kaizen');
+('Reach', 19 ,'Male', '095926780', 'umlyrithyreach@gmail.com' , 'Phnom Penh' , 1000 , '2024-02-01' , 'Software Engineer', 'Paymoney1' , 1 , 'Kaizen');

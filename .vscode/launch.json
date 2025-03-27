@@ -6,6 +6,13 @@
       "name": "LoginGUI",
       "request": "launch",
       "mainClass": "GUI.LoginGUI",
+      "projectName": "Project_efabec02"
+    },
+    {
+      "type": "java",
+      "name": "LoginGUI",
+      "request": "launch",
+      "mainClass": "GUI.LoginGUI",
       "projectName": "GroupProjectOOP-JAVA-_9b21a15c"
     },
     {
@@ -116,7 +123,5 @@
           "text": "-enable-pretty-printing",
           "ignoreFailures": true
         }
-      ]
-    }
-  ]
+    ]
 }
