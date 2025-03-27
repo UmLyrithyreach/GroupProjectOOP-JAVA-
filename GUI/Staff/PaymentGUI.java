@@ -1,9 +1,9 @@
 package GUI.Staff;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import javax.swing.*;
 
 public class PaymentGUI extends JFrame {
     private JComboBox<String> paymentDropdown;
