@@ -1,7 +1,7 @@
 package GUI;
 
 import Class.DatabaseConnection;
-import GUI.Staff.StaffGUI;
+import Staff.StaffGUI;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

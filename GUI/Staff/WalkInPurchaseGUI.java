@@ -1,4 +1,4 @@
-package GUI.Staff;
+package Staff;
 
 import java.awt.*;
 import java.util.ArrayList;
